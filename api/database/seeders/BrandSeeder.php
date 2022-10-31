@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Product;
+use App\Models\Brand;
 
-class ProductSeeder extends Seeder
+class BrandSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,10 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory()
-        ->count(20)
-        ->create();
+        foreach(['gucci','evernit','dior'] as $brand) {
+            $brandModel = new Brand;
+            $brandModel->name = $brand;
+            $brandModel->save();
+        }
     }
 }

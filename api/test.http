@@ -1,0 +1,17 @@
+POST http://localhost/api/products
+Content-Type: application/json
+
+{
+    "page_size":5,
+    "page":1,
+    # "ids":[],
+    "category_ids":[1],
+    "brand_ids":[1,2,3],
+    "size_ids":[1,5,2,3,4],
+    "color_ids":[1,2,3],
+    "material_ids":[1,2,3],
+    "sort_price":false,
+    "sort_new":true,
+    "price_min":100,
+    "price_max":1000
+}

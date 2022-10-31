@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('bearer_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('token', 64)->unique();
-            $table->timestamp('expires_at');
+            $table->foreignIdFor(App\Models\User::class);
+            $table->string('token');
+            $table->dateTime('expires_at');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('bearer_tokens');
     }
 };

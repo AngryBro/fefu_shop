@@ -18,9 +18,19 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->string('name_internal');
             $table->string('name');
-            $table->string('article_number');
-            $table->string('article_color');
-            $table->string('article_size');
+            $table->json('images');
+            $table->string('article');
+            $table->float('price');
+            $table->float('discount')->nullable();
+            $table->text('description');
+            $table->float('price_discount')->nullable();
+            $table->integer('count');
+            $table->foreignId('color_id');
+            $table->foreignId('size_id');
+            $table->boolean('new');
+            $table->foreignId('brand_id');
+            $table->foreignId('material_id');
+            $table->boolean('onfitting');
             $table->timestamps();
         });
     }
