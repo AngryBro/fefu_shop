@@ -8,3 +8,4 @@ use App\Http\Controllers\CatalogController;
 Route::post('/products',[CatalogController::class, 'products']);
 Route::get('/img/products/{id}/{file}',[CatalogController::class,'image'])
 ->name('productImage');
+Route::post('/products.search',[CatalogController::class, 'productsSearch']);

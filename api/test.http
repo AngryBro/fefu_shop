@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "page_size":5,
-    "page":1,
+    "page":2,
     # "ids":[],
     "category_ids":[1],
     "brand_ids":[1,2,3],
@@ -14,4 +14,13 @@ Content-Type: application/json
     "sort_new":true,
     "price_min":100,
     "price_max":1000
+}
+
+###
+
+POST http://localhost/api/products.search
+Content-Type: application/json
+
+{
+    "string":"category product 23425-M-BL"
 }
