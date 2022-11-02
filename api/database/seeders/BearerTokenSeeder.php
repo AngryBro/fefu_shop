@@ -14,6 +14,6 @@ class BearerTokenSeeder extends Seeder
      */
     public function run()
     {
-        //
+
     }
 }

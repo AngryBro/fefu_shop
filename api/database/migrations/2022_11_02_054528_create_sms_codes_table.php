@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\Session::class);
             $table->string('code');
+            $table->string('phone_number')->unique();
             $table->dateTime('expires_at');
             $table->timestamps();
         });

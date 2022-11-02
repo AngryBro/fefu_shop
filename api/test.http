@@ -19,3 +19,13 @@ Content-Type: application/json
 ###
 
 GET http://localhost/api/products.meta
+
+###
+
+POST http://localhost/api/sms.send
+Content-Type: application/json
+X-Session: TZIfby6Q2wUMPdH3CyOoSfoUgJr0pGCo9ubc4V2DHBsWzHc5FtIkDGTnK0y4JxFf
+
+{
+    "phone_number":"79098280706"
+}
