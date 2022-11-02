@@ -3,8 +3,8 @@ Content-Type: application/json
 
 {
     "page_size":5,
-    "page":2,
-    # "ids":[],
+    "page":1,
+    "search_string":"tota",
     "category_ids":[1],
     "brand_ids":[1,2,3],
     "size_ids":[1,5,2,3,4],
@@ -18,9 +18,4 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost/api/products.search
-Content-Type: application/json
-
-{
-    "string":"category product 23425-M-BL"
-}
+GET http://localhost/api/products.meta

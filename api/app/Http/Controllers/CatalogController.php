@@ -5,54 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Validator;
-use DB;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Size;
+use App\Models\Material;
+use App\Models\Color;
 
 class CatalogController extends Controller
 {
-    function productsSearch(Request $request) {
-        $validator = Validator::make($request->all(),[
-            'string' => 'required|string'
-        ]);
-        if($validator->fails()) return response()->json([
-            'message' => 'invalid search string'
-        ],422);
-        $string = $validator->validated()['string'];
-        $strings = $this->parseSearchString($string);
-        $products = Product::query()
-        ->select('products.id',
-        'products.name',
-        'products.article',
-        'categories.name as category'
-        );
-        return response()->json($strings);
-    }
-
-    private function parseSearchString($strings) {
-        $strings = explode(' ',$strings);
-        $words = [
-            'names' => []
-        ];
-        foreach($strings as $index => $string) {
-            $string = trim($string);
-            if(strpos('0123456789', $string[0])!==false) {
-                $article = '';
-                for($i = 0; $i < strlen($string); $i++) {
-                    if(is_numeric($string[$i])) {
-                        $article.=$string[$i];
-                    }
-                    else {
-                        break;
-                    }
-                }
-                $words['article'] = $article;
-            }
-            else {
-                array_push($words['names'],$string);
-            }
-        }
-        return $words;
-    }
-
     function products(Request $request) {
         $validator = Validator::make($request->all(),[
             'page' => 'required|integer|min:1',
@@ -66,20 +26,36 @@ class CatalogController extends Controller
             'price_max' => 'required|integer',
             'sort_new' => 'required|boolean',
             'sort_price' => 'required|boolean',
-            'ids' => 'array'
+            'search_string' => 'string'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        return $this->getProductsFromDB($data);
+        $products = Product::query();
+        $products = $this->queryByFiltersAndSort($products, $data);
+        if(isset($data['search_string'])) {
+            $products = $this->queryBySearchString($products, $data['search_string']);
+        }
+        $products = $products->paginate($data['page_size']);
+        if($products->count()===0) return response()->json([],404);
+        return response()->json($products);
     }
 
-    private function getProductsFromDB($data) {
-        $products = Product::query();
-        if(array_key_exists('ids',$data)) {
-            $products = $products->whereIn('id',$data['ids']);
-        }
+    private function queryBySearchString($products, $string) {
+
+        return $products->where(function($query) use($string) {
+            $query->whereRaw("POSITION('$string' IN products.name) > 0")
+            ->orWhereRaw("POSITION('$string' IN products.article) > 0")
+            ->orWhereRaw("POSITION('$string' IN categories.name) > 0")
+            ->orWhereRaw("POSITION(products.name IN '$string') > 0")
+            ->orWhereRaw("POSITION(products.article IN '$string') > 0")
+            ->orWhereRaw("POSITION(categories.name IN '$string') > 0");
+        });
+    }
+
+    private function queryByFiltersAndSort($products,$data) {
+
         if($data['sort_new']) {
             $products = $products->orderBy('new','desc');
         }
@@ -117,9 +93,29 @@ class CatalogController extends Controller
         'brands.name as brand',
         'materials.name as material',
         'categories.name as category'
-        )
-        ->paginate($data['page_size']);
-        if($products->count()===0) return response()->json([],404);
-        return response()->json($products);
+        );
+        return $products;
     }
+
+    function productsMeta() {
+        $categories = Category::select('id','name')->get();
+        $brands = Brand::select('id','name')->get();
+        $sizes = Size::select('id','name','description')->get();
+        $materials = Material::select('id','name')->get();
+        $colors = Color::select('id','name','rgb','article')->get();
+        $price_min = Product::query()
+        ->min('price_discount');
+        $price_max = Product::query()
+        ->max('price');
+        return response()->json([
+            'categories' => $categories,
+            'brands' => $brands,
+            'sizes' => $sizes,
+            'materials' => $materials,
+            'colors' => $colors,
+            'price_min' => $price_min,
+            'price_max' => $price_max
+        ]);
+    }
+
 }

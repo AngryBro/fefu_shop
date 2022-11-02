@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             BearerTokenSeeder::class,
             ProductSeeder::class,
+            SessionSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
