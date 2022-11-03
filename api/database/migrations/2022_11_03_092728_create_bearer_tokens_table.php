@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('bearer_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\User::class);
             $table->string('token');
             $table->dateTime('expires_at');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

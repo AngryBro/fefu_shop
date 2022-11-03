@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BrandSeeder::class,
             MaterialSeeder::class,
-            BearerTokenSeeder::class,
             ProductSeeder::class,
+            RoleSeeder::class
             // SessionSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();

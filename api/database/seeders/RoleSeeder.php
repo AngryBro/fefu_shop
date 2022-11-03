@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Role;
 
-class BearerTokenSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,10 @@ class BearerTokenSeeder extends Seeder
      */
     public function run()
     {
-
+        foreach(['user','admin'] as $roleName) {
+            $role = new Role;
+            $role->name = $roleName;
+            $role->save();
+        }
     }
 }

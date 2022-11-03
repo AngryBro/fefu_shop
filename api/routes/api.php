@@ -11,3 +11,5 @@ Route::get('/img/products/{id}/{file}',[CatalogController::class,'image'])
 ->name('productImage');
 Route::get('/products.meta', [CatalogController::class, 'productsMeta']);
 Route::post('/sms.send', [AuthController::class, 'sendSms']);
+Route::post('/sms.verify', [AuthController::class, 'verifySms'])
+->middleware(App\Http\Middleware\SessionRequired::class);

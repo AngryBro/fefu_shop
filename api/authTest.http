@@ -1,0 +1,17 @@
+POST http://localhost/api/sms.send
+Content-Type: application/json
+X-Session: 7lfVN40ZAjsFA8mvDQjs85Lt7yvpD9ysLV4Cc54seH3CjPzReSebQUx35P2zW3l8
+
+{
+    "phone_number":"79098280707"
+}
+
+###
+
+POST http://localhost/api/sms.verify
+Content-Type: application/json
+X-Session: 7lfVN40ZAjsFA8mvDQjs85Lt7yvpD9ysLV4Cc54seH3CjPzReSebQUx35P2zW3l8
+
+{
+    "sms_code":"17803"
+}
