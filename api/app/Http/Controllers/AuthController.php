@@ -26,14 +26,22 @@ class AuthController extends Controller
         if($validator->fails()) return response()->json([
             'message' => 'invalid phone number'
         ],422);
-        $currentSession = $request->header('X-Session');
+        $session_token = $request->header('X-Session');
         $phone_number = $validator->validated()['phone_number'];
-        $existingSession = Session::firstWhere('token',$currentSession);
-        if($existingSession!==null) {
-            $sent_sms_code = SmsCode::firstWhere('session_id',$existingSession->id);
+        $session = Session::firstWhere('token',$session_token);
+        if($session!==null) {
+            $sent_sms_code = SmsCode::firstWhere('session_id',$session->id);
         }
         else {
             $sent_sms_code = SmsCode::firstWhere('phone_number',$phone_number);
+            if($sent_sms_code === null) {
+                $session = new Session;
+                $session->token = Str::random(64);
+                $session->save();
+            }
+            else {
+                $session = Session::find($sent_sms_code->session_id);
+            }
         }
         if($sent_sms_code === null) {
             $sent_sms_code = new SmsCode;
@@ -47,27 +55,17 @@ class AuthController extends Controller
                 ],400);
             }
         }
+
         $sent_sms_code->phone_number = $phone_number;
-        if($currentSession!==null) {
-            $session_id = Session::where('token',$currentSession)->first();
-            $session_id = $session_id===null?null:$session_id->id;
-        }
-        if($currentSession === null || $session_id === null) {
-            $session = new Session;
-            $currentSession = Str::random(64);
-            $session->token = $currentSession;
-            $session->save();
-            $session_id = $session->id;
-        }
+        $sent_sms_code->session_id = $session->id;
         $sms_code = (string) random_int(10000,99999);
-        $sent_sms_code->session_id = $session_id;
         $sent_sms_code->code = $sms_code;
         $sent_sms_code->expires_at = Carbon::now()->addMinutes(10);
         $sent_sms_code->save();
         // send code
         return response()->json([
             'sms_code' => $sms_code,
-            'session' => $currentSession
+            'session' => $session->token
         ]);
     }
 
@@ -118,7 +116,7 @@ class AuthController extends Controller
             $bearerToken = BearerToken::firstWhere('user_id',$user->id);
             if((new Carbon($bearerToken->expires_at))->lessThan(Carbon::now())) {
                 $bearerToken->token = $newBearerToken;
-                $bearerToken->expires_at = Carbon::now()->addDay();    
+                $bearerToken->expires_at = Carbon::now()->addDay();
                 $bearerToken->save();
             }
             else {

@@ -1,0 +1,17 @@
+POST http://localhost/api/sms.send
+Content-Type: application/json
+# X-Session: zW46reiTcR1YaBpnWI79VF0DfVZCGGPdUmXas8BzZLXNz7rNcksPs9lzzyHTOOo4
+
+{
+    "phone_number":"79098280705"
+}
+
+###
+
+POST http://localhost/api/sms.verify
+Content-Type: application/json
+X-Session: zW46reiTcR1YaBpnWI79VF0DfVZCGGPdUmXas8BzZLXNz7rNcksPs9lzzyHTOOo4
+
+{
+    "sms_code":"61579"
+}
