@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach(['user','admin'] as $roleName) {
+        foreach([Role::USER,Role::ADMIN] as $roleName) {
             $role = new Role;
             $role->name = $roleName;
             $role->save();

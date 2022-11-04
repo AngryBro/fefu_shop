@@ -16,11 +16,20 @@ use App\Models\User;
 class AuthController extends Controller
 {
 
+    function logout(Request $request) {
+        BearerToken::query()
+        ->where('token',$request->bearerToken())
+        ->delete();
+        return response()->json([
+            'message' => 'token deleted',
+        ]);
+    }
+
     function sendSms(Request $request) {
         $validator = Validator::make($request->all(),[
             'phone_number' => [
                 'required',
-                // new PhoneNumber
+                new PhoneNumber
             ]
         ]);
         if($validator->fails()) return response()->json([
@@ -104,25 +113,14 @@ class AuthController extends Controller
         if($user === null) {
             $user = new User;
             $user->phone_number = $sent_code->phone_number;
-            $user->role_id = Role::firstWhere('name', 'user')->id;
+            $user->role_id = Role::firstWhere('name', Role::USER)->id;
             $user->save();
-            $bearerToken = new BearerToken;
-            $bearerToken->token = $newBearerToken;
-            $bearerToken->user_id = $user->id;
-            $bearerToken->expires_at = Carbon::now()->addDay();
-            $bearerToken->save();
         }
-        else {
-            $bearerToken = BearerToken::firstWhere('user_id',$user->id);
-            if((new Carbon($bearerToken->expires_at))->lessThan(Carbon::now())) {
-                $bearerToken->token = $newBearerToken;
-                $bearerToken->expires_at = Carbon::now()->addDay();
-                $bearerToken->save();
-            }
-            else {
-                $newBearerToken = $bearerToken->token;
-            }
-        }
+        // attach cart to user_id
+        $bearerToken = new BearerToken;
+        $bearerToken->token = $newBearerToken;
+        $bearerToken->user_id = $user->id;
+        $bearerToken->save();
         return response()->json([
             'bearer_token' => $newBearerToken
         ]);

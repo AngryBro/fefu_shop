@@ -25,7 +25,7 @@ class PhoneNumber implements Rule
      */
     public function passes($attribute, $value)
     {
-        return strlen($value)===11 && $value[0]===7 && ctype_digit($value);
+        return strlen($value)===11 && $value[0]==="7" && ctype_digit($value);
     }
 
     /**

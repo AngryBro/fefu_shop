@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('bearer_tokens', function (Blueprint $table) {
             $table->id();
             $table->string('token');
-            $table->dateTime('expires_at');
             $table->foreignId('user_id');
             $table->timestamps();
         });
