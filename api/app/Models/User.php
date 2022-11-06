@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Favourite;
 
 class User extends Authenticatable
 {
@@ -15,5 +16,8 @@ class User extends Authenticatable
 
     function role() {
         return $this->belongsTo(Role::class);
+    }
+    function favourite() {
+        return $this->hasOne(Favourite::class);
     }
 }

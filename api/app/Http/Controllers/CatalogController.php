@@ -10,16 +10,59 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Material;
 use App\Models\Color;
+use DB;
 
 class CatalogController extends Controller
 {
+    function product(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer|min:1'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'incorrect id'
+        ],422);
+        $id = $validator->validated()['id'];
+        $product = Product::query()
+        ->select('products.*',
+        'colors.name as color_name',
+        'colors.rgb as color_rgb',
+        'colors.article as color_article',
+        'brands.name as brand',
+        'materials.name as material',
+        'categories.name as category')
+        ->where('products.id',$id)
+        ->leftJoin('categories',
+        'categories.id','products.category_id')
+        ->leftJoin('colors', 'products.color_id','colors.id')
+        ->leftJoin('brands', 'products.brand_id','brands.id')
+        ->leftJoin('materials', 'products.material_id','materials.id')
+        ->first();
+        if($product === null) return response()->json([
+            'message' => 'not found'
+        ],404);
+        $images = DB::table('product_image')
+        ->select('image')
+        ->where('product_id',$id)
+        ->get();
+        $otherColors = Product::query()
+        ->select('products.id','colors.rgb as color_rgb','colors.name as color_name')
+        ->leftJoin('colors','products.color_id','colors.id')
+        ->where('products.article',$product->article)
+        ->get();
+        return response()->json([
+            'product' => $product,
+            'other_colors' => $otherColors,
+            'images' => $images
+        ]);
+    }
+
     function products(Request $request) {
         $validator = Validator::make($request->all(),[
             'page' => 'required|integer|min:1',
             'page_size' => 'required|integer|min:1',
             'category_ids' => 'required|array',
             'brand_ids' => 'required|array',
-            'size_ids' => 'required|array',
+            'sizes' => 'required|array',
             'material_ids' => 'required|array',
             'color_ids' => 'required|array',
             'price_min' => 'required|integer',
@@ -44,13 +87,17 @@ class CatalogController extends Controller
 
     private function queryBySearchString($products, $string) {
 
-        return $products->where(function($query) use($string) {
-            $query->whereRaw("POSITION('$string' IN products.name) > 0")
-            ->orWhereRaw("POSITION('$string' IN products.article) > 0")
-            ->orWhereRaw("POSITION('$string' IN categories.name) > 0")
-            ->orWhereRaw("POSITION(products.name IN '$string') > 0")
-            ->orWhereRaw("POSITION(products.article IN '$string') > 0")
-            ->orWhereRaw("POSITION(categories.name IN '$string') > 0");
+        return $products->select('products.*')
+            ->leftJoin('categories','products.category_id','categories.id')
+            ->where(function($query) use($string) {
+                $query->whereRaw("POSITION('$string' IN products.name) > 0")
+                ->orWhereRaw("POSITION('$string' IN products.article) > 0")
+                ->orWhereRaw("POSITION('$string' IN categories.name) > 0")
+                ->orWhereRaw("POSITION('$string' IN products.name_internal) > 0")
+                ->orWhereRaw("POSITION(products.name_internal IN '$string') > 0")
+                ->orWhereRaw("POSITION(products.name IN '$string') > 0")
+                ->orWhereRaw("POSITION(products.article IN '$string') > 0")
+                ->orWhereRaw("POSITION(categories.name IN '$string') > 0");
         });
     }
 
@@ -59,41 +106,19 @@ class CatalogController extends Controller
         if($data['sort_new']) {
             $products = $products->orderBy('new','desc');
         }
-        $products = $products->leftJoin('categories',
-        'categories.id','products.category_id')
-        ->leftJoin('colors', 'products.color_id','colors.id')
-        ->leftJoin('brands', 'products.brand_id','brands.id')
-        ->leftJoin('sizes', 'products.size_id','sizes.id')
-        ->leftJoin('materials', 'products.material_id','materials.id')
-        // ->leftJoin('', 'products._id','.id')
-        ->whereIn('category_id',$data['category_ids'])
-        ->where('price_discount','>',$data['price_min'])
-        ->where('price_discount','<',$data['price_max'])
-        ->whereIn('brand_id',$data['brand_ids'])
-        ->whereIn('size_id',$data['size_ids'])
-        ->whereIn('color_id',$data['color_ids'])
-        ->whereIn('material_id',$data['material_ids'])
-        ->orderBy('price_discount',$data['sort_price']?'asc':'desc')
-        ->select('products.id',
-        'products.name',
-        'products.images',
-        'products.article',
-        'products.price',
-        'products.discount',
-        'products.price_discount',
-        'products.description',
-        'products.count',
-        'products.onfitting',
-        'products.new',
-        'colors.name as color_name',
-        'colors.rgb as color_rgb',
-        'colors.article as color_article',
-        'sizes.name as size',
-        'sizes.description as size_description',
-        'brands.name as brand',
-        'materials.name as material',
-        'categories.name as category'
-        );
+        $products = $products
+        ->whereIn('products.category_id',$data['category_ids'])
+        ->where('products.price_discount','>',$data['price_min'])
+        ->where('products.price_discount','<',$data['price_max'])
+        ->whereIn('products.brand_id',$data['brand_ids']);
+        foreach($data['sizes'] as $size) {
+            $products = $products->where("products.$size", '<>', null);
+        }
+        $products = $products
+        ->whereIn('products.color_id',$data['color_ids'])
+        ->whereIn('products.material_id',$data['material_ids'])
+        ->orderBy('products.price_discount',$data['sort_price']?'asc':'desc');
+        
         return $products;
     }
 

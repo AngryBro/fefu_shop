@@ -1,0 +1,21 @@
+POST http://localhost/api/sms.send
+Content-Type: application/json
+
+{
+    "phone_number":"79098280707"
+}
+
+###
+
+POST http://localhost/api/sms.verify
+Content-Type: application/json
+X-Session: k4lNzy8SwDwy92Q22E2xvXWVhAJTjGlflIBuKDkr0EnNL2rtxkEN930oVYWrUNPb
+
+{
+    "sms_code":"75080"
+}
+
+###
+
+POST http://localhost/api/logout
+Authorization: Bearer zv7DcUL0FnxpUGzzht57pGdfbuRluoZ56NjyFc4TIvF3Y1lrR1pcGFZ0YDNRnBRo
