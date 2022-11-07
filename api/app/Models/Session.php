@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     use HasFactory;
+    function cart() {
+        return $this->hasOne(Cart::class);
+    }
 }

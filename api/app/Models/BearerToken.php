@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BearerToken extends Model
 {
     use HasFactory;
+    function user() {
+        return $this->belongsTo(User::class);
+    }
 }

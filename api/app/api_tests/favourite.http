@@ -1,0 +1,22 @@
+POST http://localhost/api/favourite.add
+Content-Type: application/json
+Authorization: Bearer 1uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+
+{
+    "product_id":45
+}
+###
+POST http://localhost/api/favourite.delete
+Content-Type: application/json
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+
+{
+    "product_id":45
+}
+###
+GET http://localhost/api/favourite.getIds
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+###
+GET http://localhost/api/favourite.get
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\Product::class);
             $table->foreignIdFor(App\Models\Favourite::class);
-            $table->boolean('exists');
             $table->timestamps();
         });
     }

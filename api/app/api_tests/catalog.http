@@ -15,11 +15,7 @@ Content-Type: application/json
     "price_min":100,
     "price_max":1000
 }
-
 ###
-
 GET http://localhost/api/products.meta
-
 ###
-
 GET http://localhost/api/product.get?id=2

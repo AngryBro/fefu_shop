@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sms_codes', function (Blueprint $table) {
+        Schema::create('cart_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\Session::class);
-            $table->string('code');
-            $table->string('phone_number');
-            $table->dateTime('expires_at');
+            $table->foreignIdFor(App\Models\Cart::class);
+            $table->foreignIdFor(App\Models\Product::class);
+            $table->foreignIdFor(App\Models\Size::class);
+            $table->integer('count');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sms_codes');
+        Schema::dropIfExists('cart_products');
     }
 };

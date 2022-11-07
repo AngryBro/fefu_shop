@@ -1,0 +1,8 @@
+POST http://localhost/api/cart.add
+Content-Type: application/json
+X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+
+{
+    "product_id":4,
+    "size_id":5
+}

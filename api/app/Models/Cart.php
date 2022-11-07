@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Favourite extends Model
+class Cart extends Model
 {
     use HasFactory;
-
-    function products() {
-        return $this->hasMany(Product::class);
-    }
-
+    
     function user() {
         return $this->belongsTo(User::class);
+    }
+
+    function session() {
+        return $this->belongsTo(Session::class);
     }
 }

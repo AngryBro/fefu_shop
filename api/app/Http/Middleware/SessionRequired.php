@@ -18,15 +18,13 @@ class SessionRequired
     public function handle(Request $request, Closure $next)
     {
         $sessionToken = $request->header('X-Session');
-        $sessionRequired = $sessionToken !== null;
-        if($sessionRequired) {
-            $sessionRequired = Session::where('token',$sessionToken)->first() !== null;
-        }
-        if(!$sessionRequired) {
+        $session = Session::firstWhere('token',$sessionToken);
+        if($session === null) {
             return response()->json([
                 'X-Session header required'
             ],401);
         }
+        $request->xsession = $session;
         return $next($request);
     }
 }

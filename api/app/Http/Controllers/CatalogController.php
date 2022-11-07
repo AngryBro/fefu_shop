@@ -29,7 +29,8 @@ class CatalogController extends Controller
         'colors.article as color_article',
         'brands.name as brand',
         'materials.name as material',
-        'categories.name as category')
+        'categories.name as category'
+        )
         ->where('products.id',$id)
         ->leftJoin('categories',
         'categories.id','products.category_id')

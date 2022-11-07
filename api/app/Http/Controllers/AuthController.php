@@ -12,6 +12,7 @@ use App\Rules\PhoneNumber;
 use App\Models\Role;
 use App\Models\BearerToken;
 use App\Models\User;
+use App\Models\Cart;
 
 class AuthController extends Controller
 {
@@ -42,6 +43,11 @@ class AuthController extends Controller
             $sent_sms_code = SmsCode::firstWhere('session_id',$session->id);
         }
         else {
+            if($request->hasHeader('X-Session')) {
+                return response()->json([
+                    'message' => 'invalid token'
+                ],401);
+            }
             $sent_sms_code = SmsCode::firstWhere('phone_number',$phone_number);
             if($sent_sms_code === null) {
                 $session = new Session;
@@ -121,6 +127,12 @@ class AuthController extends Controller
         $bearerToken->token = $newBearerToken;
         $bearerToken->user_id = $user->id;
         $bearerToken->save();
+        $cart = Cart::firstWhere('session_id',$session_id);
+        if($cart !== null) {
+            $cart->session_id = null;
+            $cart->user_id = $user->id;
+            $cart->save();
+        }
         return response()->json([
             'bearer_token' => $newBearerToken
         ]);

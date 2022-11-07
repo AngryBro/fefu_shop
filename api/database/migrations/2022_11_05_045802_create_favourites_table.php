@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('favourites', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(App\Models\User::class);
-            $table->integer('total_count');
-            $table->dateTime('whatched_at');
+            $table->foreignIdFor(App\Models\User::class)->unique();
             $table->timestamps();
         });
     }

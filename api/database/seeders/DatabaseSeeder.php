@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             MaterialSeeder::class,
             ProductSeeder::class,
-            RoleSeeder::class
+            RoleSeeder::class,
+            // FavouriteProductSeeder::class,
+            // FavouriteSeeder::class
             // SessionSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
