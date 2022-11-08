@@ -1,8 +1,27 @@
+### Добавление в корзину
 POST http://localhost/api/cart.add
 Content-Type: application/json
-X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+# X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+Authorization: Bearer 7D4Fg0NfAOrYUnW6QeFNyTysYxUkF13dcPtnW3l1NENvAKHqyTR66SH3HZ30Nxar
 
 {
-    "product_id":4,
-    "size_id":5
+    "product_id":1,
+    "size_id":3
 }
+### Удаление из корзины
+POST http://localhost/api/cart.delete
+Content-Type: application/json
+X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+Authorization: Bearer 7D4Fg0NfAOrYUnW6QeFNyTysYxUkF13dcPtnW3l1NENvAKHqyTR66SH3HZ30Nxar
+
+{
+    "position_id":1
+}
+### Получение id товаров в корзине с размерами
+GET http://localhost/api/cart.getIds
+X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+Authorization: Bearer 7D4Fg0NfAOrYUnW6QeFNyTysYxUkF13dcPtnW3l1NENvAKHqyTR66SH3HZ30Nxar
+### Получение товаров в корзине
+GET http://localhost/api/cart.get
+X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
+Authorization: Bearer 7D4Fg0NfAOrYUnW6QeFNyTysYxUkF13dcPtnW3l1NENvAKHqyTR66SH3HZ30Nxar

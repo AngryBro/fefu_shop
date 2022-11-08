@@ -51,7 +51,7 @@ class AuthController extends Controller
             $sent_sms_code = SmsCode::firstWhere('phone_number',$phone_number);
             if($sent_sms_code === null) {
                 $session = new Session;
-                $session->token = Str::random(64);
+                $session->token = Sesion::generateToken();
                 $session->save();
             }
             else {
@@ -115,7 +115,7 @@ class AuthController extends Controller
         $user = User::query()
         ->where('phone_number',$sent_code->phone_number)
         ->first();
-        $newBearerToken = Str::random(64);
+        $newBearerToken = BearerToken::generate();
         if($user === null) {
             $user = new User;
             $user->phone_number = $sent_code->phone_number;
@@ -127,6 +127,10 @@ class AuthController extends Controller
         $bearerToken->token = $newBearerToken;
         $bearerToken->user_id = $user->id;
         $bearerToken->save();
+        $oldCart = $user->cart;
+        if($oldCart !== null) {
+            $oldCart->delete();
+        }
         $cart = Cart::firstWhere('session_id',$session_id);
         if($cart !== null) {
             $cart->session_id = null;

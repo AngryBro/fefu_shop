@@ -26,6 +26,14 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
     Route::get('/favourite.getIds',[FavouriteController::class, 'getIds']);
     Route::get('/favourite.get',[FavouriteController::class, 'get']);
 });
-Route::middleware(App\Http\Middleware\AuthOrSession::class)->group(function(){
+Route::middleware(App\Http\Middleware\AuthOrSessionOptional::class)->group(function(){
     Route::post('/cart.add',[CartController::class, 'addPosition']);
+    Route::middleware(App\Http\Middleware\CartAction::class)->group(function(){
+        Route::get('/cart.getIds',[CartController::class, 'getPositionIds']);
+        Route::get('/cart.get',[CartController::class, 'getPositions']);
+    });
+});
+Route::middleware(App\Http\Middleware\AuthOrSessionRequired::class)->group(function(){
+    Route::post('/cart.delete',[CartController::class, 'deletePosition']);
+
 });

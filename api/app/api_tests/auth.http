@@ -11,7 +11,7 @@ Content-Type: application/json
 X-Session: 6Cnp1WDnjKvVWlWDkRf5geh4DFh18sSVNYrCQdVMjowuznxzAPkRGkZqnMIXBz2y
 
 {
-    "sms_code":"51779"
+    "sms_code":"43025"
 }
 ###
 POST http://localhost/api/logout

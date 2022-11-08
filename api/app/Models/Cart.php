@@ -14,6 +14,10 @@ class Cart extends Model
         return $this->belongsTo(User::class);
     }
 
+    function positions() {
+        return $this->hasMany(CartProduct::class);
+    }
+
     function session() {
         return $this->belongsTo(Session::class);
     }

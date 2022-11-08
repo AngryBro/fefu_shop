@@ -10,7 +10,6 @@ use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Size;
 use App\Models\Session;
-use Str;
 
 class CartController extends Controller
 {
@@ -65,7 +64,7 @@ class CartController extends Controller
             $newSession = true;
             $cart = new Cart;
             $session = new Session;
-            $session->token = Str::random(64);
+            $session->token = Session::generateToken();
             $session->save();
             $cart->session_id = $session->id;
             $cart->save();
@@ -83,7 +82,21 @@ class CartController extends Controller
     }
 
     function deletePosition(Request $request) {
-
+        $validator = $this->validatorForPosition($request);
+        if($validator->fails()) return response()->json([
+            'message' => 'invalid position'
+        ],422);
+        $positionId = $validator->validated()['position_id'];
+        if(!$this->positionOwner($request, $positionId)) {
+            return response()->json([
+                'message' => 'not position owner'
+            ],403);
+        }
+        $position = CartProduct::find($positionId);
+        $position->delete();
+        return response()->json([
+            'message' => 'position deleted'
+        ]);
     }
 
     function incrementPosition(Request $request) {
@@ -95,11 +108,36 @@ class CartController extends Controller
     }
 
     function getPositions(Request $request) {
-        
+        $cart = $request->cart;
+        $emptyResponse = response()->json([],404);
+        if($cart === null) return $emptyResponse;
+        $positions = $cart->positions;
+        if(count($positions)===0) return $emptyResponse;
+        $positions = $cart->positions()
+        ->leftJoin('products','cart_product.product_id','products.id')
+        ->leftJoin('sizes','cart_product.size_id','sizes.id')
+        ->leftJoin('colors', 'products.color_id', 'colors.id')
+        ->select('cart_product.id as position_id', 'cart_product.count as count' ,'products.*', 'colors.name as color','sizes.name as size')
+        ->get();
+        return response()->json($positions);
     }
 
     function getPositionIds(Request $request) {
-        
+        $cart = $request->cart;
+        $emptyResponse = response()->json([],404);
+        if($cart === null) return $emptyResponse;
+        $positions = $cart->positions()->
+        orderBy('product_id','asc')->get();
+        if(count($positions)===0) return $emptyResponse;
+        $ids = [];
+        foreach($positions as $position) {
+            if(!isset($ids[$position->product_id])) {
+                $ids[$position->product_id] = [];
+            }
+            $ids[$position->product_id][$position->size->name] = true;
+
+        }
+        return response()->json($ids);
     }
 
     private function validatorForPosition($request) {
@@ -107,5 +145,12 @@ class CartController extends Controller
             'position_id' => 'required|integer|min:1'
         ]);
         return $validator;
+    }
+    private function positionOwner($request, $positionId) {
+        $position = CartProduct::find($positionId);
+        if($position === null) return false;
+        $cart = $request->cart;
+        if($cart === null) return false;
+        return $position->cart_id === $cart->id;
     }
 }
