@@ -1,0 +1,45 @@
+### Добавление в корзину
+POST http://localhost/api/cart.add
+Content-Type: application/json
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+
+{
+    "product_id":2,
+    "size_id":2
+}
+### Удаление из корзины
+POST http://localhost/api/cart.delete
+Content-Type: application/json
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+
+{
+    "position_id":5
+}
+### Получение id товаров в корзине с размерами
+GET http://localhost/api/cart.getIds
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+### Получение товаров в корзине
+GET http://localhost/api/cart.get
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+### Увеличение количества позиции на 1
+POST http://localhost/api/cart.increment
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+Content-Type: application/json
+
+{
+    "position_id":8
+}
+### Уменьшение количества позиции на 1
+POST http://localhost/api/cart.decrement
+# X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
+Authorization: Bearer TH2P7Pt6y0CAEaUX5DMijfpmtctamOv0deNXn14EoC1miHhywLryEMCU0Tss5iqQ
+Content-Type: application/json
+
+{
+    "position_id":8
+}

@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DebugController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 
 Route::any('/debug',[DebugController::class, 'debug']);
@@ -25,15 +26,21 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
     Route::post('/favourite.delete', [FavouriteController::class, 'deleteProduct']);
     Route::get('/favourite.getIds',[FavouriteController::class, 'getIds']);
     Route::get('/favourite.get',[FavouriteController::class, 'get']);
+    Route::post('/order.create', [OrderController::class, 'create']);
 });
 Route::middleware(App\Http\Middleware\AuthOrSessionOptional::class)->group(function(){
-    Route::post('/cart.add',[CartController::class, 'addPosition']);
     Route::middleware(App\Http\Middleware\CartAction::class)->group(function(){
+        Route::post('/cart.add',[CartController::class, 'addPosition']);
         Route::get('/cart.getIds',[CartController::class, 'getPositionIds']);
         Route::get('/cart.get',[CartController::class, 'getPositions']);
     });
 });
 Route::middleware(App\Http\Middleware\AuthOrSessionRequired::class)->group(function(){
-    Route::post('/cart.delete',[CartController::class, 'deletePosition']);
+    Route::middleware(App\Http\Middleware\CartAction::class)->group(function(){
+        Route::post('/cart.increment',[CartController::class, 'incrementPosition']);
+        Route::post('/cart.decrement',[CartController::class, 'decrementPosition']);
+        Route::post('/cart.delete',[CartController::class, 'deletePosition']);
+    });
+
 
 });

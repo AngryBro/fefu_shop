@@ -1,0 +1,23 @@
+### Добавить в избранное
+POST http://localhost/api/favourite.add
+Content-Type: application/json
+Authorization: Bearer 1uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+
+{
+    "product_id":45
+}
+### Удалить из избранного
+POST http://localhost/api/favourite.delete
+Content-Type: application/json
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+
+{
+    "product_id":45
+}
+### Получить id товаров в избранном
+GET http://localhost/api/favourite.getIds
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+### Получить товары в избранном
+GET http://localhost/api/favourite.get
+Authorization: Bearer uxOsQ10HSfDWea2HpDsXGLDr4QjBaJjpcUcFKwfLPwDLc4xpnxpGttH90XyIig7W
+

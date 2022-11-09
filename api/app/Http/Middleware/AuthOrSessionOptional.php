@@ -38,13 +38,14 @@ class AuthOrSessionOptional
             if($session !== null) {
                 $request->user = null;
                 $request->xsession = $session;
-                return $next($request);        
+                return $next($request);
             }
             else {
                 return $badResponse;
             }
         }
-        return $badResponse;
-        
+        $request->user = null;
+        $request->xsession = null;
+        return $next($request);
     }
 }

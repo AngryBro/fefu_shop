@@ -51,7 +51,7 @@ class AuthController extends Controller
             $sent_sms_code = SmsCode::firstWhere('phone_number',$phone_number);
             if($sent_sms_code === null) {
                 $session = new Session;
-                $session->token = Sesion::generateToken();
+                $session->token = Session::generateToken();
                 $session->save();
             }
             else {
