@@ -26,7 +26,7 @@ class CartController extends Controller
         if($size !== null) {
             $sizeName = $size->name;
         }
-        $product = Product::find($data['product_id']);
+        $product = Product::where('id', $data['product_id'])->where('show', true)->first();
         if($size===null || $product===null) {
             return response()->json([
                 'message' => 'no such product or size'
@@ -192,7 +192,7 @@ class CartController extends Controller
 
         return response()->json([
             'product_ids' => $ids,
-            'positions_ids' => $positionIds
+            'position_ids' => $positionIds
         ]);
     }
 

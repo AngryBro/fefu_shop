@@ -1,0 +1,15 @@
+### Создание заказа
+POST http://localhost/api/order.create
+Content-Type: application/json
+Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+
+{
+    "name":"Антон",
+    "email":"example@example.ru",
+    "delivery":true,
+    "city":"Комсомольск",
+    "street":"Пирогова",
+    "building":"21",
+    "index":681010,
+    "apartment":"33b"
+}

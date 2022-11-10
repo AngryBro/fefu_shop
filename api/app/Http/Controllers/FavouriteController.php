@@ -88,7 +88,7 @@ class FavouriteController extends Controller
         $productId = $validator->validated()['product_id'];
         $userId = $request->user->id;
         $favourite = Favourite::firstWhere('user_id', $userId);
-        $product = Product::find($productId);
+        $product = Product::where('id', $productId)->where('show', true)->first();
         if($favourite !== null) {
             $favouriteProduct = FavouriteProduct::query()
             ->where('favourite_id',$favourite->id)

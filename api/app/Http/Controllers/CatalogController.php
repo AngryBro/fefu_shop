@@ -32,6 +32,7 @@ class CatalogController extends Controller
         'categories.name as category'
         )
         ->where('products.id',$id)
+        ->where('show',true)
         ->leftJoin('categories',
         'categories.id','products.category_id')
         ->leftJoin('colors', 'products.color_id','colors.id')
@@ -76,7 +77,7 @@ class CatalogController extends Controller
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $products = Product::query();
+        $products = Product::query()->where('show',true);
         $products = $this->queryByFiltersAndSort($products, $data);
         if(isset($data['search_string'])) {
             $products = $this->queryBySearchString($products, $data['search_string']);

@@ -31,6 +31,7 @@ return new class extends Migration
             $table->integer('L')->nullable();
             $table->integer('XL')->nullable();
             $table->boolean('new');
+            $table->boolean('show');
             $table->foreignId('brand_id');
             $table->foreignId('material_id');
             $table->timestamps();

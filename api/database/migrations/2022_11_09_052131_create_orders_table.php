@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('building')->nullable();
             $table->integer('index')->nullable();
             $table->string('apartment')->nullable();
+            $table->text('comment')->nullable();
+            $table->integer('price');
+            $table->integer('price_discount');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

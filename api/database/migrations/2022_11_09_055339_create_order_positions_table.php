@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\Size::class);
             $table->integer('count');
             $table->integer('price');
+            $table->integer('price_discount');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

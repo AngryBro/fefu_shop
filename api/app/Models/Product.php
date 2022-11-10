@@ -14,4 +14,7 @@ class Product extends Model
     function category() {
         return $this->belongsTo(Category::class);
     }
+    function color() {
+        return $this->belongsTo(Color::class);
+    }
 }

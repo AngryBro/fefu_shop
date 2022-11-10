@@ -31,6 +31,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->text(),
             'color_id' => $this->faker->numberBetween(1,3),
             'new' => $this->faker->numberBetween(0,1)?true:false,
+            'show' => true,
             'brand_id' => $this->faker->numberBetween(1,3),
             'material_id' => $this->faker->numberBetween(1,3),
             'XS' => (function() {$a = $this->faker->numberBetween(-5,10); return $a===-5?null:$a;})(),
