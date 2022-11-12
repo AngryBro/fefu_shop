@@ -9,7 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['created_at', 'updated_at', 'upper_category_id'];
+
     function products() {
         return $this->hasMany(Product::class);
+    }
+
+    function upperCategory() {
+        return $this->belongsTo(UpperCategory::class);
     }
 }

@@ -19,10 +19,13 @@ class Authorized
     public function handle(Request $request, Closure $next)
     {
         $token = BearerToken::firstWhere('token',$request->bearerToken());
-        if($token === null) return response()->json([
+        $badResponse = response()->json([
             'message' => 'no or invalid token'
         ],401);
-        $request->user = User::find($token->user_id);
+        if($token === null) return $badResponse;
+        $user = $token->user;
+        if($user === null) return $badResponse;
+        $request->user = $user;
         return $next($request);
     }
 }

@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Color extends Model
+class InfoPage extends Model
 {
     use HasFactory;
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hiddden = ['created_at'];
 }

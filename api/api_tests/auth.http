@@ -1,18 +1,18 @@
 ### Генерация и отправка смс кода
 POST http://localhost/api/sms.send
 Content-Type: application/json
-X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
 
 {
-    "phone_number":"79098280707"
+    "phone_number":"79098280706"
 }
 ### Отправка кода на проверку
 POST http://localhost/api/sms.verify
 Content-Type: application/json
-X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+X-Session: p0GNh898KGqUJxfoAbRd55RZv8ATExCWpAHdVtijv1ZUxJ6eLZuDz8TL2PJF9KxE
 
 {
-    "sms_code":"48816"
+    "sms_code":"62010"
 }
 ### Удаление токена
 POST http://localhost/api/logout

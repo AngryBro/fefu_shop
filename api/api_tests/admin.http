@@ -1,0 +1,33 @@
+### Получить всех админов
+GET http://localhost/api/admins.all
+Authorization: Bearer admintoken
+### Получить админа по id
+GET http://localhost/api/admin.get?id=2
+Authorization: Bearer admintoken
+### Обновить данные админа
+POST http://localhost/api/admin.update
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "name":"Admin Adminov",
+    "id":3
+}
+### Создать админа
+POST http://localhost/api/admin.create
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "name":"Admin Adminovich",
+    "email":"admin@adminovich.org",
+    "phone_number":"79098280707"
+}
+### Удалить админа
+POST http://localhost/api/admin.delete
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "id":3
+}

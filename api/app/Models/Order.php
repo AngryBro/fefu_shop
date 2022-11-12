@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    protected $hidden = ['updated_at', 'user_id'];
     function cart() {
         return $this->belongsTo(Cart::class);
     }
@@ -15,6 +16,6 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
     function positions() {
-        return $this->hasMany(OrderPositions::class);
+        return $this->hasMany(OrderPosition::class);
     }
 }

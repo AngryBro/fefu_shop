@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Mail;
 class DebugController extends Controller
 {
     function debug(Request $request) {
-        // return view('mail');
-        Mail::to('anian_bbb@mail.ru')->send(new TestMail);
+        return response()->json([
+            null < 0
+        ]);
     }
 }

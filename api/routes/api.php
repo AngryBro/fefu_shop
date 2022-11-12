@@ -8,6 +8,11 @@ use App\Http\Controllers\DebugController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\UserDataController;
+use App\Http\Controllers\InfoPageController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ColorController;
 
 
 Route::any('/debug',[DebugController::class, 'debug']);
@@ -21,6 +26,7 @@ Route::get('/products.meta', [CatalogController::class, 'productsMeta']);
 Route::post('/sms.send', [AuthController::class, 'sendSms']);
 Route::post('/sms.verify', [AuthController::class, 'verifySms'])
 ->middleware(App\Http\Middleware\SessionRequired::class);
+Route::get('/infopage.get',[InfoPageController::class, 'get']);
 
 Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
 
@@ -29,10 +35,30 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
     Route::post('/favourite.delete', [FavouriteController::class, 'deleteProduct']);
     Route::get('/favourite.getIds',[FavouriteController::class, 'getIds']);
     Route::get('/favourite.get',[FavouriteController::class, 'get']);
+    Route::post('/subscribes.create',[SubscribeController::class, 'create']);
+    Route::get('/subscribes.get',[SubscribeController::class, 'get']);
+    Route::get('/subscribes.count',[SubscribeController::class, 'count']);
+    Route::get('/subscribes.getIds',[SubscribeController::class, 'getIds']);
     Route::post('/order.create', [OrderController::class, 'create']);
+    Route::post('/mydata.set', [UserDataController::class, 'set']);
+    Route::get('/mydata.get', [UserDataController::class, 'get']);
 
     Route::middleware(App\Http\Middleware\Admin::class)->group(function(){
-        Route::get('/orders.get', [OrderController::class, 'get']);
+        Route::get('/order.get', [OrderController::class, 'get']);
+        Route::get('/orders.all', [OrderController::class, 'all']);
+        Route::post('/infopage.update', [InfoPageController::class, 'update']);
+        Route::post('/infopage.create', [InfoPageController::class, 'create']);
+        Route::get('/users.all', [UserDataController::class, 'all']);
+        Route::get('/admins.all', [AdminController::class, 'admins']);
+        Route::get('/admin.get', [AdminController::class, 'get']);
+        Route::post('/admin.update', [AdminController::class, 'update']);
+        Route::post('/admin.delete', [AdminController::class, 'delete']);
+        Route::post('/admin.create', [AdminController::class, 'create']);
+        Route::get('/user.get', [UserDataController::class, 'getAny']);
+        Route::get('/colors.all', [ColorController::class, 'all']);
+        Route::post('/color.create', [ColorController::class, 'create']);
+        Route::post('/color.update', [ColorController::class, 'update']);
+        Route::post('/color.delete', [ColorController::class, 'delete']);
         // Route::post('/')
     });
 });

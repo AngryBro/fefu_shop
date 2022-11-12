@@ -10,10 +10,35 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Material;
 use App\Models\Color;
+use App\Models\UpperCategory;
 use DB;
 
 class CatalogController extends Controller
 {
+    function productUpdate(Request $request) {
+
+    }
+
+    function categoriesAll() {
+        $upperCategories = UpperCategory::all();
+        foreach($upperCategories as $upperCategory) {
+            $upperCategory->categoriesAll;
+        }
+        return response()->json($upperCategories);
+    }
+
+    function categoryUpdate(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer',
+            'name' => 'string|min:3',
+            'upper' => 'boolean'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $data = $validator->validated();
+    }
+
     function product(Request $request) {
         $validator = Validator::make($request->all(),[
             'id' => 'required|integer|min:1'
@@ -125,7 +150,7 @@ class CatalogController extends Controller
     }
 
     function productsMeta() {
-        $categories = Category::select('id','name')->get();
+        $upperCategories = UpperCategory::where('show',true)->get();
         $brands = Brand::select('id','name')->get();
         $sizes = Size::select('id','name','description')->get();
         $materials = Material::select('id','name')->get();
@@ -134,15 +159,19 @@ class CatalogController extends Controller
         ->min('price_discount');
         $price_max = Product::query()
         ->max('price');
-        return response()->json([
-            'categories' => $categories,
+        foreach($upperCategories as $upperCategory) {
+            $upperCategory->categoriesToShow;
+        }
+        $data = [
             'brands' => $brands,
             'sizes' => $sizes,
             'materials' => $materials,
             'colors' => $colors,
             'price_min' => $price_min,
-            'price_max' => $price_max
-        ]);
+            'price_max' => $price_max,
+            'upper_categories' => $upperCategories
+        ];
+        return response()->json($data);
     }
 
 }

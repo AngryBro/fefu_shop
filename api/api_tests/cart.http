@@ -1,38 +1,38 @@
 ### Добавление в корзину
 POST http://localhost/api/cart.add
 Content-Type: application/json
-X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+Authorization: Bearer usertoken
 
 {
-    "product_id":2,
-    "size_id":3
+    "product_id":4,
+    "size_id":1
 }
 ### Удаление из корзины
 POST http://localhost/api/cart.delete
 Content-Type: application/json
 # X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 
 {
-    "position_id":2
+    "position_id":3
 }
 ### Получение id товаров в корзине с размерами
 GET http://localhost/api/cart.getIds
 # X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 ### Получение товаров в корзине
 GET http://localhost/api/cart.get
-X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+Authorization: Bearer usertoken
 ### Увеличение количества позиции на 1
 POST http://localhost/api/cart.increment
-X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+Authorization: Bearer usertoken
 Content-Type: application/json
 
 {
-    "position_id":3
+    "position_id":4
 }
 ### Уменьшение количества позиции на 1
 POST http://localhost/api/cart.decrement

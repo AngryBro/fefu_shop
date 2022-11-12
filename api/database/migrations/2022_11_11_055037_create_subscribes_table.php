@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignIdFor(App\Models\UpperCategory::class);
-            $table->boolean('show');
+            $table->foreignIdFor(App\Models\User::class);
+            $table->foreignIdFor(App\Models\Product::class);
+            $table->foreignIdFor(App\Models\Size::class);
+            $table->boolean('new');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('subscribes');
     }
 };

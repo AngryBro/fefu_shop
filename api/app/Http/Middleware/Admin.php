@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\Role;
 
 class Admin
 {
@@ -17,7 +18,7 @@ class Admin
     public function handle(Request $request, Closure $next)
     {
         if($request->user->role->name !== Role::ADMIN) {
-            return reponse()->json([
+            return response()->json([
                 'message' => 'no access to this action'
             ],403);
         }

@@ -1,0 +1,18 @@
+### Получить свои данные
+GET http://localhost/api/mydata.get
+Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+### Обновить свои данные
+POST http://localhost/api/mydata.set
+Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Content-Type: application/json
+
+{
+    # "name":"Andrew",
+    "email":"angry@mail.ru"
+}
+### Получить пользователя
+GET http://localhost/api/user.get?id=3
+Authorization: Bearer admintoken
+### Получить всех пользователей
+GET http://localhost/api/users.all?page_size=4&page=1
+Authorization: Bearer admintoken

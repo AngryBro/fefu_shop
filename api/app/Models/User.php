@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $hidden = ['role_id'];
+
     function role() {
         return $this->belongsTo(Role::class);
     }
@@ -20,5 +22,8 @@ class User extends Authenticatable
     }
     function cart() {
         return $this->hasOne(Cart::class);
+    }
+    function subscribes() {
+        return $this->hasMany(Subscribe::class);
     }
 }

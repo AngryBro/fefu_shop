@@ -9,6 +9,43 @@ use Validator;
 
 class OrderController extends Controller
 {
+    function all(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'page' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'no page or page_size'
+        ],422);
+        $data = $validator->validated();
+        $orders = Order::query()
+        ->select('orders.*','users.phone_number as phone_number')
+        ->leftJoin('users','orders.user_id','users.id')
+        ->orderBy('orders.created_at','desc')
+        ->paginate($data['page_size']);
+        if($orders->count()===0) return response()->json([
+            'message' => 'not found'
+        ],404);
+        return response()->json($orders);
+    }
+
+    function get(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'invalid id'
+        ]);
+        $id = $validator->validated()['id'];
+        $order = Order::find($id);
+        if($order === null) return response()->json([
+            'message' => 'not found'
+        ],404);
+        $order->positions;
+        $order->user;
+        return response()->json($order);
+    }
+
     function create(Request $request) {
         $validator = Validator::make($request->all(),[
             'delivery' => 'required|boolean',

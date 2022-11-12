@@ -1,0 +1,24 @@
+### Получить страницу
+GET http://localhost/api/infopage.get?slug=omnis
+### Обновить данные страницы
+POST http://localhost/api/infopage.update
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "page_id":6,
+    "hidden":false
+}
+### Создать страницу
+POST http://localhost/api/infopage.create
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "header":"Delivery",
+    "slug":"delivery",
+    "text1":"this is text 1",
+    "text2":"this is text 2",
+    "image_header":"/api/image",
+    "images":["/api/img1", "api/img2"]
+}

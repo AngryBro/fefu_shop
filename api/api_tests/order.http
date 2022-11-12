@@ -1,15 +1,21 @@
 ### Создание заказа
 POST http://localhost/api/order.create
 Content-Type: application/json
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 
 {
     "name":"Антон",
     "email":"example@example.ru",
-    "delivery":true,
+    "delivery":false,
     "city":"Комсомольск",
     "street":"Пирогова",
     "building":"21",
     "index":681010,
     "apartment":"33b"
 }
+### Получение всех заказов
+GET http://localhost/api/orders.all?page=1&page_size=4
+Authorization: Bearer admintoken
+### Получение одного заказа по id
+GET http://localhost/api/order.get?id=1
+Authorization: Bearer admintoken
