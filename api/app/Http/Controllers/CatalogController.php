@@ -17,6 +17,47 @@ use App\Models\ProductImage;
 
 class CatalogController extends Controller
 {
+    function productsSearchAdmin(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name' => 'string',
+            'category_id' => [new CategoryId],
+            'page_size' => 'required|integer|min:1',
+            'page' => 'required|integer|min:1'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $data = $validator->validated();
+        $product = Product::query();
+        if(isset($data['name'])) {
+            $product = $product->where(function($query)use($data){
+                $query->where('name', $data['name'])
+                ->orWhere('name_internal', $data['name']);
+            });
+        }
+        if(isset($data['category_id'])) {
+            $product = $product->where('category_id', $data['category_id']);
+        }
+        $products = $product->paginate($data['page_size']);
+        if($products->count()===0) return response()->json([
+            'message' => 'not found'
+        ],404);
+        return response()->json($products);
+    }
+
+    function productGetAdmin(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'id' => ['required', new ProductId]
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'invalid id'
+        ],422);
+        $id = $validator->validated()['id'];
+        $product = $this->getProductById($id, false);
+        $product->images;
+        return response()->json($product);
+    }
+
     function productUpdate(Request $request) {
         $validator = Validator::make($request->all(),[
             'id' => ['required', new ProductId],
@@ -134,6 +175,23 @@ class CatalogController extends Controller
         return response()->json($categories);
     }
 
+    function deleteChildCategory(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'child_id' => ['required', new CategoryId]
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $child_id = $validator->validated()['child_id'];
+        $relation = CategoriesRelation::firstWhere('child_id',$child_id);
+        if($relation !== null) {
+            $relation->delete();
+        }
+        return response()->json([
+            'message' => 'relation deleted'
+        ]);
+    }
+
     function addChildCategory(Request $request) {
         $validator = Validator::make($request->all(),[
             'child_id' => ['required', new CategoryId],
@@ -212,23 +270,7 @@ class CatalogController extends Controller
             'message' => 'incorrect id'
         ],422);
         $id = $validator->validated()['id'];
-        $product = Product::query()
-        ->select('products.*',
-        'colors.name as color_name',
-        'colors.rgb as color_rgb',
-        'colors.article as color_article',
-        'brands.name as brand',
-        'materials.name as material',
-        'categories.name as category'
-        )
-        ->where('products.id',$id)
-        ->where('products.show',true)
-        ->leftJoin('categories',
-        'categories.id','products.category_id')
-        ->leftJoin('colors', 'products.color_id','colors.id')
-        ->leftJoin('brands', 'products.brand_id','brands.id')
-        ->leftJoin('materials', 'products.material_id','materials.id')
-        ->first();
+        $product = $this->getProductById($id, true);
         if($product === null) return response()->json([
             'message' => 'not found'
         ],404);
@@ -246,6 +288,28 @@ class CatalogController extends Controller
             'other_colors' => $otherColors,
             'images' => $images
         ]);
+    }
+
+    private function getProductById($id, $show) {
+        $product = Product::query()
+        ->select('products.*',
+        'colors.name as color_name',
+        'colors.rgb as color_rgb',
+        'colors.article as color_article',
+        'brands.name as brand',
+        'materials.name as material',
+        'categories.name as category'
+        )
+        ->where('products.id',$id);
+        if($show) $product = $product->where('products.show',$show);
+        $product = $product
+        ->leftJoin('categories',
+        'categories.id','products.category_id')
+        ->leftJoin('colors', 'products.color_id','colors.id')
+        ->leftJoin('brands', 'products.brand_id','brands.id')
+        ->leftJoin('materials', 'products.material_id','materials.id')
+        ->first();
+        return $product;
     }
 
     function products(Request $request) {
@@ -273,7 +337,9 @@ class CatalogController extends Controller
             $products = $this->queryBySearchString($products, $data['search_string']);
         }
         $products = $products->paginate($data['page_size']);
-        if($products->count()===0) return response()->json([],404);
+        if($products->count()===0) return response()->json([
+            'message' => 'not found'
+        ],404);
         return response()->json($products);
     }
 
@@ -302,10 +368,15 @@ class CatalogController extends Controller
         ->whereIn('products.category_id',$data['category_ids'])
         ->where('products.price_discount','>',$data['price_min'])
         ->where('products.price_discount','<',$data['price_max'])
-        ->whereIn('products.brand_id',$data['brand_ids']);
-        foreach($data['sizes'] as $size) {
-            $products = $products->where("products.$size", '<>', null);
-        }
+        ->whereIn('products.brand_id',$data['brand_ids'])
+        ->where(function($query) use($data){
+            foreach($data['sizes'] as $size) {
+                $query = $query->orWhere("products.$size", '<>', null);
+            }
+        });
+        // foreach($data['sizes'] as $size) {
+        //     $products = $products->where("products.$size", '<>', null);
+        // }
         $products = $products
         ->whereIn('products.color_id',$data['color_ids'])
         ->whereIn('products.material_id',$data['material_ids'])

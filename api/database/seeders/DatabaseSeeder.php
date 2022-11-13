@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             InfoPageSeeder::class,
             BearerTokenSeeder::class,
             UserSeeder::class,
-            CategoriesRelationSeeder::class
+            CategoriesRelationSeeder::class,
+            ContactSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

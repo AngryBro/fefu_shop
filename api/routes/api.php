@@ -64,6 +64,10 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
         Route::post('/category.create', [CatalogController::class, 'categoryCreate']);
         Route::post('/category.addChild', [CatalogController::class, 'addChildcategory']);
         Route::post('/category.deleteChild', [CatalogController::class, 'deleteChildcategory']);
+        Route::get('/admin/product.get',[CatalogController::class, 'productGetAdmin']);
+        Route::get('/admin/products.search',[CatalogController::class, 'productsSearchAdmin']);
+        Route::post('/product.update', [CatalogController::class, 'productUpdate']);
+        Route::post('/product.create', [CatalogController::class, 'productCreate']);
         // Route::post('/')
     });
 });

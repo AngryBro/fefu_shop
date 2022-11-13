@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use App\Models\Product;
 
 class ProductId implements Rule
 {
@@ -25,7 +26,7 @@ class ProductId implements Rule
      */
     public function passes($attribute, $value)
     {
-        $product = App\Models\Product::find($value);
+        $product = Product::find($value);
         return $product !== null;
     }
 
