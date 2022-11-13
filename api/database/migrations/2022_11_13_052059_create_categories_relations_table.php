@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('upper_categories', function (Blueprint $table) {
+        Schema::create('categories_relations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image');
-            $table->boolean('show');
+            $table->foreignId('child_id')->unique();
+            $table->foreignId('parent_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('upper_categories');
+        Schema::dropIfExists('categories_relations');
     }
 };

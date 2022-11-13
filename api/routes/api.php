@@ -59,6 +59,11 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
         Route::post('/color.create', [ColorController::class, 'create']);
         Route::post('/color.update', [ColorController::class, 'update']);
         Route::post('/color.delete', [ColorController::class, 'delete']);
+        Route::get('/categories.all', [CatalogController::class, 'categoriesAll']);
+        Route::post('/category.update', [CatalogController::class, 'categoryUpdate']);
+        Route::post('/category.create', [CatalogController::class, 'categoryCreate']);
+        Route::post('/category.addChild', [CatalogController::class, 'addChildcategory']);
+        Route::post('/category.deleteChild', [CatalogController::class, 'deleteChildcategory']);
         // Route::post('/')
     });
 });

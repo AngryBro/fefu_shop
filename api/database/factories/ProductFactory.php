@@ -20,11 +20,11 @@ class ProductFactory extends Factory
         $discount = $this->faker->numberBetween(0,100);
         $image = str_replace(env('APP_URL'), '', route('productImage',['id' => 'id', 'file' => 'file']));
         return [
-            'name' => $this->faker->word(),
-            'name_internal' => $this->faker->word(),
+            'name' => $this->faker->unique()->word(),
+            'name_internal' => $this->faker->unique()->word(),
             'image_preview' => $image,
-            'category_id' => $this->faker->numberBetween(1,10),
-            'article' => $this->faker->numberBetween(100,150),
+            'category_id' => $this->faker->numberBetween(1,20),
+            'article' => $this->faker->unique()->numberBetween(100,1000),
             'price' => $price,
             'discount' => $discount,
             'price_discount' => $price-$discount,

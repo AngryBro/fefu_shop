@@ -18,8 +18,8 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'upper_category_id' => $this->faker->numberBetween(1,4),
-            'show' => true
+            'show' => true,
+            'image' => '/api/url'
         ];
     }
 }

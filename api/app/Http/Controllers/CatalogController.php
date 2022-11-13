@@ -10,33 +10,198 @@ use App\Models\Brand;
 use App\Models\Size;
 use App\Models\Material;
 use App\Models\Color;
-use App\Models\UpperCategory;
-use DB;
+use App\Rules\CategoryId;
+use App\Rules\ProductId;
+use App\Models\CategoriesRelation;
+use App\Models\ProductImage;
 
 class CatalogController extends Controller
 {
     function productUpdate(Request $request) {
-
-    }
-
-    function categoriesAll() {
-        $upperCategories = UpperCategory::all();
-        foreach($upperCategories as $upperCategory) {
-            $upperCategory->categoriesAll;
-        }
-        return response()->json($upperCategories);
-    }
-
-    function categoryUpdate(Request $request) {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer',
-            'name' => 'string|min:3',
-            'upper' => 'boolean'
+            'id' => ['required', new ProductId],
+            'name' => 'string',
+            'article' => 'string',
+            'image_preview' => 'string',
+            'price' => 'integer',
+            'discount' => 'integer',
+            'description' => 'string',
+            'XS' => 'integer',
+            'S' => 'integer',
+            'M' => 'integer',
+            'L' => 'integer',
+            'XL' => 'integer',
+            'show' => 'boolean',
+            'color_id' => [new App\Rules\ColorId],
+            'brand_id' => [new App\Rules\BrandId],
+            'material_id' => [new App\Rules\MaterialId],
+            'category_id' => [new CategoryId],
+            'images' => 'array'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
+        $product = Product::find($data['id']);
+        unset($data['id']);
+        $images = isset($data['images'])?$data['images']:null;
+        unset($data['images']);
+        $data['price_discount'] = $data['price']-$data['discount'];
+        foreach($data as $key => $value) {
+            $product->$key = $value;
+        }
+        $product->save();
+        if($images !== null) {
+            $oldImages = $product->images;
+            foreach($oldImages as $oldImage) {
+                $oldImage->delete();
+            }
+            foreach($images as $image) {
+                $productImage = new ProductImage;
+                $productImage->product_id = $product->id;
+                $productImage->image = $image;
+                $productImage->save();
+            }
+        }
+        return response()->json([
+            'message' => 'product updated'
+        ]);
+    }
+
+    function productCreate(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string',
+            'name_internal' => 'required|string',
+            'article' => 'required|string',
+            'image_preview' => 'required|string',
+            'price' => 'required|integer',
+            'discount' => 'required|integer',
+            'description' => 'required|string',
+            'XS' => 'integer',
+            'S' => 'integer',
+            'M' => 'integer',
+            'L' => 'integer',
+            'XL' => 'integer',
+            'color_id' => ['required', new App\Rules\ColorId],
+            'brand_id' => ['required', new App\Rules\BrandId],
+            'material_id' => ['required', new App\Rules\MaterialId],
+            'category_id' => ['required', new CategoryId],
+            'images' => 'required|array'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $data = $validator->validated();
+        $oldProducts = Product::query()
+        ->where(function($query){
+            $query->where('name', $data['name'])
+            ->orWhere('name_internal', $data['name_internal'])
+            ->orWhere('article', $data['article']);
+        })->get();
+        if(count($oldProducts)>0) return response()->json([
+            'message' => 'such products already exist',
+            'products' => $oldProducts
+        ],400);
+        $images = isset($data['images'])?$data['images']:null;
+        unset($data['images']);
+        $product = new Product;
+        foreach($data as $key => $value) {
+            $product->$key = $value;
+        }
+        $product->new = true;
+        $product->show = false;
+        $lastProducts = Product::query()
+        ->orderBy('created_at','desc')
+        ->take(10);
+        if(count($lastProducts)>=10) {
+            $lastProduct = $lastProducts[10];
+            $lastProduct->new = false;
+            $lastProduct->save();
+        }
+        $product->save();
+        return response()->json([
+            'message' => 'product created'
+        ]);
+    }
+
+    function categoriesAll() {
+        $categories = Category::all();
+        $categoriesTree = [];
+        foreach($categories as $category) {
+            $category->childrenAll;
+            $category->parentsAll;
+        }
+        return response()->json($categories);
+    }
+
+    function addChildCategory(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'child_id' => ['required', new CategoryId],
+            'parent_id' => ['required', new CategoryId]
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $data = $validator->validated();
+        $relation = CategoriesRelation::query()
+        ->where('child_id', $data['child_id'])
+        ->first();
+        if($relation !== null) return response()->json([
+            'message' => 'relation allready exists'
+        ], 400);
+        $relation = new CategoriesRelation;
+        foreach($data as $key => $value) {
+            $relation->$key = $value;
+        }
+        $relation->save();
+        return response()->json([
+            'message' => 'relation created'
+        ]);
+    }
+
+    function categoryCreate(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|min:3'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $name = $validator->validated()['name'];
+        $category = Category::firstWhere('name',$name);
+        if($category !== null) return response()->json([
+            'message' => 'category with this name exists'
+        ], 400);
+        $category = new Category;
+        $category->name = $name;
+        $category->show = false;
+        $category->save();
+        return response()->json([
+            'message' => 'category created'
+        ]);
+    } 
+
+    function categoryUpdate(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|integer',
+            'show' => 'boolean',
+            'image' => 'string'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ],422);
+        $data = $validator->validated();
+        $category = Category::find($data['id']);
+        if($category === null) return response()->json([
+            'message' => 'no this category'
+        ], 400);
+        unset($data['id']);
+        foreach($data as $key => $value) {
+            $category->$key = $value;
+        }
+        $category->save();
+        return response()->json([
+            'message' => 'category updated'
+        ]);
     }
 
     function product(Request $request) {
@@ -57,7 +222,7 @@ class CatalogController extends Controller
         'categories.name as category'
         )
         ->where('products.id',$id)
-        ->where('show',true)
+        ->where('products.show',true)
         ->leftJoin('categories',
         'categories.id','products.category_id')
         ->leftJoin('colors', 'products.color_id','colors.id')
@@ -67,7 +232,7 @@ class CatalogController extends Controller
         if($product === null) return response()->json([
             'message' => 'not found'
         ],404);
-        $images = DB::table('product_image')
+        $images = ProductImage::query()
         ->select('image')
         ->where('product_id',$id)
         ->get();
@@ -102,7 +267,7 @@ class CatalogController extends Controller
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $products = Product::query()->where('show',true);
+        $products = Product::query()->where('products.show',true);
         $products = $this->queryByFiltersAndSort($products, $data);
         if(isset($data['search_string'])) {
             $products = $this->queryBySearchString($products, $data['search_string']);
@@ -150,7 +315,7 @@ class CatalogController extends Controller
     }
 
     function productsMeta() {
-        $upperCategories = UpperCategory::where('show',true)->get();
+        $сategories = Category::where('show',true)->get();
         $brands = Brand::select('id','name')->get();
         $sizes = Size::select('id','name','description')->get();
         $materials = Material::select('id','name')->get();
@@ -159,8 +324,10 @@ class CatalogController extends Controller
         ->min('price_discount');
         $price_max = Product::query()
         ->max('price');
-        foreach($upperCategories as $upperCategory) {
-            $upperCategory->categoriesToShow;
+        foreach($сategories as $сategory) {
+            $сategory->children;
+            $сategory->parents;
+            
         }
         $data = [
             'brands' => $brands,
@@ -169,7 +336,7 @@ class CatalogController extends Controller
             'colors' => $colors,
             'price_min' => $price_min,
             'price_max' => $price_max,
-            'upper_categories' => $upperCategories
+            'categories' => $сategories
         ];
         return response()->json($data);
     }

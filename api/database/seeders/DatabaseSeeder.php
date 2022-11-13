@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             MaterialSeeder::class,
             ProductSeeder::class,
             RoleSeeder::class,
-            UpperCategorySeeder::class,
             InfoPageSeeder::class,
             BearerTokenSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            CategoriesRelationSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

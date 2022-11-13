@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\UpperCategory;
+use App\Models\CategoriesRelation;
 
-class UpperCategorySeeder extends Seeder
+class CategoriesRelationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class UpperCategorySeeder extends Seeder
      */
     public function run()
     {
-        UpperCategory::factory()
-        ->count(4)
+        CategoriesRelation::factory()
+        ->count(20)
         ->create();
     }
 }

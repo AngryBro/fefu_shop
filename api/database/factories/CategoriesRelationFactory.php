@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UpperCategory>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CategoriesRelation>
  */
-class UpperCategoryFactory extends Factory
+class CategoriesRelationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,8 @@ class UpperCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word(),
-            'image' => '/example/url',
-            'show' => true
+            'child_id' => $this->faker->unique()->numberBetween(1,20),
+            'parent_id' => $this->faker->numberBetween(21,25)
         ];
     }
 }

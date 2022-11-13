@@ -1,0 +1,38 @@
+### Получить все категории
+GET http://localhost/api/categories.all
+Authorization: Bearer admintoken
+### Обновить данные категории
+POST http://localhost/api/category.update
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "show":true,
+    "image":"/api/example",
+    "id":27
+}
+### Создать категорию
+POST http://localhost/api/category.create
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "name":"coats"
+}
+### Добавить дочернюю категорию
+POST http://localhost/api/category.addChild
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "child_id":27,
+    "parent_id":21
+}
+### Удалить дочернюю категорию
+POST http://localhost/api/category.deleteChild
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "child_id":27
+}
