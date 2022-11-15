@@ -1,0 +1,19 @@
+### Просмотр для пользователей
+GET http://localhost/api/shopConfig.get?name=slide
+### Просмотр для админов
+GET http://localhost/api/shopConfig.getAll
+Authorization: Bearer admintoken
+### Редактирование
+POST http://localhost/api/shopConfig.update
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "id":6,
+    "value": {
+        "left":"vndisnvuidnv",
+        "right":"jnvnsjndhb",
+        "logo":"niuewub",
+        "header":"LOGO"
+    }
+}

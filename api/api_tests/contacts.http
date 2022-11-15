@@ -1,0 +1,12 @@
+### Редактирование контактов
+POST http://localhost/api/contacts.update
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "id":20,
+    "value":"24/7",
+    "name":"Время работы"
+}
+### Получение контактов
+GET http://localhost/api/contacts.get

@@ -19,3 +19,5 @@ Content-Type: application/json
 GET http://localhost/api/products.meta
 ###
 GET http://localhost/api/product.get?id=2
+###
+GET http://localhost/api/products.new

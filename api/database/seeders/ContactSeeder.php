@@ -16,22 +16,23 @@ class ContactSeeder extends Seeder
     public function run()
     {
         $data = [
-            'Номер телефона' => '88005553535',
-            'Номер WA' => '89005553535',
-            'Почтовый ящик' => 'mail@logo.org',
-            'Телеграм' => 'logo@t.me',
-            'YouTube' => 'LogoShop',
-            'Вконтакте' => 'vk.com/logo',
-            'Instagram (запрещённая соц. сеть в РФ)' => '@logo',
-            'Avito' => 'avito/logo',
-            'Адрес' => 'Приморский край, о. Русский, п. Аякс 10, ауд. D644',
-            'Время работы' => '24/7',
-            'Координаты для карты' => 'хз как вбить пока'
+            ['phone_number' ,'Номер телефона' , '88005553535'],
+            ['whatsapp', 'Номер WA' , '89005553535'],
+            ['email', 'Почтовый ящик' , 'mail@logo.org'],
+            ['telegram', 'Телеграм' , 'logo@t.me'],
+            ['youtube', 'YouTube' , 'LogoShop'],
+            ['vk', 'Вконтакте' , 'vk.com/logo'],
+            ['instagram', 'Instagram (запрещённая соц. сеть в РФ)' , '@logo'],
+            ['avito', 'Avito' , 'avito/logo'],
+            ['adress', 'Адрес' , 'Приморский край, о. Русский, п. Аякс 10, ауд. D644'],
+            ['time', 'Время работы' , '24/7'],
+            ['map', 'Координаты для карты' , 'хз как вбить пока']
         ];
         foreach($data as $key => $value) {
             $contact = new Contact;
-            $contact->name = $key;
-            $contact->value = $value;
+            $contact->name_internal = $value[0];
+            $contact->name = $value[1];
+            $contact->value = $value[2];
             $contact->save();
         }
     }

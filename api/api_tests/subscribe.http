@@ -1,18 +1,18 @@
 ### Создание подписки
 POST http://localhost/api/subscribes.create
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 Content-Type: application/json
 
 {
-    "product_id":3,
-    "size":"M"
+    "product_id":1,
+    "size":"XS"
 }
 ### Получение количества товаров появившихся в наличии
 GET http://localhost/api/subscribes.count
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 ### Получение id товаров и размеров в подписках
 GET http://localhost/api/subscribes.getIds
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken
 ### Получение списка товаров появившихся в наличии
 GET http://localhost/api/subscribes.get
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer usertoken

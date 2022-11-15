@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('text1');
             $table->string('text2');
-            $table->string('image_header');
-            $table->json('images');
+            $table->string('image_header')->nullable();
+            $table->json('images')->nullable();
             $table->boolean('hidden');
             $table->timestamps();
         });

@@ -18,11 +18,10 @@ class ProductFactory extends Factory
     {
         $price = $this->faker->numberBetween(100,999);
         $discount = $this->faker->numberBetween(0,100);
-        $image = str_replace(env('APP_URL'), '', route('productImage',['id' => 'id', 'file' => 'file']));
         return [
             'name' => $this->faker->unique()->word(),
             'name_internal' => $this->faker->unique()->word(),
-            'image_preview' => $image,
+            // 'image_preview' => $image,
             'category_id' => $this->faker->numberBetween(1,20),
             'article' => $this->faker->unique()->numberBetween(100,1000),
             'price' => $price,

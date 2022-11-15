@@ -1,9 +1,36 @@
 ### Получить товар
-GET http://localhost/api/admin/product.get?id=21
+GET http://localhost/api/admin/product.get?id=51
 Authorization: Bearer admintoken
 ### Получить все товары по фильтрам
 GET http://localhost/api/admin/products.search?page=1&page_size=5&category_id=1
 Authorization: Bearer admintoken
 ### Обновить данные товара
+POST http://localhost/api/product.update
+Authorization: Bearer admintoken
+Content-Type: application/json
 
+{
+    "id":2,
+    "images":["1234123", "fbhkvbkhb"]
+}
 ### Создать товар
+POST http://localhost/api/product.create
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "image_preview":"ykrVGoG3pt",
+    "name":"TestProduct",
+    "name_internal":"TEST",
+    "article":"392879546",
+    "price":1500,
+    "discount":100,
+    "description":"very good",
+    "XS":1,
+    "S":2,
+    "XL":-3,
+    "color_id":1,
+    "brand_id":1,
+    "material_id":1,
+    "category_id":1
+}

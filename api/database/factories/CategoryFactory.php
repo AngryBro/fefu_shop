@@ -18,8 +18,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'show' => true,
-            'image' => '/api/url'
+            'show' => true
         ];
     }
 }

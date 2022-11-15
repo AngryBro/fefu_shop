@@ -9,10 +9,10 @@ Content-Type: application/json
 ### Отправка кода на проверку
 POST http://localhost/api/sms.verify
 Content-Type: application/json
-X-Session: p0GNh898KGqUJxfoAbRd55RZv8ATExCWpAHdVtijv1ZUxJ6eLZuDz8TL2PJF9KxE
+X-Session: SzkxXS8g72UigQuM7pT2mhhXLOY0agot1WwuRjbPcsonfk7YUJQUdxzFIte4tRag
 
 {
-    "sms_code":"62010"
+    "sms_code":"3239"
 }
 ### Удаление токена
 POST http://localhost/api/logout

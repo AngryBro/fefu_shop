@@ -21,8 +21,8 @@ class InfoPageFactory extends Factory
             'text1' => $this->faker->text(),
             'text2' => $this->faker->text(),
             'slug' => $this->faker->unique()->word(),
-            'image_header' => 'link_header',
-            'images' => json_encode(['link1', 'link2']),
+            // 'image_header' => 'link_header',
+            // 'images' => json_encode(['link1', 'link2']),
             'hidden' => false
         ];
     }

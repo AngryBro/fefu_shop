@@ -1,0 +1,13 @@
+### Получить картинку
+GET http://localhost/api/img.get?ile=dQ70E5qndV6GmuBT9o0
+### Загрузить картинку
+POST http://localhost/api/img.upload
+Authorization: Bearer admintoken
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="testimg.png"
+Content-Type: image
+
+< ./testimg.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

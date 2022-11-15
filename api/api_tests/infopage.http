@@ -1,13 +1,22 @@
-### Получить страницу
-GET http://localhost/api/infopage.get?slug=omnis
+### Получить все нескрытые страницы
+GET http://localhost/api/infopages.all
+### Получить все страницы для админа
+GET http://localhost/api/admin/infopages.all
+Authorization: Bearer admintoken
+### Получить нескрытую страницу
+GET http://localhost/api/infopage.get?slug=asperiores
+### Получить админу страницу
+GET http://localhost/api/admin/infopage.get?slug=asperiores
+Authorization: Bearer admintoken
 ### Обновить данные страницы
 POST http://localhost/api/infopage.update
 Authorization: Bearer admintoken
 Content-Type: application/json
 
 {
-    "page_id":6,
+    "id":6,
     "hidden":false
+    # "images":["asdnas", "adsad"]
 }
 ### Создать страницу
 POST http://localhost/api/infopage.create
@@ -19,6 +28,14 @@ Content-Type: application/json
     "slug":"delivery",
     "text1":"this is text 1",
     "text2":"this is text 2",
-    "image_header":"/api/image",
-    "images":["/api/img1", "api/img2"]
+    "image_header":"x5WOz9BLuC",
+    "images":["baleuI7M0w"]
+}
+###
+POST http://localhost/api/infopage.delete
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "id":20
 }

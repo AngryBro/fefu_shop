@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\BearerToken;
 use App\Models\User;
 use App\Models\Cart;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -73,8 +74,8 @@ class AuthController extends Controller
 
         $sent_sms_code->phone_number = $phone_number;
         $sent_sms_code->session_id = $session->id;
-        $sms_code = (string) random_int(10000,99999);
-        $sent_sms_code->code = $sms_code;
+        $sms_code = SmsCode::generate();
+        $sent_sms_code->code = Hash::make($sms_code);
         $sent_sms_code->expires_at = Carbon::now()->addMinutes(10);
         $sent_sms_code->save();
         // send code
@@ -86,7 +87,7 @@ class AuthController extends Controller
 
     function verifySms(Request $request) {
         $validator = Validator::make($request->all(),[
-            'sms_code' => 'required|integer|min:10000|max:99999'
+            'sms_code' => 'required|integer'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'invalid sms code'
@@ -105,13 +106,13 @@ class AuthController extends Controller
         if($expired) return response()->json([
             'message' => 'code expired or did not send'
         ],400);
-        if($sent_code->code !== $sms_code) {
+        $sent_code->expires_at = Carbon::now();
+        $sent_code->save();
+        if(!password_verify($sms_code, $sent_code->code)) {
             return response()->json([
                 'message' => 'incorrect code'
             ],403);
         }
-        $sent_code->expires_at = Carbon::now();
-        $sent_code->save();
         $user = User::query()
         ->where('phone_number',$sent_code->phone_number)
         ->first();

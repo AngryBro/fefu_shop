@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             BearerTokenSeeder::class,
             UserSeeder::class,
             CategoriesRelationSeeder::class,
-            ContactSeeder::class
+            ContactSeeder::class,
+            ShopConfigSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

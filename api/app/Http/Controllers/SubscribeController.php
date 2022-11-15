@@ -88,6 +88,7 @@ class SubscribeController extends Controller
         //     ->orWhere($sizeName, null);
         // })
         ->where($sizeName, '<', 0)
+        ->where('id', $data['product_id'])
         ->first();
         if($product===null) return response()->json([
             'message' => 'no product with count < 0'

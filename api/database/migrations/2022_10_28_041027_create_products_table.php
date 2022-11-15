@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->string('name_internal')->unique();
             $table->string('name')->unique();
-            $table->string('image_preview');
+            $table->string('image_preview')->nullable();
             $table->string('article')->unique();
             $table->integer('price');
             $table->integer('discount');
