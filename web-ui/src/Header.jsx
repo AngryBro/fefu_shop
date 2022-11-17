@@ -7,11 +7,16 @@ import AuthBodySVG from './svg/AuthBodySVG';
 import CartUpSVG from './svg/CartUpSVG';
 import CartDownSVG from './svg/CartDownSVG';
 
-const Header = () => { 
+const Header = ({cart}) => { 
     
     var [infoPages, setInfoPages] = React.useState([]);
-    var [cartSum, setCartSum] = React.useState(5000);
-    var [cartCount, setCartCount] = React.useState(5);
+    // var [cart, setCart] = React.useState({
+    //     sum: 0,
+    //     count: 0
+    // });
+    // React.useEffect(() => {
+        
+    // }, []);
     React.useEffect(() => {
         var pages = [];
         for(var i = 0; i<3; i++) {
@@ -61,7 +66,7 @@ const Header = () => {
         <div className='cart'>
             <div className='svgUp'><CartUpSVG/></div>
             <div className='svgDown'><CartDownSVG/></div>
-            <div className='text'>{cartSum} &#8381; / {cartCount} шт.</div>
+            <div className='text'>{cart} &#8381; / {cart} шт.</div>
         </div>
     </div>
     );

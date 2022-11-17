@@ -15,11 +15,11 @@ display: block;
     top: 79.5px;
 }
 .Header .cart .svgUp {
-    top: -2px;   
+    top: -4px;   
 }
 .Header .cart .svgDown {
     left: 1.58px;
-    top: 9.2px;
+    top: 7.2px;
 }
 .Header .cart .text {
     left: 32px;
