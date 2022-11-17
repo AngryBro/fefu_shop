@@ -1,0 +1,61 @@
+.OpenedCatalog {
+    position: relative;
+    width: 1440px;
+    background-color: rgb(255, 255, 255);
+    display: block;
+}
+.OpenedCatalog div {
+    position: absolute;
+}
+.OpenedCatalog .left {
+    top: 56px;
+    left: 96px;
+}
+.OpenedCatalog .left .rows .element {
+    position: relative;
+    margin-bottom: 16px;
+    font-family: 'PT Root UI';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 20px;
+text-decoration-line: underline;
+color: #616575;
+}
+.OpenedCatalog .left .rows {
+    position: relative;
+}
+.OpenedCatalog .left .column .header {
+    position: relative;
+    margin-bottom: 24px;
+font-family: 'PT Root UI';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 121%;
+text-decoration-line: underline;
+text-transform: uppercase;
+color: #515562;
+
+}
+.OpenedCatalog .left .column {
+    position: relative;
+    margin-right: 140px;
+    float: left;
+}
+.OpenedCatalog .right {
+    left: 856px;
+    top: 56px;
+}
+.OpenedCatalog .right .header {
+    position: relative;
+    margin-bottom: 44px;
+font-family: 'PT Root UI';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 121%;
+text-decoration-line: underline;
+text-transform: uppercase;
+color: #515562;
+}

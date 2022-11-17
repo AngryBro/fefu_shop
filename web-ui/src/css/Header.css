@@ -1,190 +1,166 @@
-.Header div {
-    position: absolute;
-}
+@import url("../fonts/pt-root-ui/stylesheet.css");
+@import url("../fonts/futura-pt/stylesheet.css");
+
 .Header {
-position: relative;
-width: 1440px;
-height: 136px;
-left: 0px;
-top: 0px;
-background: rgba(18, 81, 139, 0.1);
-display: block;
-}
-.Header .cart {
-    left: 1221px;
-    top: 79.5px;
-}
-.Header .cart .svgUp {
-    top: -4px;   
-}
-.Header .cart .svgDown {
-    left: 1.58px;
-    top: 7.2px;
-}
-.Header .cart .text {
-    left: 32px;
-    width: 91px;
-height: 17px;
-top: 3px;
 
-/* font-family: 'PT Root UI'; */
+}
+.Header .contacts {
+    
+}
+.Header .contacts .wa .svg {
+    
+}
+.Header .contacts .wa .text {
+    
+
+font-family: 'PT Root UI';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 121%;
+
+text-decoration-line: underline;
+
+color: #FFFFFF;
+}
+.Header .contacts .inst .svg {
+    
+    
+}
+.Header .contacts .inst .text {
+    
+
+font-family: 'PT Root UI';
+ font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 121%;
+
+ text-align: right;
+text-decoration-line: underline;
+
+color: #FFFFFF;
+}
+
+.Header .cartSvgUp {
+     
+}
+.Header .cartSvgDown {
+    
+}
+.Header .cartText {
+    
+
+font-family: 'PT Root UI';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-break: loose ;
+ line-height: 121%;
+ text-decoration-line: underline;
+
+
+color: #323540;
+}
+
+.Header .authSvgHead {
+    
+}
+.Header .authSvgBody {
+    
+}
+.Header .authText {
+    
+font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
 line-height: 121%;
-/* identical to box height, or 17px */
 
-text-decoration-line: underline;
+ text-decoration-line: underline;
 
-/* Proto/07 */
 
 color: #323540;
 }
-.Header .auth {
-    top: 79.5px;
-    left: 1048px;
-    /* width: 200px; */
+.Header .favouriteSvg {
+    
 }
-.Header .auth .svgHead {
-    left: 5.4px;
-    top: -3.5px;
-}
-.Header .auth .svgBody {
-    top: 8px;
-}
-.Header .auth .text {
-    left: 30px;
-    width: 119px;
-height: 17px;
-top: 3px;
 
-/* font-family: 'PT Root UI'; */
+.Header .favouriteText {
+    
+
+font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
 line-height: 121%;
-/* identical to box height, or 17px */
 
-text-decoration-line: underline;
-
-/* Proto/07 */
+ text-decoration-line: underline;
 
 color: #323540;
 }
-.Header .favourite {
-    position: absolute;
-    left: 918px;
-    top: 79.5px;
-}
-.Header .favourite .svg {
-    position: absolute;
-/* left: 100%;
-right: -100%;
-top: 3.54%;
-bottom: 3.54%; */
-}
-.Header .favourite .text {
-    position: absolute;
-    left: 32px;
-    top: 3px;
-    width: 72px;
-height: 17px;
 
-/* font-family: 'PT Root UI'; */
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 121%;
-/* identical to box height, or 17px */
-
-text-decoration-line: underline;
-
-color: #323540;
-}
 .Header .search .svg {
-    position: absolute;
-    top: 14px;
-    /* left: 434px; */
-    right: 19px;
-    float:left;
+    
+}
+.Header .search input {
+    
+background: #F7F7FC;
+outline: none;
+font-size: 20pt;
 }
 .Header .search {
-    position: absolute;
-    display: flex;
-flex-direction: row;
-justify-content: flex-end;
-align-items: center;
-gap: 10px;
-left: 361px;
-top: 64px;
-width: 472px;
-height: 48px;
-
-/* Proto/02 */
-
+    
 background: #F7F7FC;
 }
 .Header .catalog .rectBlock {
-    position: absolute;
-    left: 24px;
-    top: 18.5px;
-    float: left;
+    
+}
+.Header .catalog .rectBlockOpened {
+    
 }
 .Header .catalog .text {
-    position: absolute;
-    left: 48px;
-    top: 15.5px;
-    width: 61px;
-    height: 17px;
+    
 font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 121%;
-/* identical to box height, or 17px */
 
-text-decoration-line: underline;
+ text-decoration-line: underline;
 text-transform: uppercase;
 
-/* Proto/01 */
 
 color: #FFFFFF;
 }
-.Header .catalog .rectBlock div {
+.Header .catalog .rect {
     position: relative;
     width: 16px;
     height: 1.5px;
     margin-bottom: 3.21px;
     background-color: white;
 }
-.Header .catalog {
-    position: absolute;
-    top: 64px;
-    left: 228px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
+.Header .catalog .rectOpened1 {
     
-    width: 133px;
-    height: 48px;
+    background-color: #FFFFFF;
+transform: rotate(45deg);
+}
+.Header .catalog .rectOpened2 {
+    
+    background-color: #FFFFFF;
+transform: rotate(135deg);
+}
+.Header .catalog {
     
     background: #12518B;
+}
+.Header .catalog:hover {
     
-    /* Inside auto layout */
-    
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    background: #114c84;
 }
 .Header .name {
-    position: absolute;
-    width: 66px;
-    height: 46px;
-    left: 110px;
-    top: 65px;
-    /* font-family: 'Futura PT'; */
-    font-style: normal;
+    
+    font-family: 'Futura PT';
+     font-style: normal;
     font-weight: 450;
     font-size: 36px;
     line-height: 46px;
@@ -194,39 +170,23 @@ color: #FFFFFF;
     float: left;
 }
 .Header .infolink {
-    width: 53px;
-height: 15px;
+    
 float: left;
-/* font-family: 'PT Root UI'; */
+font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 15px;
-/* identical to box height, or 15px */
 text-decoration-line: underline;
 color: #FFFFFF;
 flex: none;
 order: 0;
 flex-grow: 0;
 }
-/* .Header a {
-    color: white;
-} */
 .Header .infolinks {
-    height: 15px;
-    width: 100%;
-    margin-left: 96px;
-    margin-top: 12px;
-    border-radius: 0px;
-
+    
 }
-.Header .infolinksBlock {
-    position: absolute;
-left: 0%;
-right: 0%;
-top: 0%;
-bottom: 70.59%;
-float:left;
+.Header .upper {
 
-background: #12518B;
-}
+background-color: #12518B;
+} 

@@ -1,6 +1,7 @@
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import Debug from './Debug';
 import Page from './Page';
+import OpenedCatalog from './OpenedCatalog';
 
 function App() {
   return (

@@ -1,5 +1,7 @@
-const Footer = () => (
-    <div>
+import './css/Footer.css';
+
+const Footer = ({categories, contacts, infoPages}) => (
+    <div className="Footer">
 
     </div>
 );
