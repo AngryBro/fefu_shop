@@ -1,30 +1,33 @@
+import React from 'react';
 import './css/OpenedCatalog.css';
 
 const OpenedCatalog = ({categories}) => {
 
-    categories = [];
-    for(let i = 0; i<10; i++) {
-        categories.push({
-            id: i,
-            name: 'категория'+i,
-            children: []
-        });
-        for(let j = 0; j<10; j++) {
-            categories[i].children.push({
-                id: 20+j,
-                name: 'category'+j,
-                children: []
-            })
-        };
-    }
-    var categoriesLeft = [];
-    var categoriesRight = [];
-    for(let i = 0; i<Math.min(3, categories.length); i++) {
-        categoriesLeft.push(categories[i]);
-    }
-    for(let i = 3; i < categories.length; i++) {
-        categoriesRight.push(categories[i]);
-    }
+    var [categoriesLeft, setCategoriesLeft] = React.useState([]);
+    var [categoriesRight, setCategoriesRight] = React.useState([]);
+
+    React.useEffect(() => {
+        var categoriesTemp = JSON.parse(JSON.stringify(categories));
+        for(let i = 0; i<8; i++) {
+            for(let j = 0; j<10; j++) {
+                categoriesTemp[i].children.push({
+                    id: 20+j,
+                    name: 'category'+j,
+                    children: []
+                })
+            };
+        }
+        var categoriesTempLeft = [];
+        var categoriesTempRight = [];
+        for(let i = 0; i<Math.min(3, categoriesTemp.length); i++) {
+            categoriesTempLeft.push(categoriesTemp[i]);
+        }
+        for(let i = 3; i < categoriesTemp.length; i++) {
+            categoriesTempRight.push(categoriesTemp[i]);
+        }
+        setCategoriesLeft(categoriesTempLeft);
+        setCategoriesRight(categoriesTempRight);
+    }, [categories]);
 
     return (
         <div className="OpenedCatalog">

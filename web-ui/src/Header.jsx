@@ -10,15 +10,16 @@ import InstSVG from './svg/InstSVG';
 import WhatsappSVG from './svg/WhatsappSVG';
 import OpenedCatalog from './OpenedCatalog';
 
-const Header = ({cart, contacts, infoPages}) => { 
+const Header = ({cart, contacts, infoPages, categories}) => { 
     
     const authed = localStorage.getItem('Authorization') !== null;
     var [openedCatalog, setOpenedCatalog] = React.useState(false);
 
     return(
-    <div>
+        <div>
     <div className="Header">
         <div className='upper'>
+            <div className='block'>
             <div className='infolinks'>
                 {
                     infoPages.map(e => (
@@ -27,20 +28,20 @@ const Header = ({cart, contacts, infoPages}) => {
                 }
             </div>
             <div className='contacts'>
-                <div className='inst'>
-                    <div className='svg'><InstSVG/></div>
-                    <div className='text'>logo</div>
-                </div>
-                <div className='wa'>
-                    <div className='svg'><WhatsappSVG/></div>
-                    <div className='text'>Написать нам</div>
-                </div>
+                    <div className='svgInst'><InstSVG/></div>
+                    <div className='textInst'>logo</div>
+                    <div className='svgWa'><WhatsappSVG/></div>
+                    <div className='textWa'>Написать нам</div>
+            </div>
             </div>
         </div>
+        <div className='lower'>
+        <div className='block'>
         <div className='name'>
                 LOGO
         </div>
         <div className='catalog' onClick={() => {setOpenedCatalog(!openedCatalog)}}>
+        
             <div className='rectBlock'>
                 {openedCatalog?
                     <><div className='rectOpened1'></div>
@@ -62,17 +63,25 @@ const Header = ({cart, contacts, infoPages}) => {
         </div>
             <div className='favouriteSvg'><FavouriteSVG/></div>
             <div className='favouriteText'>Избранное</div>
-            <div className='authSvgHead'><AuthHeadSVG/></div>
-            <div className='authSvgBody'><AuthBodySVG/></div>
+            <div className='authSvg'>
+                <div className='head'><AuthHeadSVG/></div>
+                <div className='body'><AuthBodySVG/></div>
+            </div>
             <div className='authText'>{authed?"79998887766":"Вход/Регистрация"}</div>
-            <div className='cartSvgUp'><CartUpSVG/></div>
-            <div className='cartSvgDown'><CartDownSVG/></div>
+            <div className='cartSvg'>
+                <div className='up'><CartUpSVG/></div>
+                <div className='down'><CartDownSVG/></div>
+            </div>
             <div className='cartText'>{cart.sum} &#8381; / {cart.count} шт.</div>
-    </div>
-    {
-            openedCatalog?<OpenedCatalog/>:<></>
+        </div>
+        </div>
+        </div>
+        <div className='openedCatalogBlock'>
+        {
+            openedCatalog?<OpenedCatalog categories={categories}/>:<></>
         }
-    </div>
+        </div>
+        </div>
     );
 }
 export default Header;

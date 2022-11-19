@@ -1,18 +1,40 @@
 @import url("../fonts/pt-root-ui/stylesheet.css");
 @import url("../fonts/futura-pt/stylesheet.css");
-
 .Header {
+    overflow: hidden;
+    min-height: 136px;
+}
+.openedCatalogBlock {
+    margin: auto;
+    width: 1440px;
+}
+.Header .lower {
+    min-height: 96px;
+    background-color: rgba(18, 81, 139, 0.1);
+    overflow: hidden;
 
+}
+.Header .lower .block {
+    min-height: 96px;
+    max-width: 1440px;
+    margin: auto;
+    overflow: hidden;
 }
 .Header .contacts {
-    
+    width: 251px;
+    height: 40px;
+    float: right;
+    margin: auto;
 }
-.Header .contacts .wa .svg {
-    
+.Header .contacts .svgWa {
+    margin-left: 24px;
+    float: left;
+    margin-top: 9.5px;
 }
-.Header .contacts .wa .text {
-    
-
+.Header .contacts .textWa {
+float: left;
+margin-top: 12px;
+margin-left: 4px;
 font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 500;
@@ -23,13 +45,15 @@ text-decoration-line: underline;
 
 color: #FFFFFF;
 }
-.Header .contacts .inst .svg {
-    
-    
+.Header .contacts .svgInst {
+    float: left;
+    margin-top: 9.5px;
 }
-.Header .contacts .inst .text {
+.Header .contacts .textInst {
     
-
+float: left;
+margin-top: 12px;
+margin-left: 4px;
 font-family: 'PT Root UI';
  font-style: normal;
 font-weight: 500;
@@ -42,15 +66,22 @@ text-decoration-line: underline;
 color: #FFFFFF;
 }
 
-.Header .cartSvgUp {
-     
+.Header .cartSvg {
+    float: left;
+    margin-top: 30.45px;
+    margin-left: 24px;
 }
-.Header .cartSvgDown {
-    
+.Header .cartSvg .down {
+    margin-top: -10px;
+    margin-left: 1.4px;
+}
+.Header .cartSvg .up {
+    margin-left: 0px;
 }
 .Header .cartText {
-    
-
+margin-top: 39.5px;
+margin-left: 8px;
+float: left;
 font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 400;
@@ -63,14 +94,21 @@ line-break: loose ;
 color: #323540;
 }
 
-.Header .authSvgHead {
-    
+.Header .authSvg {
+    margin-top: 30px;
+    margin-left: 26px;
+    float: left;
 }
-.Header .authSvgBody {
-    
+.Header .authSvg .head {
+    margin-left: 5px;
+}
+.Header .authSvg .body {
+    margin-top: -9.5px;
 }
 .Header .authText {
-    
+margin-top: 39.5px;
+margin-left: 10px;
+float: left;
 font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 400;
@@ -83,12 +121,16 @@ line-height: 121%;
 color: #323540;
 }
 .Header .favouriteSvg {
-    
+    margin-left: 84px;
+    margin-top: 35px;
+    float: left;
 }
 
 .Header .favouriteText {
     
-
+margin-top: 39.5px;
+margin-left: 8px;
+float: left;
 font-family: 'PT Root UI';
 font-style: normal;
 font-weight: 400;
@@ -101,64 +143,89 @@ color: #323540;
 }
 
 .Header .search .svg {
-    
+    margin-top: 14px;
+    margin-right: 19px;
+    float: right;
 }
 .Header .search input {
-    
+margin-top: 6px;
+border: none;
 background: #F7F7FC;
 outline: none;
 font-size: 20pt;
+width: 410px;
+float: left;
+margin-left: 10px;
 }
 .Header .search {
-    
+float: left;
+width: 472px;
+height: 48px;
+margin-top: 24px;
 background: #F7F7FC;
 }
 .Header .catalog .rectBlock {
-    
-}
-.Header .catalog .rectBlockOpened {
-    
+    margin-left: 24px;
+    margin-top: 18.5px;
+    float: left;
 }
 .Header .catalog .text {
-    
+float: right;
+margin-right: 24px;
+margin-top: 15.5px;
 font-style: normal;
-font-weight: 500;
+font-weight: 400;
 font-size: 14px;
-line-height: 121%;
+line-height: 100%;
 
  text-decoration-line: underline;
 text-transform: uppercase;
+text-decoration-thickness: 0.8px;
+text-underline-offset: 1px;
 
 
 color: #FFFFFF;
 }
 .Header .catalog .rect {
-    position: relative;
     width: 16px;
     height: 1.5px;
     margin-bottom: 3.21px;
     background-color: white;
 }
 .Header .catalog .rectOpened1 {
-    
+    float: left;
+    margin-top: 4px;
+    margin-left: -5px;
+    width: 21px;
+    height: 2px;
     background-color: #FFFFFF;
 transform: rotate(45deg);
 }
 .Header .catalog .rectOpened2 {
-    
+    float: left;
+    width: 21px;
+    height: 2px;
+    margin-top: 4px;
+    margin-left: -21px;
     background-color: #FFFFFF;
 transform: rotate(135deg);
 }
 .Header .catalog {
-    
+    width: 132px;
+    height: 48px;
+    margin-top: 24px;
+    margin-left: 52px;
+    float: left;
     background: #12518B;
+    cursor: pointer;
 }
 .Header .catalog:hover {
     
     background: #114c84;
 }
 .Header .name {
-    
+    margin-left: 110px;
+    margin-top: 25px;
     font-family: 'Futura PT';
      font-style: normal;
     font-weight: 450;
@@ -170,7 +237,8 @@ transform: rotate(135deg);
     float: left;
 }
 .Header .infolink {
-    
+margin-right: 24px;
+margin-top: 12px;
 float: left;
 font-family: 'PT Root UI';
 font-style: normal;
@@ -179,14 +247,18 @@ font-size: 12px;
 line-height: 15px;
 text-decoration-line: underline;
 color: #FFFFFF;
-flex: none;
-order: 0;
-flex-grow: 0;
 }
 .Header .infolinks {
-    
+    padding-left: 96px;
 }
 .Header .upper {
-
+min-height: 40px;
 background-color: #12518B;
-} 
+overflow: hidden;
+}
+.Header .upper .block {
+    min-height: 40px;
+    overflow: hidden;
+    max-width: 1440px;
+    margin: auto;
+}

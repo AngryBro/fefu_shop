@@ -1,5 +1,202 @@
 .Footer {
-    width: 1440px;
-    height: 383px;
+    min-height: 383px;
     background-color: #12518B;
+    overflow: hidden;
+}
+.FooterBlock {
+    min-height: 383px;
+    overflow: hidden;
+    max-width: 1440px;
+    margin: auto;
+}
+.Footer .upper {
+    overflow: hidden;
+}
+.Footer .callback {
+    margin-top: 64px;
+    margin-left: 96px;
+    float: left;
+}
+.Footer .callback .name {
+    font-family: 'Futura PT';
+    font-style: normal;
+    font-weight: 450;
+    font-size: 36px;
+    line-height: 46px;
+    text-transform: lowercase;
+    color: #FFFFFF;
+}
+.Footer .callback .button {
+    margin-top: 32px;
+    width: 178px;
+    height: 40px;
+    background-color: #0F406D;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+.Footer .callback .button:hover {
+    margin-top: 32px;
+    width: 178px;
+    height: 40px;
+    background-color: #0e3d68;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+.Footer .callback .button .text {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #F7F7FC;
+    margin-top: 12.5px;
+    margin-left: 31px;
+    display: inline-block;
+}
+.Footer .callback .link {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    color: #9CA0AB;
+    margin-bottom: 16px;
+}
+.Footer .catalog {
+    margin-left: 195px;
+    margin-top: 99px;
+    float: left;
+}
+.Footer .catalog .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 121%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.Footer .catalog .table {
+    margin-top: 24px;
+}
+.Footer .catalog .column {
+    margin-right: 48px;
+    float: left;
+}
+.Footer .catalog .column .link {
+    margin-top: 12px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: capitalize;
+    color: #9CA0AB;
+}
+.Footer .about {
+    margin-left: 156px;
+    margin-top: 99px;
+    float: left;
+}
+.Footer .about .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 121%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+}
+.Footer .about .link {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    color: #A2A5AD;
+    margin-top: 12px;
+    display: block;
+}
+.Footer .contacts {
+    margin-top: 99px;
+    margin-left: 179px;
+    float: left;
+}
+.Footer .contacts .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 121%;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+.Footer .contacts .phone {
+    margin-top: 24px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    color: #F7F7FC;
+}
+.Footer .contacts .email {
+    margin-top: 8px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    color: #CDCFD6;
+}
+.Footer .contacts .icons {
+    margin-top: 32px;
+}
+.Footer .contacts .icons div {
+    float: left;
+    margin-right: 12px;
+}
+.Footer .contacts .icons .avito {
+    margin-left: -108px;
+}
+.Footer .line {
+    width: 1248px;
+    height: 1px;
+    background-color: #616575;
+    margin-top: 53px;
+    margin-left: 96px;
+    position: relative;
+}
+.Footer .lower {
+    margin-top: 23px;
+    margin-left: 96px;
+    margin-right: 96px;
+}
+.Footer .lower .year {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    text-transform: lowercase;
+    color: #9CA0AB;
+    float: left;
+}
+.Footer .lower .devby {
+    float: right;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    align-items: center;
+    color: #616575;
 }

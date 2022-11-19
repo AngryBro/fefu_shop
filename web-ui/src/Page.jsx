@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import React from "react";
+import './css/Page.css';
 
 const Page = ({Content}) => {
     var [cartCount, setCartCount] = React.useState(0);
@@ -41,16 +42,17 @@ const Page = ({Content}) => {
         for(let i = 0; i < 8; i++) {
             temp.push({
                 name: 'категория'+i,
-                id: i
+                id: i,
+                children: []
             });
         }
         setCategories(temp);
     }, []);
     return (
         <div>
-            <Header cart={{count: cartCount, sum: cartSum}} contacts={contacts} infoPages={infoPages}></Header>
-            <Content cartAction={cartAction}/>
-            {/* <Footer categories={categories} infoPages={infoPages} contacts={contacts}></Footer> */}
+            <Header categories={categories} cart={{count: cartCount, sum: cartSum}} contacts={contacts} infoPages={infoPages}></Header>
+            <div className="content"><div className="contentBlock"><Content cartAction={cartAction}/></div></div>
+            <Footer categories={categories} infoPages={infoPages} contacts={contacts}></Footer>
         </div>
     );
 }

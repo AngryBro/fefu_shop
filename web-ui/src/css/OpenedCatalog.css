@@ -1,18 +1,16 @@
 .OpenedCatalog {
-    position: relative;
+    /* max-width: 1440px; */
     width: 1440px;
+    margin: auto;
     background-color: rgb(255, 255, 255);
-    display: block;
-}
-.OpenedCatalog div {
+    border: solid white 1px;
     position: absolute;
 }
 .OpenedCatalog .left {
-    top: 56px;
-    left: 96px;
+    margin-left: 96px;
+    margin-top: 56px;
 }
 .OpenedCatalog .left .rows .element {
-    position: relative;
     margin-bottom: 16px;
     font-family: 'PT Root UI';
 font-style: normal;
@@ -22,11 +20,7 @@ line-height: 20px;
 text-decoration-line: underline;
 color: #616575;
 }
-.OpenedCatalog .left .rows {
-    position: relative;
-}
 .OpenedCatalog .left .column .header {
-    position: relative;
     margin-bottom: 24px;
 font-family: 'PT Root UI';
 font-style: normal;
@@ -39,16 +33,14 @@ color: #515562;
 
 }
 .OpenedCatalog .left .column {
-    position: relative;
     margin-right: 140px;
     float: left;
 }
 .OpenedCatalog .right {
-    left: 856px;
-    top: 56px;
+    margin-left: 129px;
+    /* display: none; */
 }
 .OpenedCatalog .right .header {
-    position: relative;
     margin-bottom: 44px;
 font-family: 'PT Root UI';
 font-style: normal;
