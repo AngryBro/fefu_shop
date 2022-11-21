@@ -1,0 +1,136 @@
+.MainPage .slide .left {
+    width: 500px;
+    height: 100%;
+    float: left;
+    /* background-image: url(); */
+    /* background-color: green; */
+}
+.MainPage .slide .right{
+    width: 500px;
+    height: 100%;
+    float: left;
+    /* background-color: green; */
+}
+.MainPage .slide .middle{
+    float: left;
+    width: 248px;
+    height: 100%;
+}
+.MainPage .slide .middle .logo {
+    width: 200px;
+    height: 150px;
+    margin-top: 24px;
+    margin-left: 24px;
+}
+.MainPage .slide .middle .text {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    align-items: center;
+    text-align: center;
+    color: #616575;
+
+}
+.MainPage .slide .middle .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 58px;
+    align-items: center;
+    text-align: center;
+    text-transform: lowercase;
+    color: #323540;
+}
+.MainPage .slide {
+    width: 1248px;
+    height: 348px;
+    margin-top: 64px;
+    background: #F7F7FC;
+}
+.MainPage .categories {
+    margin-top: 96px;
+    overflow: hidden;
+}
+.MainPage .categories .edge {
+    overflow: hidden;
+}
+.MainPage .categories .middle {
+    overflow: hidden;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+.MainPage .categories .edge .category {
+    float: left;
+    margin-right: 32px;
+    width: 394px;
+    height: 212px;
+    background: #F7F7FC;
+    overflow: hidden;
+}
+.MainPage .categories .middle .category {
+    float: left;
+    margin-right: 32px;
+    width: 608px;
+    height: 288px;
+    overflow: hidden;
+    background: #F7F7FC;
+    cursor: pointer;
+}
+
+.MainPage .categories .edge .category .name {
+    margin-top: 95px;
+    margin-left: 48px;
+    float: left;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #515562;
+}
+.MainPage .categories .edge .category .image {
+    width: 175px;
+    height: 175px;
+    float: right;
+    margin: 5%;
+}
+.MainPage .categories .middle .category .image {
+    width: 300px;
+    height: 230px;
+    float: right;
+    margin: 6%;
+}
+.MainPage .categories .middle .category .name {
+    margin-top: 130px;
+    margin-left: 48px;
+    float: left;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #515562;
+}
+.MainPage .new {
+    margin-top: 96px;
+    width: 100%;
+    overflow: hidden;
+}
+.MainPage .new .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 121%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #323540;
+    margin: auto;
+}

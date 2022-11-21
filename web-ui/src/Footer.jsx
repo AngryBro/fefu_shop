@@ -59,7 +59,7 @@ const Footer = ({categories, contacts, infoPages}) => {
                     <div className='header'>о компании</div>
                     {
                         infoPages.map(page => 
-                            <a className='link' href={page.link} target='_blank' rel="noopener noreferrer">{page.name}</a>
+                            <a key={page.id} className='link' href={page.link} target='_blank' rel="noopener noreferrer">{page.name}</a>
                         )
                     }
                 </div>
