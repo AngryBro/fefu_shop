@@ -8,7 +8,7 @@ import AvitoSVG from './svg/AvitoSVG';
 
 const Footer = ({categories, contacts, infoPages}) => { 
     
-    var [linksCategories, setLinksCategories] = React.useState([[], []]); console.log(infoPages);
+    var [linksCategories, setLinksCategories] = React.useState([[], []]);
     React.useEffect(() => {
         var temp = [];
         var temp1 = [];

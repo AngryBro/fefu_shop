@@ -1,0 +1,7 @@
+.ProductsSlider {
+    width: max-content;
+}
+.ProductsSlider .product {
+    float: left;
+    margin-right: 32px;
+}

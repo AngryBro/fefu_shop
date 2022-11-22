@@ -120,7 +120,7 @@
 }
 .MainPage .new {
     margin-top: 96px;
-    width: 100%;
+    width: 1248px;
     overflow: hidden;
 }
 .MainPage .new .header {
@@ -133,4 +133,61 @@
     text-transform: uppercase;
     color: #323540;
     margin: auto;
+    margin-bottom: 48px;
+}
+.MainPage .about {
+    margin-top: 96px;
+    margin-bottom: 96px;
+    width: 1248px;
+    height: 432px;
+    border: 2px solid rgb(205, 207, 214, 0.4);
+}
+.MainPage .about .block {
+    margin-top: 105px;
+    margin-left: 353px;
+    width: 542px;
+    height: fit-content;
+}
+.MainPage .about .block .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 121%;
+    text-transform: uppercase;
+    color: #323540;
+    margin-left: 172.5px;
+}
+.MainPage .about .block .text {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    text-align: center;
+    color: #616575;
+    margin-top: 24px;
+}
+.MainPage .about .block .moreButton {
+    margin-top: 24px;
+    margin-left: 159px;
+    width: 224px;
+    height: 48px;
+    background-color: #12518B;
+    cursor: pointer;
+    overflow: hidden;
+}
+.MainPage .about .block .moreButton .text {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin-top: 14.5px;
+    margin-left: 65px;
+    width: 94px;
+    height: 19px;
 }
