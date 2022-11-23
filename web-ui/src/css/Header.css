@@ -235,6 +235,7 @@ transform: rotate(135deg);
     text-transform: lowercase;
     color: #515562;
     float: left;
+    cursor: pointer;
 }
 .Header .infolink {
 margin-right: 24px;

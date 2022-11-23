@@ -1,7 +1,33 @@
 .ProductsSlider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.ProductsSlider .block {
+    /* width:; */
+    height: 100%;
+    overflow: hidden;
+    /* background-color: green; */
+}
+.ProductsSlider .block .slides {
     width: max-content;
+    margin-left: -320px;
 }
 .ProductsSlider .product {
     float: left;
     margin-right: 32px;
+    cursor: pointer;
+}
+.ProductsSlider .prev {
+    position: absolute;
+    top: 180px;
+    left: -24px;
+    transform: scaleX(-1);
+    cursor: pointer;
+}
+.ProductsSlider .next {
+    position: absolute;
+    top: 180px;
+    right: -24px;
+    cursor: pointer;
 }

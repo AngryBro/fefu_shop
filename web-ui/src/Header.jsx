@@ -37,7 +37,7 @@ const Header = ({cart, contacts, infoPages, categories}) => {
         </div>
         <div className='lower'>
         <div className='block'>
-        <div className='name'>
+        <div className='name' onClick={() => {document.location.href='/'}}>
                 LOGO
         </div>
         <div className='catalog' onClick={() => {setOpenedCatalog(!openedCatalog)}}>
