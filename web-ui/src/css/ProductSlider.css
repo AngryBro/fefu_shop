@@ -1,0 +1,26 @@
+.ProductSlider .block .img {
+    height: 242px;
+    width: 180px;
+    background-size: cover;
+    margin-bottom: 37px;
+}
+.ProductSlider .block {
+    overflow: hidden;
+    height: 521px;
+    width: fit-content;
+}
+.ProductSlider .block .slides {
+    height: max-content;
+    width: 100%;
+}
+.ProductSlider .up {
+    margin-left: 82px;
+    margin-bottom: 37px;
+    cursor: pointer;
+}
+.ProductSlider .down {
+    margin-left: 82px;
+    margin-top: 37px;
+    transform: scaleY(-1);
+    cursor: pointer;
+}

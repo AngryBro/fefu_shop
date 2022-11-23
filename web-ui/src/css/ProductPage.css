@@ -1,0 +1,46 @@
+.ProductPage {
+    height: 854px;
+}
+.ProductPage .main {
+    margin-top: 57px;
+    height: 1000px;
+    width: fit-content;
+    /* overflow: hidden; */
+}
+.ProductPage .route {
+    margin-top: 32px;
+}
+.ProductPage .main .slider {
+    float: left;
+}
+.ProductPage .preview {
+    margin-top: 0px;
+    margin-left: 24px;
+    float: left;
+    width: 464px;
+    height: 612px;
+    background-size: cover;
+}
+.ProductPage .preview .new {
+    /* width: 64px;
+    height: 24px; */
+    float: left;
+    margin-top: 32px;
+    background-color: #12518B;
+}
+.ProductPage .preview .new .text {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 17px;
+    margin-right: 17px;
+}
+.ProductPage .preview .favourite {
+    float: right;
+    margin: 35px;
+}

@@ -4,6 +4,17 @@ import React from 'react';
 
 const PageRoute = ({route, back = false}) => {
 
+    var [last, setLast] = React.useState({name: 'Главная', link: '/'});
+    var [prev, setPrev] = React.useState([]);
+
+    React.useEffect(() => {
+        var temp = [];
+        for(let i = 0; i < route.length-1; i++) {
+            temp.push(route[i]);
+        }
+        setPrev(temp);
+        setLast(route[route.length-1]);
+    }, [route]);
 
     return (
         <div className='PageRoute'>
@@ -11,16 +22,18 @@ const PageRoute = ({route, back = false}) => {
                 back?
                 <div className='back'>
                     <div className='svg'><RouteBackSVG/></div>
-                    <div className='route'>{route[0]}</div>
+                    <div className='routeBack' onClick={() => {document.location.href = last.link}}>{last.name}</div>
                 </div>:
                 <div className='routes'>
                     {
-                        route.map((r, index) => 
-                            index !== r.length-1?
-                            <div key={index} className='route'>{r+'/'}</div>:
-                            <div key={index} className='routeLast'>{r}</div>
+                        prev.map((route, index) => 
+                            <div className='item' key={index}>
+                                <div className='route' onClick={() => {document.location.href = route.link}}>{route.name}</div>
+                                <div className='slash'>&nbsp; / &nbsp;</div>
+                            </div>
                         )
                     }
+                    <div className='routeLast' onClick={() => {document.location.href = last.link}}>{last.name}</div>
                 </div>
             }
         </div>

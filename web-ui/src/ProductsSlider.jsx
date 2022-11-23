@@ -27,24 +27,23 @@ const ProductsSlider = ({pageSize, products}) => {
         setSlides(temp);
     }, [products, pageSize, dx]);
 
-    var next = () => {
+    var slide = flag => {
         var temp = slides;
         var l = products.length;
-        temp.push({key: last+1, item: products[((last+1)%l + l) % l]});
-        temp.shift();
+        if(flag === 1) {
+            temp.push({key: last+1, item: products[((last+1)%l + l) % l]});
+            temp.shift();
+        }
+        else {
+            temp.unshift({key: first-1, item: products[((first-1) % l + l) % l]});
+            temp.pop();
+        }
         setSlides(temp);
-        setFirst(first + 1);
-        setLast(last + 1);
-    };
-    var prev = () => {
-        var l = products.length;
-        var temp = JSON.parse(JSON.stringify(slides));
-        temp.unshift({key: first-1, item: products[((first-1) % l + l) % l]});
-        temp.pop();
-        setSlides(temp);
-        setFirst(first - 1);
-        setLast(last - 1);
-    };
+        setFirst(first + flag);
+        setLast(last + flag);
+    }
+    var next = () => slide(1);
+    var prev = () => slide(-1);
 
     return (
         <div className="ProductsSlider" >

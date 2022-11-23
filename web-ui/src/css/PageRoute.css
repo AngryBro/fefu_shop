@@ -1,32 +1,70 @@
 .PageRoute {
-    margin-top: 32px;
+    width: 100%;
+    float: none;
+    height: 18px;
 }
-.PageRoute .back {
+.PageRoute .back .svg {
     float: left;
     cursor: pointer;
+    margin-top: -3px;
+    opacity: 0.8;
 }
-.PageRoute .route {
+.PageRoute .routes .item .route {
     float: left;
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
-    display: flex;
-    align-items: center;
     text-decoration-line: underline;
+    text-decoration-thickness: 0.8px;
+    text-underline-offset: 1px;
     color: #616575;
-    opacity: 0.8;
+    opacity: 0.7;
     cursor: pointer;
+    margin-top: 0px;
 }
-.PageRoute .routeLast {
+.PageRoute .back .routeBack {
+    margin-left: 8px;
     float: left;
     font-family: 'PT Root UI';
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 14px;
     line-height: 18px;
-    display: flex;
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.8px;
+    text-underline-offset: 1px;
+    color: #616575;
+    opacity: 0.7;
+    cursor: pointer;
+}
+.PageRoute .routes .item {
+    float: left;
+    margin-left: 1px;
+}
+.PageRoute .routes {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+}
+.PageRoute .routes .item .slash {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #616575;
+    opacity: 0.7;
+    float: left;
+}
+.PageRoute .routes .routeLast {
+    float: left;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
     align-items: center;
     color: #616575;
     opacity: 0.8;
