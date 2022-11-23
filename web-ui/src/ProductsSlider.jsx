@@ -19,22 +19,22 @@ const ProductsSlider = ({pageSize, products}) => {
         // }
         if(products.length) {
             for(let i = -1; i <= pageSize; i++) {
-                temp.push(products[(i+products.length) % products.length]);
+                temp.push({key: i, item: products[(i+products.length) % products.length], left: -dx*(i+1)});
             }
         }
         setSlides(temp);
-    }, [products, pageSize]);
+    }, [products, pageSize, dx]);
 
     var next = () => {
-        var temp = JSON.parse(JSON.stringify(slides));
-        temp.push(products[(last+1) % products.length]);
-        setSlides(temp);
-        setX0(x0+dx);
         setFirst(first + 1);
         setLast(last + 1);
-        // temp = JSON.parse(JSON.stringify(slides));
-        // temp.shift();
-        // setSlides(temp);
+        var temp = JSON.parse(JSON.stringify(slides));
+        temp.push({key: last+1, item: products[(last+1) % products.length], left: -dx*pageSize});
+        setSlides(temp);
+        setX0(x0+dx);
+        temp = JSON.parse(JSON.stringify(slides));
+        temp.shift();
+        setSlides(temp);
         // setX0(x0-dx);
     };
     // var prev = () => {
@@ -42,10 +42,10 @@ const ProductsSlider = ({pageSize, products}) => {
     // };
 
     return (
-        <div className="ProductsSlider" style={{transform: `translateX(${x0}px)`, transition: 'transform 0.5s ease-in-out'}}>
+        <div className="ProductsSlider" >
             {
-                slides.map((product, index) => 
-                    <div onClick={next} className="product" key={index}><Product data={product} message='NEW'/></div>    
+                slides.map((product) => 
+                    <div style={{left: product.left,position: 'absolute', transform: `translateX(${dx}px)`, transition: 'transform 0.5s ease-in-out'}} onClick={next} className="product" key={product.key}><Product data={product.item} message='NEW'/></div>    
                 )
             }
         </div>
