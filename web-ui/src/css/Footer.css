@@ -32,28 +32,6 @@
     height: 40px;
     background-color: #0F406D;
     margin-bottom: 24px;
-    cursor: pointer;
-}
-.Footer .callback .button:hover {
-    margin-top: 32px;
-    width: 178px;
-    height: 40px;
-    background-color: #0e3d68;
-    margin-bottom: 24px;
-    cursor: pointer;
-}
-.Footer .callback .button .text {
-    font-family: 'PT Root UI';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 121%;
-    text-decoration-line: underline;
-    text-transform: uppercase;
-    color: #F7F7FC;
-    margin-top: 12.5px;
-    margin-left: 31px;
-    display: inline-block;
 }
 .Footer .callback .link {
     font-family: 'PT Root UI';

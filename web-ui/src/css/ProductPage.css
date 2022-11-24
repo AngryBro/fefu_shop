@@ -1,19 +1,114 @@
+@import url('../fonts/pt-sans/stylesheet.css');
+:root {
+    --skeleton-color: #CDCFD6;
+}
 .ProductPage {
-    height: 854px;
+    overflow: hidden;
+    margin-bottom: 136px;
 }
-.ProductPage .main {
-    margin-top: 57px;
-    height: 1000px;
-    width: fit-content;
-    /* overflow: hidden; */
-}
-.ProductPage .route {
+.ProductPage .skeleton .route {
+    height: 15px;
+    width: 200px;
+    border-radius: 10px;
     margin-top: 32px;
+    background-color: var(--skeleton-color);
 }
-.ProductPage .main .slider {
+.ProductPage .skeleton .main {
+    margin-top: 57px;
+    width: fit-content;
+}
+.ProductPage .skeleton .main .slider {
+    float: left;
+    height: 521px;
+    width: 180px;
+    border-radius: 10px;
+    background-color: var(--skeleton-color);
+    margin-top: 58px;
+}
+.ProductPage .skeleton .main .preview {
+    float: left;
+    margin-left: 24px;
+    width: 464px;
+    height: 612px;
+    border-radius: 10px;
+    background-color: var(--skeleton-color);
+    margin-top: 0px;
+}
+.ProductPage .skeleton .main .product {
+    float: left;
+    width: fit-content;
+    margin-left: 45px;
+}
+.ProductPage .skeleton .main .product .name {
+    background-color: var(--skeleton-color);
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+}
+.ProductPage .skeleton .main .product .article {
+    margin-top: 8px;
+    overflow: hidden;
+}
+.ProductPage .skeleton .main .product .description {
+    width: 480px;
+    height: 104px;
+    border-radius: 10px;
+    margin-top: 24px;
+    background-color: var(--skeleton-color);
+}
+.ProductPage .skeleton .main .product .material .block {
+    width: 432px;
+    height: 32px;
+    margin-top: 8px;
+    border-radius: 10px;
+    background-color: var(--skeleton-color);
+}
+.ProductPage .skeleton .main .product .size .block {
+    width: 139px;
+    height: 40px;
+    margin-top: 12px;
+    border-radius: 10px;
+    background-color: var(--skeleton-color);
     float: left;
 }
-.ProductPage .preview {
+.ProductPage .skeleton .main .product .color .block {
+    width: 150px;
+    height: 32px;
+    border-radius: 10px;
+    margin-top: 12px;
+    background-color: var(--skeleton-color);
+}
+.ProductPage .skeleton .main .product .priceBlock {
+    width: 240px;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 56px;
+    background-color: var(--skeleton-color);
+    overflow: hidden;
+}
+.ProductPage .skeleton .main .product .article .value {
+    float: left;
+    margin-left: 8px;
+    background-color: var(--skeleton-color);
+    width: 64px;
+    height: 17px;
+    border-radius: 10px;
+}
+.ProductPage .loaded .main {
+    margin-top: 57px;
+    width: fit-content;
+}
+.ProductPage .loaded .route {
+    margin-top: 32px;
+}
+.ProductPage .loaded .main {
+    margin-top: 56px;
+}
+.ProductPage .loaded .main .slider {
+    float: left;
+    margin-top: 0px;
+}
+.ProductPage .loaded .main .preview {
     margin-top: 0px;
     margin-left: 24px;
     float: left;
@@ -21,14 +116,12 @@
     height: 612px;
     background-size: cover;
 }
-.ProductPage .preview .new {
-    /* width: 64px;
-    height: 24px; */
+.ProductPage .loaded .main .preview .new {
     float: left;
     margin-top: 32px;
     background-color: #12518B;
 }
-.ProductPage .preview .new .text {
+.ProductPage .loaded .main .preview .new .text {
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 500;
@@ -40,7 +133,179 @@
     margin-left: 17px;
     margin-right: 17px;
 }
-.ProductPage .preview .favourite {
+.ProductPage .loaded .main .preview .favourite {
     float: right;
     margin: 35px;
+}
+.ProductPage .loaded .main .product {
+    float: left;
+    width: fit-content;
+    margin-left: 45px;
+}
+.ProductPage .loaded .main .product .name {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    color: #323540;
+}
+.ProductPage .loaded .main .product .article {
+    margin-top: 8px;
+    overflow: hidden;
+}
+.ProductPage .main .product .article .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 121%;
+    color: #515562;
+    float: left;
+}
+.ProductPage .loaded .main .product .article .value {
+    float: left;
+    margin-left: 8px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 121%;
+    color: #616575;
+}
+.ProductPage .loaded .main .product .description {
+    margin-top: 24px;
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 165%;
+    color: #616575;
+}
+.ProductPage .main .product .material {
+    margin-top: 24px;
+}
+.ProductPage .main .product .material .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 151%;
+    text-transform: uppercase;
+    color: #323540;
+}
+.ProductPage .loaded .main .product .material .value {
+    margin-top: 8px;
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #616575;
+}
+.ProductPage .main .product .size {
+    margin-top: 24px;
+    overflow: visible;
+    height: 90px;
+    /* background-color: red; */
+}
+.ProductPage .main .product .size .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 151%;
+    text-transform: uppercase;
+    color: #323540;
+}
+.ProductPage .loaded .main .product .size .select {
+    margin-top: 12px;
+    float: left;
+    overflow: visible;
+}
+.ProductPage .main .product .size .onfit {
+    margin-left: 27px;
+    float: left;
+}
+.ProductPage .main .product .size .onfit .up {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #616575;
+}
+.ProductPage .main .product .size .onfit .down {
+    margin-top: 3px;
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: underline;
+    font-size: 16px;
+    line-height: 150%;
+    color: #616575;
+}
+.ProductPage .main .product .color {
+    margin-top: 27px;
+    overflow: hidden;
+
+}
+.ProductPage .main .product .color .header {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 151%;
+    text-transform: uppercase;
+    color: #323540;
+}
+.ProductPage .loaded .main .product .color .select {
+    margin-top: 16px;
+    overflow: hidden;
+}
+.ProductPage .loaded .main .product .color .select .item {
+    margin-right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 18px;
+    float: left;
+    cursor: pointer;
+}
+.ProductPage .loaded .main .product .price {
+    margin-top: 56px;
+    overflow: hidden;
+
+}
+.ProductPage .loaded .main .product .price .old {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: line-through;
+    line-height: 121%;
+    align-items: center;
+    color: #323540;
+    opacity: 0.7;
+    float: left;
+    margin-top: 10px;
+    margin-right: 7px;
+}
+.ProductPage .loaded .main .product .price .normal {
+    margin-top: 5.5px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 121%;
+    align-items: center;
+    color: #323540;
+    float: left;
+}
+.ProductPage .loaded .main .product .price .cartButton {
+    float: left;
+    margin-left: 15px;
+    width: 136px;
+    height: 40px;
 }

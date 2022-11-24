@@ -1,0 +1,59 @@
+.SizeSelect {
+    width: 139px;
+    height: 40px;
+    overflow: visible;
+    border: 1px solid #CDCFD6;
+    position: relative;
+    cursor: pointer;
+    background-color: solid white;
+}
+.SizeSelect .selectedBlock {
+    display: flex;
+    float: left;
+    width: 83%;
+    height: 100%;
+}
+.SizeSelect .selectedBlock .selected {
+    margin: auto;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 121%;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+    color: #515562;
+    float: left;
+}
+.SizeSelect .arrow {
+    margin: auto;
+    margin-right: 16.5px;
+    margin-top: 18.5px;
+    width: 7px;
+    height: 5px;
+    float: right;
+}
+.SizeSelect .opened {
+    margin-top: 40px;
+    width: 83%;
+    border: 0.5px solid #CDCFD6;
+    background-color: white;
+}
+.SizeSelect .opened .itemBlock {
+    display: flex;
+    height: 40px;
+}
+.SizeSelect .opened .itemBlock:hover {
+    display: flex;
+    background-color: rgb(232, 232, 232);
+}
+.SizeSelect .opened .itemBlock .item {
+    margin: auto;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 121%;
+    text-transform: uppercase;
+    color: #515562;
+}

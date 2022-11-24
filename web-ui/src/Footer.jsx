@@ -5,6 +5,7 @@ import InstFooterSVG from './svg/InstFooterSVG';
 import VkSVG from './svg/VkSVG';
 import YouTubeSVG from './svg/YouTubeSVG';
 import AvitoSVG from './svg/AvitoSVG';
+import BigButton from './buttons/BigButton';
 
 const Footer = ({categories, contacts, infoPages}) => { 
     
@@ -32,7 +33,7 @@ const Footer = ({categories, contacts, infoPages}) => {
                 <div className='callback'>
                     <div className='name'>logo</div>
                     <div className='button'>
-                        <div className='text'>СВЯЗАТЬСЯ С НАМИ</div>
+                        <BigButton text='связаться с нами' color='#0F406D' font={12}/>
                     </div>
                     <div className='link'>
                         пол конф
@@ -46,7 +47,7 @@ const Footer = ({categories, contacts, infoPages}) => {
                     <div className='table'>
                         {
                             [0,1].map(i => 
-                                <div className='column'>
+                                <div className='column' key={i}>
                                     {
                                         linksCategories[i].map((category, index) => <div key={index} className='link'>{category}</div>)
                                     }

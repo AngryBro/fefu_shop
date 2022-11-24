@@ -8,6 +8,7 @@
     overflow: hidden;
     height: 521px;
     width: fit-content;
+    /* margin-top: -37px; */
 }
 .ProductSlider .block .slides {
     height: max-content;
