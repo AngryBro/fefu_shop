@@ -1,6 +1,6 @@
 .PageRoute {
     width: 100%;
-    float: none;
+    overflow: hidden;
     height: 18px;
 }
 .PageRoute .back .svg {

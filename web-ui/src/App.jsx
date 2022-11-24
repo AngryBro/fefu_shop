@@ -3,6 +3,7 @@ import Debug from './Debug';
 import Page from './Page';
 import MainPage from './MainPage';
 import ProductPage from './ProductPage';
+import CatalogPage from './CatalogPage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path='/test' element={<Debug/>}></Route>
         <Route path='/' element={<Page Content={MainPage} />}></Route>
         <Route path='/product/:slug' element={<Page Content={ProductPage} />}></Route>
+        <Route path='/catalog/:slug' element={<Page Content={CatalogPage} />}/>
       </Routes>
     </BrowserRouter>
   );

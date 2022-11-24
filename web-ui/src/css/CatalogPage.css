@@ -1,0 +1,11 @@
+.CatalogPage .item {
+    float: left;
+    margin-left: 32px;
+    margin-bottom: 72px;
+}
+.CatalogPage {
+    overflow: hidden;
+}
+.CatalogPage .route {
+    float: left;
+}
