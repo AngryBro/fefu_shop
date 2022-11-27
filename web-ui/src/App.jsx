@@ -12,7 +12,8 @@ function App() {
         <Route path='/test' element={<Debug/>}></Route>
         <Route path='/' element={<Page Content={MainPage} />}></Route>
         <Route path='/product/:slug' element={<Page Content={ProductPage} />}></Route>
-        <Route path='/catalog/:slug' element={<Page Content={CatalogPage} />}/>
+        <Route path='/catalog/:slug' element={<Page Content={CatalogPage} title='Каталог' />}/>
+        <Route path='/catalog' element={<Page Content={CatalogPage} title='Каталог' />}/>
       </Routes>
     </BrowserRouter>
   );

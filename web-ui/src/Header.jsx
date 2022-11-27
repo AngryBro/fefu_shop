@@ -14,10 +14,18 @@ const Header = ({cart, contacts, infoPages, categories}) => {
     
     const authed = localStorage.getItem('Authorization') !== null;
     var [openedCatalog, setOpenedCatalog] = React.useState(false);
+    var [searchString, setSearchString] = React.useState('');
+
+    var search = () => {
+        var trimedSearchString = searchString.trim();
+        if(trimedSearchString.length) {
+            document.location.href = `/catalog?search=${trimedSearchString}`
+        }
+    }
 
     return(
         <div>
-    <div className="Header">
+    <div className="Header" onMouseLeave={() => setOpenedCatalog(false)}>
         <div className='upper'>
             <div className='block'>
             <div className='infolinks'>
@@ -40,7 +48,10 @@ const Header = ({cart, contacts, infoPages, categories}) => {
         <div className='name' onClick={() => {document.location.href='/'}}>
                 LOGO
         </div>
-        <div className='catalog' onClick={() => {setOpenedCatalog(!openedCatalog)}}>
+        <div className='catalog'
+             onMouseEnter={() => {setOpenedCatalog(true)}}
+             onClick={() => document.location.href='/catalog'}
+        >
         
             <div className='rectBlock'>
                 {openedCatalog?
@@ -58,8 +69,11 @@ const Header = ({cart, contacts, infoPages, categories}) => {
             <div className='text'>КАТАЛОГ</div>
         </div>
         <div className='search'>
-            <input type="text" />
-            <div className='svg'><SearchSVG/></div>
+            <input type="text" 
+                onChange={e => setSearchString(e.target.value)}
+                onKeyDown={e => {if(e.key === 'Enter'){search()}}}
+            />
+            <div className='svg' onClick={search}><SearchSVG/></div>
         </div>
             <div className='favouriteSvg'><FavouriteSVG/></div>
             <div className='favouriteText'>Избранное</div>
@@ -76,7 +90,10 @@ const Header = ({cart, contacts, infoPages, categories}) => {
         </div>
         </div>
         </div>
-        <div className='openedCatalogBlock'>
+        <div className='openedCatalogBlock'
+            onMouseEnter={() => setOpenedCatalog(true)}
+            onMouseLeave={() => setOpenedCatalog(false)}
+        >
         {
             openedCatalog?<OpenedCatalog categories={categories}/>:<></>
         }

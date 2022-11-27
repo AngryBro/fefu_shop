@@ -7,6 +7,7 @@ import NotFavouriteSVG from './svg/NotFavouriteSVG';
 import FavouriteSVG from './svg/FavouriteSVG';
 import BigButton from './buttons/BigButton';
 import SizeSelect from './SizeSelect';
+import './css/Skeleton.css';
 
 const ProductPage = () => {
 
@@ -63,7 +64,7 @@ const ProductPage = () => {
                 }
             ]
         });
-        setTimeout(() => setLoaded(true), 2000);
+        setTimeout(() => setLoaded(true), 20000);
     }, [slug]);
 
     useEffect(() => {
@@ -200,24 +201,24 @@ const ProductPage = () => {
                     </div>
                 </div>:
                 <div className='skeleton'>
-                    <div className='route'></div>
+                    <div className='route skeletonBg'></div>
                     <div className='main'>
-                        <div className='slider'> </div>
-                        <div className='preview'></div>
+                        <div className='slider skeletonBg'> </div>
+                        <div className='preview skeletonBg'></div>
                         <div className='product'>
-                            <div className='name'></div>
+                            <div className='name skeletonBg'></div>
                             <div className='article'>
                                 <div className='header'>Артикул:</div>
-                                <div className='value'></div>
+                                <div className='value skeletonBg'></div>
                             </div>
-                            <div className='description'></div>
+                            <div className='description skeletonBg'></div>
                             <div className='material'>
                                 <div className='header'>состав:</div>
-                                <div className='block'></div>
+                                <div className='block skeletonBg'></div>
                             </div>
                             <div className='size'>
                                 <div className='header'>размер:</div>
-                                <div className='block'></div>
+                                <div className='block skeletonBg'></div>
                                 <div className='onfit'>
                                     <div className='up'>Не можете подобрать размер?</div>
                                     <div className='down'>Запишитесь на примерку в наш шоурум</div>
@@ -225,9 +226,9 @@ const ProductPage = () => {
                             </div>
                             <div className='color'>
                                 <div className='header'>цвет:</div>
-                                <div className='block'></div>
+                                <div className='block skeletonBg'></div>
                             </div>
-                            <div className='priceBlock'></div>
+                            <div className='priceBlock skeletonBg'></div>
                         </div>
                     </div>
                 </div>

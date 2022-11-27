@@ -146,6 +146,7 @@ color: #323540;
     margin-top: 14px;
     margin-right: 19px;
     float: right;
+    cursor: pointer;
 }
 .Header .search input {
 margin-top: 6px;

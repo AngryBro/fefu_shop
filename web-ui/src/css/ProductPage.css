@@ -1,7 +1,4 @@
 @import url('../fonts/pt-sans/stylesheet.css');
-:root {
-    --skeleton-color: #CDCFD6;
-}
 .ProductPage {
     overflow: hidden;
     margin-bottom: 136px;
@@ -209,7 +206,6 @@
     margin-top: 24px;
     overflow: visible;
     height: 90px;
-    /* background-color: red; */
 }
 .ProductPage .main .product .size .header {
     font-family: 'PT Root UI';

@@ -1,0 +1,82 @@
+.CatalogPaginator {
+    overflow: hidden;
+}
+
+.CatalogPaginator .prev {
+    float: left;
+    display: flex;
+    height: 32px;
+}
+.CatalogPaginator .textNextPrev {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #616575;
+    margin: auto;
+    float: left;
+}
+.CatalogPaginator .prev .arrow {
+    transform: scaleX(-1);
+    margin-top: 2px;
+    float: left;
+    margin-right: 8px;
+}
+.CatalogPaginator .next {
+    height: 32px;
+    float: left;
+    display: flex;
+    margin-left: -16px;
+}
+.CatalogPaginator .next .arrow {
+    margin-top: 2px;
+    float: left;
+    margin-left: 8px;
+}
+.CatalogPaginator .pages {
+    float: left;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.CatalogPaginator .pages .page {
+    float: left;
+    margin-right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    opacity: 0.6;
+    border: 1px solid #CDCFD6;
+    cursor: pointer;
+}
+.CatalogPaginator .pages .pageSelected {
+    float: left;
+    margin-right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    opacity: 0.6;
+    background: rgba(18, 81, 139, 0.1);
+    cursor: default;
+}
+.CatalogPaginator .pages .page .pageNumber {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #9CA0AB;
+    margin: auto;
+}
+.CatalogPaginator .pages .pageSelected .pageNumber {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #323540;
+    margin: auto;
+}

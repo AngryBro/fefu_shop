@@ -1,11 +1,13 @@
 import React from 'react';
-import ProductSkeleton from './ProductSkeleton';
+import CatalogPaginator from './CatalogPaginator';
 
 const Debug = () => {
 
     return (
         <div style={{marginLeft:'50px', marginTop:'50px'}}>
-            <ProductSkeleton/>
+            <div style={{overflow: 'visible'}}>
+                <CatalogPaginator/>
+            </div>
         </div>
     )
 }

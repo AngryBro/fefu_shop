@@ -5,7 +5,83 @@
 }
 .CatalogPage {
     overflow: hidden;
+    /* height: 500px; */
 }
 .CatalogPage .route {
+    margin-top: 32px;
+}
+.CatalogPage .header {
+    margin-top: 41px;
+    overflow: visible;
+    height: 40px;
+}
+.CatalogPage .header .textLeft {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    align-items: center;
+    text-transform: uppercase;
+    color: #515562;
     float: left;
+}
+.CatalogPage .header .sort {
+    float: right;
+    margin-right: 96px;
+}
+.CatalogPage .line {
+    margin-top: 33px;
+    opacity: 0.5;
+    background-color:  #CDCFD6;
+    height: 1px;
+    margin-right: 96px;
+}
+.CatalogPage .productsNotFound .search {
+    margin-top: 75px;
+    margin-left: 319px;
+    height: 542px;
+    width: 578px;
+    background-image: url('../imgs/notFound.png');
+    background-size: cover;
+}
+.CatalogPage .productsNotFound .category .blockCategoryNotFound {
+    width: 1248px;
+    height: 100px;
+    background-color: #F7F7FC;
+    display: flex;
+}
+.CatalogPage .productsNotFound .category .textNotFound {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 121%;
+    color: #323540;
+    margin: auto;
+    margin-left: 40px;
+    float: left;
+}
+.CatalogPage .productsNotFound .category .manImage {
+    margin-top: 54px;
+    margin-left: 368px;
+    width: 480px;
+    height: 450px;
+    background-size: cover;
+    background-image: url(../imgs/notFound.png);
+}
+.CatalogPage .products {
+    margin-left: 160px;
+    margin-top: 47px;
+    overflow: hidden;
+}
+.CatalogPage .products .productItem {
+    float: left;
+    margin-right: 32px;
+    margin-bottom: 72px;
+}
+.CatalogPage .pagination {
+    margin-top: 96px;
+    margin-bottom: 129px;
+    margin-left: 330px;
 }
