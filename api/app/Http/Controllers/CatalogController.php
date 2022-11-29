@@ -67,7 +67,8 @@ class CatalogController extends Controller
         'colors.rgb as color_rgb',
         'colors.article as color_article',
         'materials.name as material',
-        'brands.name as brand'
+        'brands.name as brand',
+        'categories.name as category'
         )
         ->where('products.slug',$slug);
         if($show) $product = $product->where('products.show',$show);
@@ -75,6 +76,7 @@ class CatalogController extends Controller
         ->leftJoin('colors', 'products.color_id','colors.id')
         ->leftJoin('materials', 'products.material_id','materials.id')
         ->leftJoin('brands', 'products.brand_id', 'brands.id')
+        ->leftJoin('categories', 'products.category_id', 'categories.id')
         ->first();
         return $product;
     }
