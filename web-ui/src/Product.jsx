@@ -1,7 +1,13 @@
 import FavouriteSVG from "./svg/FavouriteSVG";
 import './css/Product.css';
+import ProductSkeleton from "./ProductSkeleton";
 
-const Product = ({data, isFavourite = false, message = null}) => {
+const Product = ({data, isFavourite = false, message = null, skeleton=false}) => {
+    
+    if(skeleton) {
+        return <ProductSkeleton/>;
+    };
+    
     return (
         <div className="Product">
             <div className="image" style={{backgroundImage: data.image_preview}}>

@@ -8,6 +8,7 @@ import FavouriteSVG from './svg/FavouriteSVG';
 import BigButton from './buttons/BigButton';
 import SizeSelect from './SizeSelect';
 import './css/Skeleton.css';
+import PriceDiscount from './PriceDiscount';
 
 const ProductPage = () => {
 
@@ -29,7 +30,7 @@ const ProductPage = () => {
                 image_preview:  'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
                 article: '12345M',
                 price: 10000,
-                price_discount: 9999+1,
+                price_discount: 9999,
                 description: 'мягенький тёпленький',
                 XS: 1,
                 S: -1,
@@ -73,6 +74,7 @@ const ProductPage = () => {
             temp.unshift(data.product.image_preview);
             setImgs(temp);
             setImagePreview(data.product.image_preview);
+            document.title = data.product.name;
         }
     }, [data]);
 
@@ -183,16 +185,8 @@ const ProductPage = () => {
                                     }
                                 </div>
                             </div>
-                            <div className='price'>
-                                {
-                                    data.product.price === data.product.price_discount?
-                                    <div className='normal'>{data.product.price} &#8381;</div>:
-                                    <div>
-                                        <div className='old'>{data.product.price} &#8381;</div>
-                                        <div className='normal'>{data.product.price_discount} &#8381;</div>
-                                    </div>
-                                }
-                                <div className='value'></div>
+                            <div className='priceBlock'>
+                                <div className='price'><PriceDiscount price={{old: data.product.price, new: data.product.price_discount}} /></div>
                                 <div className='cartButton'>
                                     <BigButton text='в корзину' />
                                 </div>

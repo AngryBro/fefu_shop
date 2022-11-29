@@ -9,19 +9,14 @@ import CartDownSVG from './svg/CartDownSVG';
 import InstSVG from './svg/InstSVG';
 import WhatsappSVG from './svg/WhatsappSVG';
 import OpenedCatalog from './OpenedCatalog';
+import { useNavigate } from 'react-router-dom';
 
-const Header = ({cart, contacts, infoPages, categories}) => { 
+const Header = ({cart, contacts, infoPages, categories, searchString, search}) => { 
     
     const authed = localStorage.getItem('Authorization') !== null;
-    var [openedCatalog, setOpenedCatalog] = React.useState(false);
-    var [searchString, setSearchString] = React.useState('');
+    const navigate = useNavigate();
 
-    var search = () => {
-        var trimedSearchString = searchString.trim();
-        if(trimedSearchString.length) {
-            document.location.href = `/catalog?search=${trimedSearchString}`
-        }
-    }
+    var [openedCatalog, setOpenedCatalog] = React.useState(false);
 
     return(
         <div>
@@ -45,12 +40,12 @@ const Header = ({cart, contacts, infoPages, categories}) => {
         </div>
         <div className='lower'>
         <div className='block'>
-        <div className='name' onClick={() => {document.location.href='/'}}>
+        <div className='name' onClick={() => navigate('/')}>
                 LOGO
         </div>
         <div className='catalog'
              onMouseEnter={() => {setOpenedCatalog(true)}}
-             onClick={() => document.location.href='/catalog'}
+             onClick={() => {navigate('/catalog'); searchString.set('')}}
         >
         
             <div className='rectBlock'>
@@ -70,8 +65,9 @@ const Header = ({cart, contacts, infoPages, categories}) => {
         </div>
         <div className='search'>
             <input type="text" 
-                onChange={e => setSearchString(e.target.value)}
+                onChange={e => searchString.set(e.target.value)}
                 onKeyDown={e => {if(e.key === 'Enter'){search()}}}
+                value={searchString.get}
             />
             <div className='svg' onClick={search}><SearchSVG/></div>
         </div>

@@ -1,0 +1,69 @@
+.CartPosition {
+    overflow: hidden;
+    width: 593px;
+}
+.CartPosition .imagePreview {
+    width: 145px;
+    height: 145px;
+    float: left;
+    background-size: cover;
+}
+.CartPosition .productInfo {
+    float: left;
+    margin-left: 32px;
+}
+.CartPosition .productInfo .name {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 121%;
+    color: #323540;
+}
+.CartPosition .productInfo .title {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    color: #616575;
+}
+.CartPosition .productInfo .sizeBlock {
+    margin-top: 9px;
+    overflow: hidden;
+}
+.CartPosition .productInfo .size {
+    margin-left: 8px;
+    float: left;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 121%;
+    color: #515562;
+}
+.CartPosition .productInfo .countBlock {
+    margin-top: 24px;
+    float: left;
+}
+.CartPosition .productInfo .counter {
+    margin-top: 8px;
+}
+.CartPosition .productInfo .priceBlock {
+    margin-left: 32px;
+    margin-top: 24px;
+    float: left;
+}
+.CartPosition .productInfo .price {
+    margin-top: 12px;
+}
+.CartPosition .deleteButton {
+    float: right;
+    margin-right: 0px;
+    cursor: pointer;
+}
+.CartPosition .deleteButton:hover {
+    float: right;
+    margin-right: 0px;
+    cursor: pointer;
+}

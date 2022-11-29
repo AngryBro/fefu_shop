@@ -1,0 +1,22 @@
+.PriceDiscount {
+    overflow: hidden;
+}
+.PriceDiscount .old {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: line-through;
+    line-height: 121%;
+    color: #323540;
+    opacity: 0.7;
+    float: left;
+    margin-right: 7px;
+}
+.PriceDiscount .new {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    line-height: 121%;
+    color: #323540;
+    float: left;
+}

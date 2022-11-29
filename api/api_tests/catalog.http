@@ -5,19 +5,13 @@ Content-Type: application/json
     "page_size":5,
     "page":1,
     # "search_string":"aperiam",
-    "category_ids":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],
-    "brand_ids":[1,2,3,4,5],
-    "sizes":["XS","M","S","L","XL"],
-    "color_ids":[1,2,3,4,5,6],
-    "material_ids":[1,2,3,4],
-    "sort_price":false,
-    "sort_new":true,
-    "price_min":0,
-    "price_max":10000
+    "category_slug": "et",
+    "sort_price":-1,
+    "sort_new":true
 }
 ###
 GET http://localhost/api/products.meta
 ###
-GET http://localhost/api/product.get?id=2
+GET http://localhost/api/product.get?slug=magnam
 ###
 GET http://localhost/api/products.new

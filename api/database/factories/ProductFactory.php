@@ -20,7 +20,7 @@ class ProductFactory extends Factory
         $discount = $this->faker->numberBetween(0,100);
         return [
             'name' => $this->faker->unique()->word(),
-            'name_internal' => $this->faker->unique()->word(),
+            'slug' => $this->faker->unique()->word(),
             // 'image_preview' => $image,
             'category_id' => $this->faker->numberBetween(1,20),
             'article' => $this->faker->unique()->numberBetween(100,1000),

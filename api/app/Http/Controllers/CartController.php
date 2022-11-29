@@ -16,13 +16,13 @@ class CartController extends Controller
     function addPosition(Request $request) {
         $validator = Validator::make($request->all(),[
             'product_id' => 'required|integer|min:1',
-            'size_id' => 'required|integer|min:1'
+            'size' => 'required|string'
         ]);
         if($validator->fails()) return response()->json([
-            'message' => 'invalid ids'
+            'message' => 'invalid id or size'
         ],422);
         $data = $validator->validated();
-        $size = Size::find($data['size_id']);
+        $size = Size::firstWhere('name', $data['size']);
         if($size !== null) {
             $sizeName = $size->name;
         }
@@ -40,13 +40,13 @@ class CartController extends Controller
         $cart = $request->cart;
         $position = new CartProduct;
         $position->product_id = $data['product_id'];
-        $position->size_id = $data['size_id'];
+        $position->size_id = $size->id;
         $position->count = 1;
         $newSession = false;
         if($cart !== null) {
             $positionOld = CartProduct::query()
             ->where('product_id',$data['product_id'])
-            ->where('size_id',$data['size_id'])
+            ->where('size_id',$size->id)
             ->where('cart_id', $cart->id)
             ->first();
             if($positionOld !== null) {
@@ -77,7 +77,7 @@ class CartController extends Controller
         return response()->json(
             $newSession?[
                 'session' => $session->token,
-                'message' => 'cart created ,position added'
+                'message' => 'cart created, position added'
             ]:
             [
                 'message' => 'position added'

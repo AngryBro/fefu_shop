@@ -1,0 +1,48 @@
+.CartCounter {
+    overflow: hidden;
+}
+.CartCounter .blockCounter {
+    width: fit-content;
+    height: 28px;
+    background: #FFFFFF;
+    border: 0.5px solid #CDCFD6;
+    background-color: white;
+}
+.CartCounter .blockCounter .edgeBlock {
+    display: flex;
+    float: left;
+    width: 28px;
+    height: 100%;
+}
+.CartCounter .blockCounter .innerBlock {
+    display: flex;
+    float: left;
+    width: 28px;
+    height: 100%;
+}
+.CartCounter .blockCounter .edgeBlock:hover {
+    display: flex;
+    float: left;
+    width: 28px;
+    height: 100%;
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+}
+.CartCounter .xcrement {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 121%;
+    color: #ADB1BB;
+    margin: auto;
+}
+.CartCounter .countCounter {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 121%;
+    color: #515562;  
+    margin: auto;
+}

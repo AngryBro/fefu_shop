@@ -34,22 +34,22 @@ class CatalogController extends Controller
 
     function product(Request $request) {
         $validator = Validator::make($request->all(),[
-            'id' => 'required|integer|min:1'
+            'slug' => 'required|string'
         ]);
         if($validator->fails()) return response()->json([
-            'message' => 'incorrect id'
+            'message' => 'incorrect slug'
         ],422);
-        $id = $validator->validated()['id'];
-        $product = $this->getProductById($id, true);
+        $slug = $validator->validated()['slug'];
+        $product = $this->getProductBySlug($slug, true);
         if($product === null) return response()->json([
             'message' => 'not found'
         ],404);
         $images = ProductImage::query()
         ->select('image')
-        ->where('product_id',$id)
+        ->where('product_id',$product->id)
         ->get();
         $otherColors = Product::query()
-        ->select('products.id','colors.rgb as color_rgb','colors.name as color_name')
+        ->select('products.slug','colors.rgb as color_rgb','colors.name as color_name')
         ->leftJoin('colors','products.color_id','colors.id')
         ->where('products.article',$product->article)
         ->get();
@@ -60,24 +60,21 @@ class CatalogController extends Controller
         ]);
     }
 
-    private function getProductById($id, $show) {
+    private function getProductBySlug($slug, $show) {
         $product = Product::query()
         ->select('products.*',
         'colors.name as color_name',
         'colors.rgb as color_rgb',
         'colors.article as color_article',
-        'brands.name as brand',
         'materials.name as material',
-        'categories.name as category'
+        'brands.name as brand'
         )
-        ->where('products.id',$id);
+        ->where('products.slug',$slug);
         if($show) $product = $product->where('products.show',$show);
         $product = $product
-        ->leftJoin('categories',
-        'categories.id','products.category_id')
         ->leftJoin('colors', 'products.color_id','colors.id')
-        ->leftJoin('brands', 'products.brand_id','brands.id')
         ->leftJoin('materials', 'products.material_id','materials.id')
+        ->leftJoin('brands', 'products.brand_id', 'brands.id')
         ->first();
         return $product;
     }
@@ -86,22 +83,19 @@ class CatalogController extends Controller
         $validator = Validator::make($request->all(),[
             'page' => 'required|integer|min:1',
             'page_size' => 'required|integer|min:1',
-            'category_ids' => 'required|array',
-            'brand_ids' => 'required|array',
-            'sizes' => 'required|array',
-            'material_ids' => 'required|array',
-            'color_ids' => 'required|array',
-            'price_min' => 'required|integer',
-            'price_max' => 'required|integer',
+            'category_slug' => 'string',
             'sort_new' => 'required|boolean',
-            'sort_price' => 'required|boolean',
+            'sort_price' => 'required|integer|min:-1|max:1',
             'search_string' => 'string'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $products = Product::query()->where('products.show',true);
+        $products = Product::query()
+            ->select('products.*', 'categories.slug as category_slug')
+            ->where('products.show',true)
+            ->leftJoin('categories','products.category_id','categories.id');
         $products = $this->queryByFiltersAndSort($products, $data);
         if(isset($data['search_string'])) {
             $products = $this->queryBySearchString($products, $data['search_string']);
@@ -115,14 +109,13 @@ class CatalogController extends Controller
 
     private function queryBySearchString($products, $string) {
 
-        return $products->select('products.*')
-            ->leftJoin('categories','products.category_id','categories.id')
+        return $products
             ->where(function($query) use($string) {
                 $query->whereRaw("POSITION('$string' IN products.name) > 0")
                 ->orWhereRaw("POSITION('$string' IN products.article) > 0")
                 ->orWhereRaw("POSITION('$string' IN categories.name) > 0")
-                ->orWhereRaw("POSITION('$string' IN products.name_internal) > 0")
-                ->orWhereRaw("POSITION(products.name_internal IN '$string') > 0")
+                ->orWhereRaw("POSITION('$string' IN products.slug) > 0")
+                ->orWhereRaw("POSITION(products.slug IN '$string') > 0")
                 ->orWhereRaw("POSITION(products.name IN '$string') > 0")
                 ->orWhereRaw("POSITION(products.article IN '$string') > 0")
                 ->orWhereRaw("POSITION(categories.name IN '$string') > 0");
@@ -130,27 +123,17 @@ class CatalogController extends Controller
     }
 
     private function queryByFiltersAndSort($products,$data) {
-
+        
+        if(isset($data['category_slug'])) {
+            $products = $products
+            ->where('categories.slug', $data['category_slug']);
+        }
         if($data['sort_new']) {
             $products = $products->orderBy('new','desc');
         }
-        $products = $products
-        ->whereIn('products.category_id',$data['category_ids'])
-        ->where('products.price_discount','>',$data['price_min'])
-        ->where('products.price_discount','<',$data['price_max'])
-        ->whereIn('products.brand_id',$data['brand_ids'])
-        ->where(function($query) use($data){
-            foreach($data['sizes'] as $size) {
-                $query = $query->orWhere("products.$size", '<>', null);
-            }
-        });
-        // foreach($data['sizes'] as $size) {
-        //     $products = $products->where("products.$size", '<>', null);
-        // }
-        $products = $products
-        ->whereIn('products.color_id',$data['color_ids'])
-        ->whereIn('products.material_id',$data['material_ids'])
-        ->orderBy('products.price_discount',$data['sort_price']?'asc':'desc');
+        if($data['sort_price'] !== 0) {
+            $products = $products->orderBy('products.price_discount',$data['sort_price']===1?'asc':'desc');
+        }
         
         return $products;
     }

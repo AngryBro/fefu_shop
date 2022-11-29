@@ -5,8 +5,8 @@ Content-Type: application/json
 Authorization: Bearer usertoken
 
 {
-    "product_id":4,
-    "size_id":2
+    "product_id":3,
+    "size":"L"
 }
 ### Удаление из корзины
 POST http://localhost/api/cart.delete

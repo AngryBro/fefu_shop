@@ -1,13 +1,14 @@
 import React from 'react';
-import CatalogPaginator from './CatalogPaginator';
+import CartPosition from './CartPosition';
+import PriceDiscount from './PriceDiscount';
+import CartCounter from './CartCounter';
 
 const Debug = () => {
 
     return (
         <div style={{marginLeft:'50px', marginTop:'50px'}}>
-            <div style={{overflow: 'visible'}}>
-                <CatalogPaginator/>
-            </div>
+            {/* <CartPosition/> */}
+            {/* <CartCounter count={{get: 2}}/> */}
         </div>
     )
 }
