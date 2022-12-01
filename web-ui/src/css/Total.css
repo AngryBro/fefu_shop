@@ -1,0 +1,66 @@
+.Total {
+    width: 100%;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 1px 1px 0 #CDCFD6 inset, -1px -1px 0 #CDCFD6 inset;
+}
+.Total .lineInfo {
+    width: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    height: 1px;
+    width: 100%;
+    background-color: #CDCFD6;
+}
+.Total .title {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 121%;
+    color: #515562; 
+}
+.Total .infoBlock {
+    margin-top: 24px;
+    overflow: hidden;
+}
+.Total .param {
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+.Total .subTitle {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    color: #616575;
+    float: left;
+}
+.Total .value {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    color: #323540;  
+    float: right;  
+}
+.Total .subTitleTotal {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 121%;
+    color: #323540;
+    float: left;
+}
+.Total .price {
+    float: right;
+}
+.Total .button {
+    margin-top: 24px;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+}

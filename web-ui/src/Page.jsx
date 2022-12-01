@@ -10,21 +10,16 @@ const Page = ({Content, title}) => {
 
     var [cartCount, setCartCount] = React.useState(0);
     var [cartSum, setCartSum] = React.useState(0);
+    var [cartUpdateFlag, setCartUpdateFlag] = React.useState(false);
     var [infoPages, setInfoPages] = React.useState([]);
     var [contacts, setContacts] = React.useState([]);
     var [categories, setCategories] = React.useState([]);
     var [searchString, setSearchString] = React.useState('');
-    var cartAction = {
-        inc: () => {
-            setCartCount(cartCount+1);
-        },
-        dec: () => {
-            setCartCount(cartCount-1);
-        },
-        add: sum => {
-            setCartSum(cartSum+sum);
-        }
-    };
+    var [userData, setUserData] = React.useState({authed: false, name:'123'});
+
+    var cartUpdate = () => {
+        setCartUpdateFlag(!cartUpdateFlag);
+    }
 
     const search = () => {
         var trimedSearchString = searchString.trim();
@@ -32,6 +27,18 @@ const Page = ({Content, title}) => {
             navigate(`/catalog?search=${trimedSearchString}`);
         }
     }
+
+    React.useEffect(() => {
+        if(localStorage.getItem('Authorization') !== null) {
+            setUserData({authed: true});
+        }
+    }, []);
+
+    React.useEffect(() => {
+        //
+        setCartCount(0);
+        setCartSum(0); 
+    }, [cartUpdateFlag]);
 
     React.useEffect(() => {
         
@@ -66,8 +73,26 @@ const Page = ({Content, title}) => {
 
     return (
         <div>
-            <Header categories={categories} cart={{count: cartCount, sum: cartSum}} contacts={contacts} infoPages={infoPages} search={search} searchString={{get: searchString, set: setSearchString}}></Header>
-            <div className="content"><div className="contentBlock"><Content cartAction={cartAction} searchString={{get: searchString, set: setSearchString}} /></div></div>
+            <Header
+                categories={categories}
+                cart={{count: cartCount, sum: cartSum}}
+                contacts={contacts}
+                infoPages={infoPages}
+                search={search}
+                searchString={{get: searchString, set: setSearchString}}
+                userData={userData}
+                >
+            </Header>
+            <div className="content">
+                <div className="contentBlock">
+                    <Content 
+                    cartUpdate={cartUpdate}
+                    cart={{sum: cartSum, count: cartCount}}
+                    searchString={{get: searchString, set: setSearchString}}
+                    userData={userData}
+                    />
+                </div>
+            </div>
             <Footer categories={categories} infoPages={infoPages} contacts={contacts}></Footer>
         </div>
     );

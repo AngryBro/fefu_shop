@@ -2,8 +2,7 @@ import './css/CartPage.css';
 import PageRoute from './PageRoute';
 import { useState, useEffect } from 'react';
 import CartPosition from './CartPosition';
-import PriceDiscount from './PriceDiscount';
-import BigButton from './buttons/BigButton';
+import Total from './Total';
 
 const CartPage = () => {
 // eslint-disable-next-line
@@ -111,30 +110,24 @@ const CartPage = () => {
                     }
                 </div>
                 <div className='info'>
-                    <div className='title'>Ваша корзина</div>
-                    <div className='line'></div>
-                    <div className='count'>
-                        <div className='subTitle'>Кол-во позиций:</div>
-                        <div className='value'>{positions.length} шт</div>
-                    </div>
-                    <div className='sum'>
-                        <div className='subTitle'>Сумма:</div>
-                        <div className='value'>{sum()} &#8381;</div>
-                    </div>
-                    <div className='sumDiscounts'>
-                        <div className='subTitle'>Сумма скидок:</div>
-                        <div className='value'>{sumDiscounts()} &#8381;</div>
-                    </div>
-                    <div className='line'></div>
-                    <div className='total'>
-                        <div className='subTitleTotal'>Итого</div>
-                        <div className='price'>
-                            <PriceDiscount price={sumTotal()} font={14} />
-                        </div>
-                    </div>
-                    <div className='orderButton'>
-                        <BigButton text={'Оформить заказ'} />
-                    </div>
+                    <Total
+                    marginLeft='16px'
+                    title='Ваша корзина'
+                    params={[
+                        {title: 'Количество товаров:', value: `${positions.length} шт`},
+                        {title: 'Сумма:', value: `${sum()} ₽`},
+                        {title: 'Сумма скидок:', value: `${sumDiscounts()} ₽`}
+                    ]}
+                    total={{
+                        title: 'Итого',
+                        value: sumTotal(),
+                        font: 14
+                    }}
+                    button={{
+                        text: 'Оформить заказ'
+                    }}
+                    fontParams='12px'
+                    />
                 </div>
             </div>
 

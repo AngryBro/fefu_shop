@@ -5,6 +5,7 @@ import MainPage from './MainPage';
 import ProductPage from './ProductPage';
 import CatalogPage from './CatalogPage';
 import CartPage from './CartPage';
+import OrderPage from './OrderPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/catalog/:slug' element={<Page Content={CatalogPage} title='Каталог' />}/>
         <Route path='/catalog' element={<Page Content={CatalogPage} title='Каталог' />}/>
         <Route path='/cart' element={<Page Content={CartPage} title='Корзина' />}/>
+        <Route path='/order' element={<Page Content={OrderPage} title='Оформление'/>} />
       </Routes>
     </BrowserRouter>
   );

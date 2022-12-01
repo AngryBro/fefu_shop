@@ -1,0 +1,7 @@
+POST https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address
+Authorization: Token ee6f3c521b3f2f04cbf6d21fb9949f7a797c5ced
+Content-Type: application/json
+
+{
+    "query":"владивосток нейбута 6"
+}

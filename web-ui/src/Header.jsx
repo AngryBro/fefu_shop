@@ -11,9 +11,9 @@ import WhatsappSVG from './svg/WhatsappSVG';
 import OpenedCatalog from './OpenedCatalog';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({cart, contacts, infoPages, categories, searchString, search}) => { 
+const Header = ({cart, contacts, infoPages, categories, searchString, search, userData}) => { 
     
-    const authed = localStorage.getItem('Authorization') !== null;
+    // const authed = localStorage.getItem('Authorization') !== null;
     const navigate = useNavigate();
 
     var [openedCatalog, setOpenedCatalog] = React.useState(false);
@@ -77,7 +77,7 @@ const Header = ({cart, contacts, infoPages, categories, searchString, search}) =
                 <div className='head'><AuthHeadSVG/></div>
                 <div className='body'><AuthBodySVG/></div>
             </div>
-            <div className='authText'>{authed?"79998887766":"Вход/Регистрация"}</div>
+            <div className='authText'>{userData.authed?"79998887766":"Вход/Регистрация"}</div>
             <div className='cartSvg'>
                 <div className='up'><CartUpSVG/></div>
                 <div className='down'><CartDownSVG/></div>
