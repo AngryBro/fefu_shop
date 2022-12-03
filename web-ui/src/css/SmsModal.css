@@ -1,0 +1,54 @@
+.SmsModalInput {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 121%;
+    color: #323540;
+    display: block;
+    margin: auto;
+    outline: none;
+    width: 200px;
+    text-align: center;
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+.SmsModalInputBlock {
+    width: 50px;
+    height: 13px;
+    margin: auto;
+}
+.SmsModal.stars {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 121%;
+    color: #323540;    
+    text-align: center;
+}
+.SmsModalPhone {
+    float: left;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    align-items: center;
+    text-align: center;
+    color: #515562;
+    margin: auto;
+    text-decoration: underline;
+}
+.SmsModalEditPhoneBlock {
+    overflow: hidden;
+    width: fit-content;
+    margin: auto;
+    margin-top: 5px;
+}
+.SmsModalEditPhone {
+    float: left;
+    cursor: pointer;
+    margin-left: 7px;
+}

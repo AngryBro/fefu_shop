@@ -3,10 +3,23 @@ import Footer from "./Footer";
 import React from "react";
 import './css/Page.css';
 import { useNavigate } from "react-router-dom";
+import PhoneModal from "./PhoneModal";
+import SmsModal from "./SmsModal";
 
 const Page = ({Content, title}) => {
 
     const navigate = useNavigate();
+    const closedModalWindow = {type: null, phone: ''};
+
+    const cartUpdate = () => {
+        setCartUpdateFlag(!cartUpdateFlag);
+    }
+    const search = () => {
+        var trimedSearchString = searchString.trim();
+        if(trimedSearchString.length) {
+            navigate(`/catalog?search=${trimedSearchString}`);
+        }
+    }
 
     var [cartCount, setCartCount] = React.useState(0);
     var [cartSum, setCartSum] = React.useState(0);
@@ -16,17 +29,7 @@ const Page = ({Content, title}) => {
     var [categories, setCategories] = React.useState([]);
     var [searchString, setSearchString] = React.useState('');
     var [userData, setUserData] = React.useState({authed: false, name:'123'});
-
-    var cartUpdate = () => {
-        setCartUpdateFlag(!cartUpdateFlag);
-    }
-
-    const search = () => {
-        var trimedSearchString = searchString.trim();
-        if(trimedSearchString.length) {
-            navigate(`/catalog?search=${trimedSearchString}`);
-        }
-    }
+    var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
 
     React.useEffect(() => {
         if(localStorage.getItem('Authorization') !== null) {
@@ -71,6 +74,7 @@ const Page = ({Content, title}) => {
         setCategories(temp);
     }, [title]);
 
+
     return (
         <div>
             <Header
@@ -81,8 +85,21 @@ const Page = ({Content, title}) => {
                 search={search}
                 searchString={{get: searchString, set: setSearchString}}
                 userData={userData}
+                setOpenedModalWindow={setOpenedModalWindow}
                 >
             </Header>
+            <PhoneModal
+                close={() => setOpenedModalWindow(closedModalWindow)}
+                type={openedModalWindow.type}
+                phone={openedModalWindow.phone}
+                setOpenedModalWindow={setOpenedModalWindow} 
+            />
+            <SmsModal
+                close={() => setOpenedModalWindow(closedModalWindow)} 
+                type={openedModalWindow.type} 
+                phone={openedModalWindow.phone} 
+                setOpenedModalWindow={setOpenedModalWindow}
+            />
             <div className="content">
                 <div className="contentBlock">
                     <Content 
@@ -90,6 +107,7 @@ const Page = ({Content, title}) => {
                     cart={{sum: cartSum, count: cartCount}}
                     searchString={{get: searchString, set: setSearchString}}
                     userData={userData}
+                    setOpenedModalWindow={setOpenedModalWindow}
                     />
                 </div>
             </div>

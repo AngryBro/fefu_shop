@@ -1,0 +1,16 @@
+.PhoneModal.input {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 121%;
+    color: #323540;
+    display: block;
+    margin: auto;
+    outline: none;
+    width: 200px;
+    text-align: center;
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}

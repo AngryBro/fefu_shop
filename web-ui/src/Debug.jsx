@@ -3,6 +3,7 @@ import CartPosition from './CartPosition';
 import PriceDiscount from './PriceDiscount';
 import CartCounter from './CartCounter';
 import SuggestionsList from './SuggestionsList';
+import AuthModalWindow from './PhoneModal';
 
 const Debug = () => {
 
@@ -11,6 +12,7 @@ const Debug = () => {
             {/* <CartPosition/> */}
             {/* <CartCounter count={{get: 2}}/> */}
             <SuggestionsList suggestions={['хабар','комса', 'vdk', 'moscow']} />
+            <AuthModalWindow/>
         </div>
     )
 }
