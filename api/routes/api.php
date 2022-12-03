@@ -91,6 +91,7 @@ Route::middleware(App\Http\Middleware\AuthOrSessionOptional::class)->group(funct
         Route::post('/cart.add',[CartController::class, 'addPosition']);
         Route::get('/cart.getIds',[CartController::class, 'getPositionIds']);
         Route::get('/cart.get',[CartController::class, 'getPositions']);
+        Route::get('/cart.info',[CartController::class, 'info']);
     });
 });
 Route::middleware(App\Http\Middleware\AuthOrSessionRequired::class)->group(function(){

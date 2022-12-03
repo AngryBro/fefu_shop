@@ -21,9 +21,9 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->unique()->word(),
             'slug' => $this->faker->unique()->word(),
-            // 'image_preview' => $image,
+            'image_preview' => 'testimg',
             'category_id' => $this->faker->numberBetween(1,20),
-            'article' => $this->faker->unique()->numberBetween(100,1000),
+            'article' => $this->faker->numberBetween(100,200),
             'price' => $price,
             'discount' => $discount,
             'price_discount' => $price-$discount,

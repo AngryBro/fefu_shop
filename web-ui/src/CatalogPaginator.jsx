@@ -2,7 +2,7 @@ import './css/CatalogPaginator.css';
 import { useState } from 'react';
 import ArrowPaginatorSVG from './svg/ArrowPaginatorSVG';
 
-const CatalogPaginator = ({pages = 10, externalPage}) => {
+const CatalogPaginator = ({pages, externalPage}) => {
 
     const showPages = 7;
 

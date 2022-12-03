@@ -1,17 +1,19 @@
 import {useState, useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import './css/CatalogPage.css';
 import './css/Skeleton.css';
 import Product from './Product';
 import PageRoute from "./PageRoute";
 import SortCatalog from "./SortCatalog";
 import CatalogPaginator from "./CatalogPaginator";
+import Api from "./Api";
 
-const CatalogPage = () => {
+const CatalogPage = ({productsMeta = undefined}) => {
 
     const {slug} = useParams();
     const searchString = decodeURI(document.location.search.replace('?search=', ''));// eslint-disable-next-line
     const pageSize = 9;
+    const navigate = useNavigate();
 
 
 // eslint-disable-next-line
@@ -26,8 +28,10 @@ const CatalogPage = () => {
 
     useEffect(() => {
         if(slug !== undefined) {
-            var categories = localStorage.getItem('productsMeta')!==null?
-                JSON.parse(localStorage.getItem('productsMeta')).categories:[];
+            var categories = [];
+            if(productsMeta!==undefined) {
+                categories = productsMeta.categories;    
+            }
             for(let i = 0; i < categories.length; i++) {
                 if(categories[i].slug === slug) {
                     setCategory(categories[i].name);
@@ -36,27 +40,52 @@ const CatalogPage = () => {
                 }
             }
         }
-        if(searchString.length) {
-            setHeaderText(`По запросу "${searchString}"`); console.log(1);
+        else {
+            setCategory('');
         }
-    }, [slug, searchString]);
+        if(searchString.length) {
+            setHeaderText(`По запросу "${searchString}"`);
+        }
+    }, [slug, searchString, productsMeta]);
 
     useEffect(() => {
+        setLoaded(false);
+        setFound(true);
         var temp = [];
         for(let i = 0; i < 9; i++) {
             temp.push({
-                id: i,
-                name: 'Котик №'+i,
-                price: 100*i,
-                price_discount: 100*i - Math.round(Math.random()),
-                image_preview: 'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)'
+                id: i
             });
         }
-        temp.forEach(e => <Product data={e} />);
         setProducts(temp);
-        setLoaded(true);
-        setFound(false);
-    }, [slug, searchString]);
+        temp = [];
+        var postParams = {
+            page: page,
+            page_size: pageSize,
+            sort_price: sort.slug==='price_desc'?-1:(sort.slug==='price_asc'?1:0),
+            sort_new: sort.slug==='new'
+        };
+        if(slug !== undefined) {
+            postParams.category_slug = slug;
+        }
+        if(searchString.length) {
+            postParams.search_string = searchString;
+        }
+        Api('products').callback(({status, array}) => {
+            if(status === 200) {
+                setProducts(array.data);
+                setData(array);
+                setLoaded(true);
+                setFound(true);
+            }
+            if(status === 404) {
+                setLoaded(true);
+                setFound(false);
+            }
+        })
+        .post(postParams)
+        .send();
+    }, [slug, searchString, page, sort.slug]);
 
     useEffect(() => {
         if(loaded) {
@@ -100,14 +129,13 @@ const CatalogPage = () => {
             /></div>
             <div className="header">
                 <div className="textLeft">{headerText}</div>
-                <div className="sort" hidden={!loaded || !found}>
+                <div className="sort" hidden={!found}>
                     <SortCatalog
                     params={[
                         {name: 'Сбросить', slug: 'reset'},
                         {name: 'Сначала дешевле', slug: 'price_asc'},
                         {name: 'Сначала дороже', slug: 'price_desc'},
-                        {name: 'Сначала новые', slug: 'new_asc'},
-                        {name: 'Сначала старые', slug: 'new_desc'}
+                        {name: 'Сначала новые', slug: 'new'}
                     ]}
                     setExternalSort={setSort}
                     />
@@ -117,8 +145,8 @@ const CatalogPage = () => {
                 <div className="products" hidden={!found}>
                     { 
                         products.map((product, index) =>
-                            <div key={product.id} className="productItem">
-                                <Product data={product} skeleton={!loaded}/>
+                            <div key={product.id} className="productItem" onClick={() => {if(loaded) navigate(`/product/${product.slug}`)}}>
+                                <Product data={product} message={product.new?'NEW':null} skeleton={!loaded}/>
                             </div>
                         )
                     }
@@ -134,8 +162,8 @@ const CatalogPage = () => {
                 </div>
                 <div className="search" hidden={!searchString.length}></div>
             </div>
-            <div className="pagination" hidden={!loaded || (loaded && !found)}>
-                <CatalogPaginator pages={7} externalPage={setPage}/>
+            <div className="pagination" hidden={(loaded && !found)}>
+                <CatalogPaginator pages={Math.ceil(data.total/data.per_page)} externalPage={setPage}/>
             </div>
         </div>
     );

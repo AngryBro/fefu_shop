@@ -13,6 +13,7 @@
 .ProductSlider .block .slides {
     height: max-content;
     width: 100%;
+    cursor: pointer;
 }
 .ProductSlider .up {
     margin-left: 82px;

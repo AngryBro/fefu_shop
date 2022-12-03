@@ -4,8 +4,21 @@ import './css/AuthModalWindow.css';
 import './css/PhoneModal.css';
 import PhoneMaskGenerator from './PhoneMaskGenerator';
 import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
+import Api from './Api';
 
 const PhoneModal = ({phone, close, type, setOpenedModalWindow}) => {
+
+    const send = () => {
+        Api('getSms').session().post({
+            phone_number: phoneNumber.replace(/ /g,'').replace('+','').replace(/-/g,'').replace('(','').replace(')','')
+        }).callback(({ok, array}) => {
+            console.log(array);
+            if(ok) {
+                setOpenedModalWindow({type: 'sms', phone: phoneNumber});
+                localStorage.setItem('session', array.session);
+            }
+        }).send();
+    }
 
     var [phoneNumber, setPhoneNumber] = useState(phone);
 
@@ -25,7 +38,7 @@ const PhoneModal = ({phone, close, type, setOpenedModalWindow}) => {
                             onChange={e => setPhoneNumber(PhoneMaskGenerator(e.target.value))}
                         />
                     </div>
-                    <div className='modalWindowButton' onClick={() => setOpenedModalWindow({type: 'sms', phone: phoneNumber})}>
+                    <div className='modalWindowButton' onClick={send}>
                         <BigButton text='Отправить код' font={14} />
                     </div>
                     <div className='modalWindowFooterText PhoneModalFooter'>

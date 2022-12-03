@@ -1,8 +1,9 @@
 import FavouriteSVG from "./svg/FavouriteSVG";
 import './css/Product.css';
 import ProductSkeleton from "./ProductSkeleton";
+import Api from "./Api";
 
-const Product = ({data, isFavourite = false, message = null, skeleton=false}) => {
+const Product = ({data, isFavourite = true, message, skeleton=false}) => {
     
     if(skeleton) {
         return <ProductSkeleton/>;
@@ -10,8 +11,8 @@ const Product = ({data, isFavourite = false, message = null, skeleton=false}) =>
     
     return (
         <div className="Product">
-            <div className="image" style={{backgroundImage: data.image_preview}}>
-                {
+            <div className="image" style={{backgroundImage: `url(${Api().img(data.image_preview)}`}}>
+                {   
                     message!==null?
                     <div className="message">
                         <div className="text">{message}</div>

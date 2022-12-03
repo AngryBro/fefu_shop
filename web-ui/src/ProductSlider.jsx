@@ -1,6 +1,7 @@
 import './css/ProductSlider.css';
 import React from 'react';
 import UpSliderProductSVG from './svg/UpSliderPoductSVG';
+import Api from './Api';
 
 const ProductSlider = ({images, setPreview}) => {
 
@@ -22,7 +23,7 @@ const ProductSlider = ({images, setPreview}) => {
                 <div className='slides' style={{marginTop: -first*dx}}>
                     {
                         images.map((image, index) => 
-                            <div onClick={() => setPreview(image)} className='img' key={index} style={{backgroundImage: image}} />
+                            <div onClick={() => setPreview(image)} className='img' key={index} style={{backgroundImage: `url(${Api().img(image.image)})`}} />
                         )
                     }
                 </div>

@@ -3,11 +3,12 @@ import PageRoute from './PageRoute';
 import { useState, useEffect } from 'react';
 import CartPosition from './CartPosition';
 import Total from './Total';
+import Api from './Api';
 
 const CartPage = () => {
 // eslint-disable-next-line
     var [loaded, setLoaded] = useState(false);// eslint-disable-next-line
-    var [found, setFound] = useState(true);
+    var [found, setFound] = useState(false);
     var [positions, setPositions] = useState([]);
 
     var sum = () => {
@@ -59,22 +60,34 @@ const CartPage = () => {
     }
 
     useEffect(() => {
-        var temp = [];
-        for(let i = 0; i<5; i++) {
-            var t = Math.round(Math.random());
-            temp.push({
-                position_id: i+1,
-                name: 'Котик мохнатый',
-                size: 'M',
-                id: i+1,
-                count: i+1,
-                image_preview: 'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-                price: 999,
-                price_discount: 999-t,
-                discount: t
-            });
-        }
-        setPositions(temp);
+        // var temp = [];
+        // for(let i = 0; i<5; i++) {
+        //     var t = Math.round(Math.random());
+        //     temp.push({
+        //         position_id: i+1,
+        //         name: 'Котик мохнатый',
+        //         size: 'M',
+        //         id: i+1,
+        //         count: i+1,
+        //         image_preview: 'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
+        //         price: 999,
+        //         price_discount: 999-t,
+        //         discount: t
+        //     });
+        // }
+        // setPositions(temp);
+        Api('cartGet').auth().session().callback(({ok, array, status}) => {
+            if(ok) {
+                setPositions(array);
+                setLoaded(true);
+                setFound(true);
+            }
+            if(status === 404 || status === 401) {
+                setLoaded(true);
+                setFound(false);
+            }
+            
+        }).send();
     }, []);
 
     return (
@@ -131,7 +144,7 @@ const CartPage = () => {
                 </div>
             </div>
 
-            <div className="productsNotFound" hidden={found}>
+            <div className="productsNotFound" hidden={found||!loaded}>
                     <div className="blockNotFound">
                         <div className="textNotFound">
                             В корзине товары отсутствуют &#128577;<br/>

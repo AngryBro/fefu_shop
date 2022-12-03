@@ -77,12 +77,12 @@ const Header = ({cart, contacts, infoPages, categories, searchString, search, us
                 <div className='head'><AuthHeadSVG/></div>
                 <div className='body'><AuthBodySVG/></div>
             </div>
-            <div className='authText' onClick={() => setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?"79998887766":"Вход/Регистрация"}</div>
+            <div className='authText' onClick={() => userData.authed?1:setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?'+'+userData.phone:"Вход/Регистрация"}</div>
             <div className='cartSvg'>
                 <div className='up'><CartUpSVG/></div>
                 <div className='down'><CartDownSVG/></div>
             </div>
-            <div className='cartText'>{cart.sum} &#8381; / {cart.count} шт.</div>
+            <div className='cartText' onClick={() => navigate('/cart')}>{cart.sum} &#8381; / {cart.count} шт.</div>
         </div>
         </div>
         </div>

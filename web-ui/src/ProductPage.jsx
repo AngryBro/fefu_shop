@@ -1,5 +1,5 @@
 import './css/ProductPage.css';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PageRoute from './PageRoute';
 import ProductSlider from './ProductSlider';
@@ -9,11 +9,14 @@ import BigButton from './buttons/BigButton';
 import SizeSelect from './SizeSelect';
 import './css/Skeleton.css';
 import PriceDiscount from './PriceDiscount';
+import Api from './Api';
 
-const ProductPage = () => {
+const ProductPage = ({cart}) => {
 
     const {slug} = useParams();
-
+    const navigate = useNavigate();
+    
+    var [inCart, setInCart] = useState(false);
     var [loaded, setLoaded] = useState(false);
     var [imgs, setImgs] = useState([]);
     var [data, setData] = useState({});
@@ -22,67 +25,88 @@ const ProductPage = () => {
     var [sizeSelectionOpened, setSizeSelectionOpened] = useState(false);
 
     useEffect(() => {
-        setData({
-            product: {
-                id: 1,
-                name: 'Лысый котик',
-                slug: slug,
-                image_preview:  'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-                article: '12345M',
-                price: 10000,
-                price_discount: 9999,
-                description: 'мягенький тёпленький',
-                XS: 1,
-                S: -1,
-                M: null,
-                L: 3,
-                XL: 0,
-                new: true,
-                favourite: true,
-                cart: false,
-                color_name: 'асерый',
-                color_rgb: '100,100,100',
-                color_article: 'G',
-                brand: 'sphynx',
-                material: 'кожанный',
-                category: 'лысенький'
-            },
-            images: [
-                'url(https://pic.rutubelist.ru/video/93/93/9393f57541909bcad8dded541a681165.jpg)',
-                'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-                'url(https://i09.fotocdn.net/s119/ca1a0cd5642674c1/preview_m/2725288386.jpg)'
-            ],
-            other_colors: [
-                {
-                    slug: 'cat',
-                    color_name: 'розовый',
-                    color_rgb: '255, 182, 194'
-                },
-                {
-                    slug: 'kitten',
-                    color_name: 'black',
-                    color_rgb: '0,0,0'
-                }
-            ]
-        });
-        setTimeout(() => setLoaded(true), 20000);
+        // setData({
+        //     product: {
+        //         id: 1,
+        //         name: 'Лысый котик',
+        //         slug: slug,
+        //         image_preview:  'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
+        //         article: '12345M',
+        //         price: 10000,
+        //         price_discount: 9999,
+        //         description: 'мягенький тёпленький',
+        //         XS: 1,
+        //         S: -1,
+        //         M: null,
+        //         L: 3,
+        //         XL: 0,
+        //         new: true,
+        //         favourite: true,
+        //         cart: false,
+        //         color_name: 'асерый',
+        //         color_rgb: '100,100,100',
+        //         color_article: 'G',
+        //         brand: 'sphynx',
+        //         material: 'кожанный',
+        //         category: 'лысенький'
+        //     },
+        //     images: [
+        //         'url(https://pic.rutubelist.ru/video/93/93/9393f57541909bcad8dded541a681165.jpg)',
+        //         'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
+        //         'url(https://i09.fotocdn.net/s119/ca1a0cd5642674c1/preview_m/2725288386.jpg)'
+        //     ],
+        //     other_colors: [
+        //         {
+        //             slug: 'cat',
+        //             color_name: 'розовый',
+        //             color_rgb: '255, 182, 194'
+        //         },
+        //         {
+        //             slug: 'kitten',
+        //             color_name: 'black',
+        //             color_rgb: '0,0,0'
+        //         }
+        //     ]
+        // });
+        // setTimeout(() => setLoaded(true), 20000);
+        Api('productGet').callback(({ok, status, array}) => {
+            if(ok) {
+                setData(array);
+                setLoaded(true);
+            }
+        })
+        .get({
+            slug: slug
+        })
+        .send();
     }, [slug]);
 
     useEffect(() => {
         if(Object.keys(data).length) {
             var temp = JSON.parse(JSON.stringify(data.images));
-            temp.unshift(data.product.image_preview);
+            temp.unshift({image: data.product.image_preview});
             setImgs(temp);
             setImagePreview(data.product.image_preview);
             document.title = data.product.name;
+            if(data.product.id in cart.ids.product_ids) {
+                if(selectedSize in cart.ids.product_ids[data.product.id]) {
+                    setInCart(true);
+                }
+                else {
+                    setInCart(false);
+                }
+            }
+            else {
+                setInCart(false);
+            }
         }
-    }, [data]);
+    }, [data, selectedSize, cart.ids]);
 
     var sorted = (colors, mainColor) => {
         var temp = JSON.parse(JSON.stringify(colors));
         temp.push({color_name: mainColor.name, color_rgb: mainColor.rgb});
         temp.sort((a, b) => {
-            return a > b?1:-1;
+            return a.color_name > b.color_name?1:-1;
         });
         return temp;
     }
@@ -110,13 +134,13 @@ const ProductPage = () => {
                 loaded?
                 <div className='loaded'>
                     <div className='route'>
-                        <PageRoute route={[{name: 'Главная', link: '/'}, {name: 'Каталог', link: '/'}, {name: 'Куртка', link: '/'}]}/>
+                        <PageRoute route={[{name: 'Главная', link: '/'}, {name: 'Каталог', link: '/catalog'}, {name: data.product.category, link: `/catalog/${data.product.category_slug}`}]}/>
                     </div>
                     <div className='main'>
                         <div className='slider'>
                             <ProductSlider images={imgs} setPreview={setImagePreview} />
                         </div>
-                        <div className='preview' style={{backgroundImage: imagePreview}}>
+                        <div className='preview' style={{backgroundImage: `url(${Api().img(imagePreview)})`}}>
                             {
                                 data.product.new?
                                 <div className='new'>
@@ -173,11 +197,11 @@ const ProductPage = () => {
                                         }).map((color, index) => 
                                             <div key={index} className='item'
                                             style={{
-                                                border: ('slug' in color)?'none':(closeToBlack(color.color_rgb)?'2px solid rgb(175,175,175)':'2px solid black'),
+                                                border: ('slug' in color)?'solid 1px black':(closeToBlack(color.color_rgb)?'3px solid rgb(175,175,175)':'3px solid black'),
                                                 backgroundColor: `rgb(${color.color_rgb})`
                                             }}
                                             onClick={('slug' in color)?
-                                                () => document.location.href = `/product/${color.slug}`:
+                                                () => {navigate(`/product/${color.slug}`); setLoaded(false)}:
                                                 () => 1
                                             }
                                             ></div>    
@@ -187,8 +211,8 @@ const ProductPage = () => {
                             </div>
                             <div className='priceBlock'>
                                 <div className='price'><PriceDiscount price={{old: data.product.price, new: data.product.price_discount}} /></div>
-                                <div className='cartButton'>
-                                    <BigButton text='в корзину' />
+                                <div className='cartButton' onClick={() => {if(!cart.buttonDisabled(data.product[selectedSize], inCart)) cart.add(data.product.id,selectedSize)}}>
+                                    <BigButton text={cart.buttonText(data.product[selectedSize], inCart)} disabled={cart.buttonDisabled(data.product[selectedSize], inCart)} />
                                 </div>
                             </div>
                         </div>

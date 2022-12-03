@@ -4,11 +4,26 @@ import './css/AuthModalWindow.css';
 import './css/SmsModal.css';
 import PhoneMaskGenerator from './PhoneMaskGenerator';
 import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
+import Api from './Api';
 
-const SmsModal = ({phone, type, close ,setOpenedModalWindow}) => {
+const SmsModal = ({phone, type, close ,setOpenedModalWindow, updateUserData}) => {
 
     // const star = '*';
     const stars = '';
+
+    const send = () => {
+        Api('sendSms').session().post({
+            sms_code: smsCode
+        })
+        .callback(({ok, array}) => {
+            if(ok) {
+                localStorage.setItem('Authorization', array.bearer_token);
+                updateUserData();
+                setSmsCode('');
+                close();
+            }
+        }).send();
+    }
 
     const mask = code => {
         var validated = '';
@@ -50,7 +65,7 @@ const SmsModal = ({phone, type, close ,setOpenedModalWindow}) => {
                                 }
                             />
                     </div>
-                    <div className='modalWindowButton'>
+                    <div className='modalWindowButton' onClick={send}>
                         <BigButton text='Отправить код' font={14} />
                     </div>
                     <div className='modalWindowFooterText SmsModalFooter'>

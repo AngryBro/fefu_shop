@@ -171,6 +171,24 @@ class CartController extends Controller
         return response()->json($positions);
     }
 
+    function info(Request $request) {
+        $cart = $request->cart;
+        $count = 0;
+        $sum = 0;
+        if($cart === null) return response()->json([
+            'count' => $count,
+            'sum' => $sum
+        ]);
+        foreach($cart->positions as $position) {
+            $count++;
+            $sum += $position->count * $position->product->price_discount;
+        }
+        return response()->json([
+            'count' => $count,
+            'sum' => $sum
+        ]);
+    }
+
     function getPositionIds(Request $request) {
         $cart = $request->cart;
         $emptyResponse = response()->json([],404);

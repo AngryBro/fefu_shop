@@ -2,7 +2,7 @@
 POST http://localhost/api/cart.add
 Content-Type: application/json
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-Authorization: Bearer usertoken
+# Authorization: Bearer usertoken
 
 {
     "product_id":3,
@@ -25,6 +25,10 @@ Authorization: Bearer usertoken
 GET http://localhost/api/cart.get
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
 Authorization: Bearer usertoken
+###
+GET http://localhost/api/cart.info
+# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+# Authorization: Bearer usertoken
 ### Увеличение количества позиции на 1
 POST http://localhost/api/cart.increment
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD

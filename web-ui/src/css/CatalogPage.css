@@ -5,7 +5,6 @@
 }
 .CatalogPage {
     overflow: hidden;
-    /* height: 500px; */
 }
 .CatalogPage .route {
     margin-top: 32px;
@@ -79,9 +78,12 @@
     float: left;
     margin-right: 32px;
     margin-bottom: 72px;
+    cursor: pointer;
 }
 .CatalogPage .pagination {
-    margin-top: 96px;
+    margin: auto;
+    width: fit-content;
+    margin-top: 24px;
     margin-bottom: 129px;
-    margin-left: 330px;
+    /* margin-left: 330px; */
 }

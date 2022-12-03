@@ -180,6 +180,7 @@
     font-size: 16px;
     line-height: 165%;
     color: #616575;
+    width: 480px;
 }
 .ProductPage .main .product .material {
     margin-top: 24px;
@@ -268,6 +269,7 @@
     border-radius: 18px;
     float: left;
     cursor: pointer;
+    box-sizing: border-box;
 }
 .ProductPage .loaded .main .product .priceBlock {
     margin-top: 56px;

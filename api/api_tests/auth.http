@@ -1,7 +1,7 @@
 ### Генерация и отправка смс кода
 POST http://localhost/api/sms.send
 Content-Type: application/json
-# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
+X-Session: 1234
 
 {
     "phone_number":"79098280706"

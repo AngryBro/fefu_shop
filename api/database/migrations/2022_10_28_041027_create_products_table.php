@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('name')->unique();
             $table->string('image_preview')->nullable();
-            $table->string('article')->unique();
+            $table->string('article');
             $table->integer('price');
             $table->integer('discount');
             $table->text('description');

@@ -52,6 +52,7 @@ class CatalogController extends Controller
         ->select('products.slug','colors.rgb as color_rgb','colors.name as color_name')
         ->leftJoin('colors','products.color_id','colors.id')
         ->where('products.article',$product->article)
+        ->whereNot('products.slug','=',$product->slug)
         ->get();
         return response()->json([
             'product' => $product,
@@ -68,7 +69,8 @@ class CatalogController extends Controller
         'colors.article as color_article',
         'materials.name as material',
         'brands.name as brand',
-        'categories.name as category'
+        'categories.name as category',
+        'categories.slug as category_slug'
         )
         ->where('products.slug',$slug);
         if($show) $product = $product->where('products.show',$show);

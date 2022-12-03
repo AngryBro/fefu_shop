@@ -3,6 +3,7 @@ import CartCounter from './CartCounter';
 import PriceDiscount from './PriceDiscount';
 import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
 import { useState } from 'react';
+import Api from './Api';
 
 const CartPosition = ({count, price, position, deletePosition, debug}) => {
 
@@ -10,7 +11,7 @@ const CartPosition = ({count, price, position, deletePosition, debug}) => {
 
     return (
         <div className='CartPosition'>
-            <div className='imagePreview' style={{backgroundImage: `${position.image_preview}`}}></div>
+            <div className='imagePreview' style={{backgroundImage: `url(${Api().img(position.image_preview)})`}}></div>
             <div className='productInfo'>
                 <div className='name'>{position.name}</div>
                 <div className='sizeBlock'>
