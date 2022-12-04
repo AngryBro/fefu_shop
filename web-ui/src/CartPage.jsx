@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 import CartPosition from './CartPosition';
 import Total from './Total';
 import Api from './Api';
+import { useNavigate } from 'react-router-dom';
 
-const CartPage = () => {
-// eslint-disable-next-line
-    var [loaded, setLoaded] = useState(false);// eslint-disable-next-line
+const CartPage = ({cart}) => {
+
+    const navigate = useNavigate();
+
+    var [loaded, setLoaded] = useState(false);
     var [found, setFound] = useState(false);
     var [positions, setPositions] = useState([]);
 
@@ -31,51 +34,54 @@ const CartPage = () => {
     }
 
     var deletePosition = id => {
-        // delete
-        var temp = [];
-        for(let i = 0; i < positions.length; i++) {
-            if(positions[i].position_id === id) continue;
-            temp.push(positions[i]);
-        }
-        if(!temp.length) {
-            setFound(false);
-        }
-        setPositions(temp);
+        Api('cartDelete').auth().session().callback(({ok}) => {
+            if(ok) {
+                var temp = [];
+                for(let i = 0; i < positions.length; i++) {
+                    if(positions[i].position_id === id) continue;
+                        temp.push(positions[i]);
+                }
+                if(!temp.length) {
+                    setFound(false);
+                }
+                setPositions(temp);
+                cart.update();
+            }
+        })
+        .post({position_id: id})
+        .send();
     }
 
     var increment = id => {
-        // increment
-        var temp = positions.slice();
-        var position = temp.find(e => e.position_id === id);
-        position.count++;
-        setPositions(temp);
+        Api('cartInc').auth().session().callback(({ok,array}) => {
+            if(ok) {
+                var temp = positions.slice();
+                var position = temp.find(e => e.position_id === id);
+                position.count++;
+                setPositions(temp);
+                cart.update();
+            }
+        })
+        .post({position_id: id})
+        .send();
     }
 
     var decrement = id => {
-        // decrement
-        var temp = positions.slice();
-        var position = temp.find(e => e.position_id === id);
-        position.count--;
-        setPositions(temp);
+        Api('cartDec').auth().session().callback(({ok}) => {
+            if(ok) {
+                var temp = positions.slice();
+                var position = temp.find(e => e.position_id === id);
+                position.count--;
+                setPositions(temp);
+                cart.update();
+            }
+        })
+        .post({position_id: id})
+        .send();
     }
 
-    useEffect(() => {
-        // var temp = [];
-        // for(let i = 0; i<5; i++) {
-        //     var t = Math.round(Math.random());
-        //     temp.push({
-        //         position_id: i+1,
-        //         name: 'Котик мохнатый',
-        //         size: 'M',
-        //         id: i+1,
-        //         count: i+1,
-        //         image_preview: 'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-        //         price: 999,
-        //         price_discount: 999-t,
-        //         discount: t
-        //     });
-        // }
-        // setPositions(temp);
+    useEffect(() => { 
+        cart.update();
         Api('cartGet').auth().session().callback(({ok, array, status}) => {
             if(ok) {
                 setPositions(array);
@@ -86,9 +92,12 @@ const CartPage = () => {
                 setLoaded(true);
                 setFound(false);
             }
-            
-        }).send();
+        }).send();// eslint-disable-next-line
     }, []);
+
+    // useEffect(() => {
+    //     cart.update();
+    // },[cart]);
 
     return (
         <div className='CartPage'>
@@ -115,7 +124,6 @@ const CartPage = () => {
                                         old: position.price
                                     }}
                                     deletePosition={deletePosition}
-                                    debug={position.count}
                                 />
                                 <div className='line' hidden={index===positions.length-1}></div>
                             </div>
@@ -137,7 +145,8 @@ const CartPage = () => {
                         font: 14
                     }}
                     button={{
-                        text: 'Оформить заказ'
+                        text: 'Оформить заказ',
+                        action: () => navigate('/order')
                     }}
                     fontParams='12px'
                     />

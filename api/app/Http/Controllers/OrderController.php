@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\OrderPosition;
 use App\Models\Order;
 use Validator;
+use App\Mail\OrderMail;
+use App\Models\ShopConfig;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -49,14 +52,15 @@ class OrderController extends Controller
     function create(Request $request) {
         $validator = Validator::make($request->all(),[
             'delivery' => 'required|boolean',
-            'name' => 'string',
-            'email' => 'email',
-            'comment' => 'string'
+            'name' => 'string|nullable',
+            'email' => 'email|nullable',
+            'comment' => 'string|nullable',
+            'apartment' => 'string|nullable'
         ]);
-        $validator->sometimes(['city', 'building', 'apartment', 'street'], 'required|string', function($input) {
+        $validator->sometimes(['city', 'building', 'street'], 'required|string', function($input) {
             return $input->delivery;
         });
-        $validator->sometimes('index', 'required|integer', function($input){
+        $validator->sometimes(['index'], 'required|integer', function($input){
             return $input->delivery;
         });
         if($validator->fails()) return response()->json([
@@ -64,12 +68,12 @@ class OrderController extends Controller
         ],422);
         $data = $validator->validated();
         $user = $request->user;
-        if(($user->name === null) && (!isset($data['name'])) ||
-            ($user->email === null)&&(!isset($data['email']))) {
-                return response()->json([
-                    'message' => 'name or email required'
-                ],422);
-        }
+        // if(($user->name === null) && (!isset($data['name'])) ||
+        //     ($user->email === null)&&(!isset($data['email']))) {
+        //         return response()->json([
+        //             'message' => 'name or email required'
+        //         ],422);
+        // }
         $cart = $user->cart;
         if($cart === null) return response()->json([
             'message' => 'no cart'
@@ -113,7 +117,9 @@ class OrderController extends Controller
         }
         if($data['delivery']) {
             foreach(['city', 'street', 'building', 'apartment','index'] as $param) {
-                $order->$param = $data[$param];    
+                if(isset($data[$param])) {
+                    $order->$param = $data[$param];  
+                }  
             }
         }
         $order->price = 0;
@@ -144,6 +150,8 @@ class OrderController extends Controller
         $order->save();
         $cart->user_id = null;
         $cart->save();
+        Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
+        // Mail::to('angry.bro.v.2013@gmail.com')->send(new OrderMail($order));
         return response()->json([
             'message' => 'order created'
         ]);

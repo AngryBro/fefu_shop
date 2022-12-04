@@ -13,7 +13,11 @@ const Api = (routeName) => {
         cartInfo: '/cart.info',
         cartAdd: '/cart.add',
         cartIds: '/cart.getIds',
-        cartGet: '/cart.get'
+        cartGet: '/cart.get',
+        cartInc: '/cart.increment',
+        cartDec: '/cart.decrement',
+        cartDelete: '/cart.delete',
+        orderCreate: '/order.create'
     };
 
     var _method = 'get';
@@ -79,6 +83,7 @@ const Api = (routeName) => {
         }
         catch (err) {
             console.log(err);
+            console.log(promise.text());
         }
     };
 

@@ -57,7 +57,7 @@ const Page = ({Content, title}) => {
     var [contacts, setContacts] = React.useState([]);
     var [categories, setCategories] = React.useState([]);
     var [searchString, setSearchString] = React.useState('');
-    var [userData, setUserData] = React.useState({authed: false, name:'123'});
+    var [userData, setUserData] = React.useState({authed: false, name:''});
     var [userDataUpdateFlag, setUserDataUpdateFlag] = React.useState(false);
     var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
     var [productsMeta, setProductsMeta] = React.useState(undefined);

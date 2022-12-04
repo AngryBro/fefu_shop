@@ -4,14 +4,11 @@ Content-Type: application/json
 Authorization: Bearer usertoken
 
 {
-    "name":"Антон",
-    "email":"example@example.ru",
-    "delivery":false,
+    "delivery":true,
     "city":"Комсомольск",
     "street":"Пирогова",
     "building":"21",
-    "index":681010,
-    "apartment":"33b"
+    "index":681010
 }
 ### Получение всех заказов
 GET http://localhost/api/orders.all?page=1&page_size=4

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './css/FormLabel.css';
 import SuggestionsList from './SuggestionsList';
 
-const FormLabel = ({labelName, validation, error, data, disabled = false, suggestionsParams={use: false}}) => {
+const FormLabel = ({labelName, validation = () => true, showError = false, data, disabled = false, suggestionsParams={use: false}}) => {
 
     const getSuggestions = async (input) => {
         if(!suggestionsParams.use) return;
@@ -40,22 +40,22 @@ const FormLabel = ({labelName, validation, error, data, disabled = false, sugges
     return (
         <div className='FormLabel'>
             <div className='labelName'>{labelName}</div>
-            <div className={focus&&!disabled?'inputBlockFocus':'inputBlock'}>
-            <input
-                style={disabled?{color: 'transparent', textShadow: '0 0 0 grey'}:{}}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setInterval(() => setFocus(false), 100)}
-                readOnly={disabled}
-                value={data.get}
-                onChange={e => {
-                    var value = e.target.value;
-                    data.set(value);
-                    getSuggestions(value);
-                }}>
-            </input>
-            <div className='suggestions' hidden={!focus||!suggestions.length} style={{height: `${40*Math.min(3,suggestions.length)}px`}}>
-                <SuggestionsList suggestions={suggestions} setData={data.set} />
-            </div>
+            <div className={(validation(data.get)||!showError)?(focus&&!disabled?'inputBlockFocus':'inputBlock'):'inputBlockError'}>
+                <input
+                    style={disabled?{color: 'transparent', textShadow: '0 0 0 grey'}:{}}
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setInterval(() => setFocus(false), 100)}
+                    readOnly={disabled}
+                    value={data.get}
+                    onChange={e => {
+                        var value = e.target.value;
+                        data.set(value);
+                        getSuggestions(value);
+                    }}>
+                </input>
+                <div className='suggestions' hidden={!focus||!suggestions.length} style={{height: `${40*Math.min(3,suggestions.length)}px`}}>
+                    <SuggestionsList suggestions={suggestions} setData={data.set} />
+                </div>
             </div>
         </div>
     );

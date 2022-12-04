@@ -25,7 +25,7 @@ const Total = ({params = [], title = 'Заголовок', total={}, button={}, 
                     </div>
                 </div>
             </div>
-            <div className='button'>
+            <div className='button' onClick={button.action}>
                 <BigButton text={button.text} />
             </div>
         </div>

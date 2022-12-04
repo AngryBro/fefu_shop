@@ -15,7 +15,7 @@ Content-Type: application/json
 Authorization: Bearer usertoken
 
 {
-    "position_id":3
+    "position_id":7
 }
 ### Получение id товаров в корзине с размерами
 GET http://localhost/api/cart.getIds
@@ -36,7 +36,7 @@ Authorization: Bearer usertoken
 Content-Type: application/json
 
 {
-    "position_id":4
+    "position_id":7
 }
 ### Уменьшение количества позиции на 1
 POST http://localhost/api/cart.decrement

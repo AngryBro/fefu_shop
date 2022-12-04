@@ -13,7 +13,7 @@ class DebugController extends Controller
 {
     function debug(Request $request) {
         return response()->json([
-            ImageUrl::get('pages','4', 'header.png')
+            
         ]);
     }
 }

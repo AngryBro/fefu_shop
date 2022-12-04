@@ -35,6 +35,16 @@
     box-sizing: border-box;
     position: relative;
 }
+.FormLabel .inputBlockError {
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #ffb0b0;
+    display: flex;
+    margin-top: 8px;
+    box-sizing: border-box;
+    position: relative;
+}
 .FormLabel .inputBlockFocus {
     width: 100%;
     height: 40px;

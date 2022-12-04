@@ -5,7 +5,7 @@ import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
 import { useState } from 'react';
 import Api from './Api';
 
-const CartPosition = ({count, price, position, deletePosition, debug}) => {
+const CartPosition = ({count, price, position, deletePosition}) => {
 
     var [deleteButtonColor, setDeleteButtonColor] = useState('#ADB1BB');
 
@@ -21,10 +21,10 @@ const CartPosition = ({count, price, position, deletePosition, debug}) => {
                 <div className='countBlock'>
                     <div className='title'>Количество</div>
                     <div className='counter'>
-                        <CartCounter debug={debug} count={{
+                        <CartCounter count={{
                             increment: count.increment,
                             decrement: count.decrement,
-                            position_id: position.id,
+                            position_id: position.position_id,
                             get: position.count
                         }}/>
                     </div>

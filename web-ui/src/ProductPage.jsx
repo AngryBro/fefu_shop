@@ -21,57 +21,14 @@ const ProductPage = ({cart}) => {
     var [imgs, setImgs] = useState([]);
     var [data, setData] = useState({});
     var [imagePreview, setImagePreview] = useState(undefined);
-    var [selectedSize, setSelectedSize] = useState('XS');
+    var [selectedSize, setSelectedSize] = useState('');
     var [sizeSelectionOpened, setSizeSelectionOpened] = useState(false);
 
     useEffect(() => {
-        // setData({
-        //     product: {
-        //         id: 1,
-        //         name: 'Лысый котик',
-        //         slug: slug,
-        //         image_preview:  'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-        //         article: '12345M',
-        //         price: 10000,
-        //         price_discount: 9999,
-        //         description: 'мягенький тёпленький',
-        //         XS: 1,
-        //         S: -1,
-        //         M: null,
-        //         L: 3,
-        //         XL: 0,
-        //         new: true,
-        //         favourite: true,
-        //         cart: false,
-        //         color_name: 'асерый',
-        //         color_rgb: '100,100,100',
-        //         color_article: 'G',
-        //         brand: 'sphynx',
-        //         material: 'кожанный',
-        //         category: 'лысенький'
-        //     },
-        //     images: [
-        //         'url(https://pic.rutubelist.ru/video/93/93/9393f57541909bcad8dded541a681165.jpg)',
-        //         'url(https://koshka.top/uploads/posts/2021-12/1639887182_59-koshka-top-p-pukhlenkii-kotik-62.jpg)',
-        //         'url(https://i09.fotocdn.net/s119/ca1a0cd5642674c1/preview_m/2725288386.jpg)'
-        //     ],
-        //     other_colors: [
-        //         {
-        //             slug: 'cat',
-        //             color_name: 'розовый',
-        //             color_rgb: '255, 182, 194'
-        //         },
-        //         {
-        //             slug: 'kitten',
-        //             color_name: 'black',
-        //             color_rgb: '0,0,0'
-        //         }
-        //     ]
-        // });
-        // setTimeout(() => setLoaded(true), 20000);
         Api('productGet').callback(({ok, status, array}) => {
             if(ok) {
                 setData(array);
+                setSelectedSize(sizes(array.product)[0]);
                 setLoaded(true);
             }
         })
