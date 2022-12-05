@@ -75,15 +75,14 @@ const Api = (routeName) => {
         if(_method === 'post') {
             fetchParams.body = _postJson;
         }
-        var promise = await fetch(host+routes[routeName]+_getParams, fetchParams);
-        var response = undefined;
         try {
+            var promise = await fetch(host+routes[routeName]+_getParams, fetchParams);
+            var response = undefined;
             response = await promise.json();
             _callback({ok: promise.ok, status: promise.status, array: response});
         }
         catch (err) {
             console.log(err);
-            console.log(promise.text());
         }
     };
 
