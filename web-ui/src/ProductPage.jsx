@@ -158,7 +158,7 @@ const ProductPage = ({cart}) => {
                                                 backgroundColor: `rgb(${color.color_rgb})`
                                             }}
                                             onClick={('slug' in color)?
-                                                () => {navigate(`/product/${color.slug}`); setLoaded(false)}:
+                                                () => {navigate(`/product/${color.slug}`);}:
                                                 () => 1
                                             }
                                             ></div>    

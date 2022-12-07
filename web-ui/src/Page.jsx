@@ -9,6 +9,7 @@ import Api from "./Api";
 
 const Page = ({Content, title}) => {
 
+    const errorMsg = (err) => alert('Ошибка сервера '+err);
     const navigate = useNavigate();
     const closedModalWindow = {type: null, phone: ''};
 
@@ -61,6 +62,8 @@ const Page = ({Content, title}) => {
     var [userDataUpdateFlag, setUserDataUpdateFlag] = React.useState(false);
     var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
     var [productsMeta, setProductsMeta] = React.useState(undefined);
+    // var [timeSmsCode, setTimeSmsCode] = React.useState(0);
+    var [sendSmsTime, setSendSmsTime] = React.useState(0);
 
     React.useEffect(() => {
         if(localStorage.getItem('Authorization') !== null) {
@@ -142,19 +145,30 @@ const Page = ({Content, title}) => {
                 setOpenedModalWindow={setOpenedModalWindow}
                 >
             </Header>
-            <PhoneModal
-                close={() => setOpenedModalWindow(closedModalWindow)}
-                type={openedModalWindow.type}
-                phone={openedModalWindow.phone}
-                setOpenedModalWindow={setOpenedModalWindow} 
-            />
-            <SmsModal
-                close={() => setOpenedModalWindow(closedModalWindow)} 
-                type={openedModalWindow.type} 
-                phone={openedModalWindow.phone} 
-                setOpenedModalWindow={setOpenedModalWindow}
-                updateUserData={updateUserData}
-            />
+            {
+                openedModalWindow.type==='phone'?
+                <PhoneModal
+                    close={() => setOpenedModalWindow(closedModalWindow)}
+                    type={openedModalWindow.type}
+                    phone={openedModalWindow.phone}
+                    setOpenedModalWindow={setOpenedModalWindow} 
+                    smsTime={{get: sendSmsTime, set: setSendSmsTime}}
+                    errorMsg={errorMsg}
+                />:
+                <></>
+            }
+            {
+                openedModalWindow.type==='sms'?
+                <SmsModal
+                    close={() => setOpenedModalWindow(closedModalWindow)} 
+                    type={openedModalWindow.type} 
+                    phone={openedModalWindow.phone} 
+                    setOpenedModalWindow={setOpenedModalWindow}
+                    updateUserData={updateUserData}
+                    errorMsg={errorMsg}
+                />:
+                <></>
+            }
             <div className="content">
                 <div className="contentBlock">
                     <Content 

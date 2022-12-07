@@ -162,8 +162,8 @@ const CatalogPage = ({productsMeta = undefined}) => {
                 </div>
                 <div className="search" hidden={!searchString.length}></div>
             </div>
-            <div className="pagination" hidden={(loaded && !found)}>
-                <CatalogPaginator pages={Math.ceil(data.total/data.per_page)} externalPage={setPage}/>
+            <div className="pagination" style={{display: (loaded && !found)?'none':'block'}}>
+                <CatalogPaginator pages={data.total===undefined?1:Math.ceil(data.total/data.per_page)} externalPage={setPage}/>
             </div>
         </div>
     );

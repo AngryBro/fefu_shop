@@ -6,21 +6,31 @@ import PhoneMaskGenerator from './PhoneMaskGenerator';
 import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
 import Api from './Api';
 
-const SmsModal = ({phone, type, close ,setOpenedModalWindow, updateUserData}) => {
+const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData}) => {
 
     // const star = '*';
     const stars = '';
 
+    const prevWindow = () => {
+        setError(false);
+        setOpenedModalWindow({type: 'phone', phone});
+    }
     const send = () => {
         Api('sendSms').session().post({
             sms_code: smsCode
         })
-        .callback(({ok, array}) => {
+        .callback(({ok, array, status}) => {
             if(ok) {
+                setError(false);
                 localStorage.setItem('Authorization', array.bearer_token);
                 updateUserData();
-                setSmsCode('');
                 close();
+                setSmsCode('');
+            }
+            else {
+                if(!ok) {
+                    setError(true);
+                }
             }
         }).send();
     }
@@ -36,9 +46,10 @@ const SmsModal = ({phone, type, close ,setOpenedModalWindow, updateUserData}) =>
     }
 
     var [smsCode, setSmsCode] = useState(stars);
+    var [error, setError] = useState(false);
 
     return (
-        <div className='AuthModalWindow' style={{display: type==='sms'?'flex':'none'}}>
+        <div className='AuthModalWindow' style={{display: 'flex'}}>
             <div className='modalWindowBlock'>
                 <div className='modalWindowInnerBlock'>
                     <div className='modalWindowTitleText SmsModalTitle'>
@@ -64,6 +75,9 @@ const SmsModal = ({phone, type, close ,setOpenedModalWindow, updateUserData}) =>
                                     }
                                 }
                             />
+                    </div>
+                    <div className='modalWindowDescriptionText' hidden={!error}>
+                        Код неверный, отправить <u style={{cursor:'pointer'}} onClick={prevWindow}>новый</u>
                     </div>
                     <div className='modalWindowButton' onClick={send}>
                         <BigButton text='Отправить код' font={14} />

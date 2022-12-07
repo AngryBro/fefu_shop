@@ -82,6 +82,7 @@ const Api = (routeName) => {
             _callback({ok: promise.ok, status: promise.status, array: response});
         }
         catch (err) {
+            _callback({ok: false, status: undefined, array: undefined, error: err})
             console.log(err);
         }
     };
