@@ -58,7 +58,7 @@ const Page = ({Content, title}) => {
     var [contacts, setContacts] = React.useState([]);
     var [categories, setCategories] = React.useState([]);
     var [searchString, setSearchString] = React.useState('');
-    var [userData, setUserData] = React.useState({authed: false, name:''});
+    var [userData, setUserData] = React.useState({authed: false});
     var [userDataUpdateFlag, setUserDataUpdateFlag] = React.useState(false);
     var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
     var [productsMeta, setProductsMeta] = React.useState(undefined);
@@ -69,12 +69,16 @@ const Page = ({Content, title}) => {
         if(localStorage.getItem('Authorization') !== null) {
             Api('mydataGet').auth().callback(({ok, array}) => {
                 if(ok) {
-                    setUserData({
-                        authed: true,
-                        name: array.name,
-                        phone: array.phone_number,
-                        email: array.email
-                    });
+                    var userParams = {};
+                    if(array.name!==null) {
+                        userParams.name = array.name;
+                    }
+                    if(array.email!==null) {
+                        userParams.email = array.email;
+                    }
+                    userParams.phone = array.phone_number;
+                    userParams.authed = true;
+                    setUserData(userParams);
                 }
             }).send();
         }

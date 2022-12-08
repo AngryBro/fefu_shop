@@ -62,7 +62,7 @@ const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData}) => {
                         <div className='SmsModalPhone'>
                             {PhoneMaskGenerator(phone)}
                         </div>
-                        <div className='SmsModalEditPhone' onClick={() => setOpenedModalWindow({type: 'phone', phone: phone})}>
+                        <div className='SmsModalEditPhone' onClick={prevWindow}>
                             &#9998;
                         </div>
                     </div>
@@ -83,10 +83,9 @@ const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData}) => {
                         <BigButton text='Отправить код' font={14} />
                     </div>
                     <div className='modalWindowFooterText SmsModalFooter'>
-                        Вводя код, вы принимаете
-                        политику конфиденциальности
-                        и
-                        пользовательское соглашение
+                        Нажимая на кнопку, вы принимаете&nbsp;
+                        <u>политику конфиденциальности</u>&nbsp;и&nbsp;
+                        <u>пользовательское соглашение</u>
                     </div>
                 </div>
                 <div className='modalWindowClose' onClick={close}>

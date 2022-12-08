@@ -1,18 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import Api from "./Api";
+// import Api from "./Api";
 
 const Debug = () => {
 
-    var [data, setData] = useState([]);
+    var [seconds, setSeconds] = useState(100);
 
     useEffect(() => {
-        Api('productsMeta').callback(({json}) => setData(json)).send(); 
+        var timer = setInterval(() => setSeconds(s => s>0?s-1:0), 1000);
+        return () => clearInterval(timer);
     }, []);
 
     return (
         <div style={{marginLeft:'50px', marginTop:'50px', width: '100px', height: '100px'}}>
-            {console.log(data)}
+            {seconds}
         </div>
     )
 }

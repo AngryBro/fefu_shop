@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BigButton from './buttons/BigButton';
 import './css/AuthModalWindow.css';
 import './css/PhoneModal.css';
@@ -8,11 +8,6 @@ import Api from './Api';
 
 const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => {
 
-    const secondsFromSend = () => {
-        var ms = new Date().getTime()-smsTime.get;
-        ms = 60*1000 - ms;
-        return ms>0?`${Math.floor(ms/1000/60)}`;
-    }
     const nextWindow = () => setOpenedModalWindow({type: 'sms', phone: phoneNumber});
     const send = () => {
         Api('getSms').session().post({
@@ -23,6 +18,7 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
             if(ok) {
                 setError(false);
                 nextWindow();
+                smsTime.set(new Date().getTime());
                 localStorage.setItem('session', array.session);
             }
             else {
@@ -34,9 +30,22 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
         }).send();
     }
     const phoneValid = phone => phone.length === '+7 (000) 000-00-00'.length;
+    const timeString = (seconds) => {
+        return `${Math.floor(seconds/60)}:${seconds%60<10?'0':''}${seconds%60}`;
+    }
 
     var [phoneNumber, setPhoneNumber] = useState(phone);
     var [error, setError] = useState(false);
+    var [seconds, setSeconds] = useState(0);
+
+    useEffect(() => {
+        var timeGone = new Date().getTime()-smsTime.get;
+        if(timeGone < 60*1000) {
+            setSeconds(60-Math.ceil(timeGone/1000));
+        }
+        var timer = setInterval(() => setSeconds(s => s>0?s-1:0),1000);
+        return () => clearInterval(timer);
+    }, [smsTime.get]);
 
     return (
         <div className='AuthModalWindow' style={{display: 'flex'}}>
@@ -58,18 +67,12 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
                         Код не отправлен
                     </div>
                     <div className='modalWindowButton'>
-                        {
-                            secondsFromSend()===0?
-                            <BigButton callback={send} text={'Получить код'} font={14} disabled={!phoneValid(phoneNumber)}/>
-                            :
-                            <BigButton callback={send} text={`${Math.floor(secondsFromSend())}`} font={14} disabled={true}/>
-                        }     
+                        <BigButton callback={send} text={seconds>0?timeString(seconds):'Получить код'} font={14} disabled={!phoneValid(phoneNumber)||seconds>0}/>    
                     </div>
                     <div className='modalWindowFooterText PhoneModalFooter'>
-                        Нажимая на кнопку, вы принимаете
-                        политику конфиденциальности
-                        и
-                        пользовательское соглашение
+                        Нажимая на кнопку, вы принимаете&nbsp;
+                        <u>политику конфиденциальности</u>&nbsp;и&nbsp;
+                        <u>пользовательское соглашение</u>
                     </div>
                 </div>
                 <div className='modalWindowClose' onClick={close}>

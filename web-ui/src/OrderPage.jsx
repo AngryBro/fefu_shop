@@ -9,7 +9,7 @@ import Api from './Api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const OrderPage = ({userData, cart}) => {
+const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
 
     const navigate = useNavigate();
 
@@ -26,6 +26,10 @@ const OrderPage = ({userData, cart}) => {
     }
 
     const create = () => {
+        if(!userData.authed) {
+            return setOpenedModalWindow({type: 'phone', phone});
+        }
+        
         Api('orderCreate').auth().callback(({ok, status}) => {
             if(ok) {
                 cart.update();
@@ -69,9 +73,9 @@ const OrderPage = ({userData, cart}) => {
     var [commentFocus, setCommentFocus] = useState(false);
 
     useEffect(() => {
-        setName(('name' in userData)?userData.name:'');
-        setPhone(userData.authed?userData.phone:'');
-        setEmail(('email' in userData)?userData.email:'');
+        setName(n => userData.authed&&userData.name!==undefined?userData.name:n);
+        setPhone(p => userData.authed?('+'+userData.phone):p);
+        setEmail(e => userData.authed&&userData.email!==undefined?userData.email:e);
 
     }, [userData]);
 
