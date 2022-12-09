@@ -25,7 +25,9 @@ const CartPosition = ({count, price, position, deletePosition}) => {
                             increment: count.increment,
                             decrement: count.decrement,
                             position_id: position.position_id,
-                            get: position.count
+                            get: position.count,
+                            min: position.count===1,
+                            max: position[position.size]===position.count
                         }}/>
                     </div>
                 </div>

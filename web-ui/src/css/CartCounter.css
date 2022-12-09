@@ -14,6 +14,12 @@
     width: 28px;
     height: 100%;
 }
+.CartCounter .blockCounter .edgeBlockNone {
+    display: flex;
+    float: left;
+    width: 28px;
+    height: 100%;
+}
 .CartCounter .blockCounter .innerBlock {
     display: flex;
     float: left;
