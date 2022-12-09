@@ -15,3 +15,7 @@ GET http://localhost/api/products.meta
 GET http://localhost/api/product.get?slug=molestiae
 ###
 GET http://localhost/api/products.new
+###
+GET http://angrybro.sytes.net/api/products.meta
+###
+GET http://angrybro.sytes.net/api/products.new
