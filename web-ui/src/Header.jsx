@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = ({cart, contacts, infoPages, categories, searchString, search, userData, setOpenedModalWindow}) => { 
     
-    // const authed = localStorage.getItem('Authorization') !== null;
     const navigate = useNavigate();
 
     var [openedCatalog, setOpenedCatalog] = React.useState(false);

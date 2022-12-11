@@ -10,6 +10,7 @@ const Api = (routeName) => {
         mydataGet: '/mydata.get',
         productGet: '/product.get',
         products: '/products.get',
+        newProducts: '/products.new',
         cartInfo: '/cart.info',
         cartAdd: '/cart.add',
         cartIds: '/cart.getIds',

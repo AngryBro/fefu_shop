@@ -22,7 +22,7 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
                 localStorage.setItem('session', array.session);
             }
             else {
-                if(status === 400) setError(true);
+                if(status === 400 || status === 401) setError(true);
             }
             if(status === undefined) {
                 errorMsg(error);

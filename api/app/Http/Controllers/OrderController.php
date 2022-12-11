@@ -150,10 +150,18 @@ class OrderController extends Controller
         $order->save();
         $cart->user_id = null;
         $cart->save();
-        Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
-        // Mail::to('angry.bro.v.2013@gmail.com')->send(new OrderMail($order));
+        try {
+            Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
+        }
+        catch(Exception $e) {
+            return response()->json([
+                'message' => 'mail failed, order created',
+                'number' => $order->id
+            ]);
+        }
         return response()->json([
-            'message' => 'order created'
+            'message' => 'order created',
+            'number' => $order->id
         ]);
     }
 }

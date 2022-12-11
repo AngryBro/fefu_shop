@@ -33,7 +33,7 @@ class OrderMail extends Mailable
             'phone' => $user->phone_number,
             'type' => $order->delivery?'Доставка':'Самовывоз',
             'adress' => $order->delivery?"$order->index, $order->city, $order->street, $order->building"
-                .($order->apartment===null?"":"$order->apartment"):"",
+                .($order->apartment===null?"":", $order->apartment"):"",
             'comment' => $order->comment===null?"":$order->comment,
             'price' => $order->price,
             'price_discount' => $order->price_discount

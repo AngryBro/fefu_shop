@@ -1,15 +1,15 @@
+.MainPage {
+    width: 103%;
+}
 .MainPage .slide .left {
     width: 500px;
     height: 100%;
     float: left;
-    /* background-image: url(); */
-    /* background-color: green; */
 }
 .MainPage .slide .right{
     width: 500px;
     height: 100%;
     float: left;
-    /* background-color: green; */
 }
 .MainPage .slide .middle{
     float: left;
@@ -61,6 +61,9 @@
     overflow: hidden;
     margin-top: 32px;
     margin-bottom: 32px;
+}
+.MainPage .category {
+    cursor: pointer;
 }
 .MainPage .categories .edge .category {
     float: left;

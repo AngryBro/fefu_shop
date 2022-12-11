@@ -119,18 +119,10 @@ const Page = ({Content, title}) => {
             });
         }
         setContacts(temp);
-        temp = [];
-        for(let i = 0; i < 8; i++) {
-            temp.push({
-                name: 'категория'+i,
-                id: i,
-                children: []
-            });
-        }
-        setCategories(temp);
         Api('productsMeta').callback(({ok, array}) => {
             if(ok) {
                 setProductsMeta(array);
+                setCategories(array.categories);
             }
         }).send();
     }, [title]);
@@ -170,6 +162,7 @@ const Page = ({Content, title}) => {
                     setOpenedModalWindow={setOpenedModalWindow}
                     updateUserData={updateUserData}
                     errorMsg={errorMsg}
+                    cartUpdate={cartUpdate}
                 />:
                 <></>
             }
@@ -191,6 +184,7 @@ const Page = ({Content, title}) => {
                     userData={userData}
                     setOpenedModalWindow={setOpenedModalWindow}
                     productsMeta={productsMeta}
+                    categories={categories}
                     />
                 </div>
             </div>

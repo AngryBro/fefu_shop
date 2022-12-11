@@ -1,6 +1,6 @@
 .OpenedCatalog {
     /* max-width: 1440px; */
-    width: 1440px;
+    width: 1200px;
     margin: auto;
     background-color: rgb(255, 255, 255);
     border: solid white 1px;
@@ -20,6 +20,7 @@ font-size: 16px;
 line-height: 20px;
 text-decoration-line: underline;
 color: #616575;
+cursor: pointer;
 }
 .OpenedCatalog .left .column .header {
     margin-bottom: 24px;
@@ -38,8 +39,11 @@ color: #515562;
     float: left;
 }
 .OpenedCatalog .right {
-    margin-left: 129px;
+    /* margin-left: 129px; */
     /* display: none; */
+    cursor: pointer;
+    float: right;
+    margin-right: 129px;
 }
 .OpenedCatalog .right .header {
     margin-bottom: 44px;

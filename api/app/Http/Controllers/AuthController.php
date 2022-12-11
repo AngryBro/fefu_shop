@@ -117,7 +117,8 @@ class AuthController extends Controller
         ->where('phone_number',$sent_code->phone_number)
         ->first();
         $newBearerToken = BearerToken::generate();
-        if($user === null) {
+        $newUser = $user === null;
+        if($newUser) {
             $user = new User;
             $user->phone_number = $sent_code->phone_number;
             $user->role_id = Role::firstWhere('name', Role::USER)->id;
@@ -128,12 +129,12 @@ class AuthController extends Controller
         $bearerToken->token = $newBearerToken;
         $bearerToken->user_id = $user->id;
         $bearerToken->save();
-        $oldCart = $user->cart;
-        if($oldCart !== null) {
-            $oldCart->delete();
-        }
         $cart = Cart::firstWhere('session_id',$session_id);
+        $oldCart = $user->cart;
         if($cart !== null) {
+            if($oldCart !== null) {
+                $oldCart->delete();
+            }
             $cart->session_id = null;
             $cart->user_id = $user->id;
             $cart->save();

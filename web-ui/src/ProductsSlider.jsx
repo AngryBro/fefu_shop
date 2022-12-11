@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import './css/ProductsSlider.css';
 import Product from './Product';
 import NextNewSVG from './svg/NextNewSVG';
 
-const ProductsSlider = ({pageSize, products}) => {
+const ProductsSlider = ({pageSize, products, skeletons}) => {
 
+    const navigate = useNavigate();
     const dx = 320;
     var [first, setFirst] = React.useState(-1);
     var [last, setLast] = React.useState(pageSize);
@@ -52,7 +54,7 @@ const ProductsSlider = ({pageSize, products}) => {
                 <div className="slides">
                     {
                         slides.map((product) => 
-                            <div className="product" key={product.key}><Product data={product.item} message='NEW'/></div>    
+                            <div className="product" key={product.key} onClick={() => skeletons?1:navigate(`/product/${product.item.slug}`)}><Product skeleton={skeletons} data={product.item} message='NEW'/></div>    
                         )
                     }
                 </div>

@@ -1,30 +1,29 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/OpenedCatalog.css';
 
 const OpenedCatalog = ({categories}) => {
 
+
+    const navigate = useNavigate();
     var [categoriesLeft, setCategoriesLeft] = React.useState([]);
     var [categoriesRight, setCategoriesRight] = React.useState([]);
 
     React.useEffect(() => {
-        var categoriesTemp = JSON.parse(JSON.stringify(categories));
-        for(let i = 0; i<8; i++) {
-            for(let j = 0; j<10; j++) {
-                categoriesTemp[i].children.push({
-                    id: 20+j,
-                    name: 'category'+j,
-                    children: []
-                })
-            };
-        }
         var categoriesTempLeft = [];
         var categoriesTempRight = [];
-        for(let i = 0; i<Math.min(3, categoriesTemp.length); i++) {
-            categoriesTempLeft.push(categoriesTemp[i]);
+        for(let i = 0; i < categories.length; i++) {
+            if(categories[i].children.length) {
+                categoriesTempLeft.push(categories[i]);
+            }
+            else {
+                categoriesTempRight.push(categories[i]);
+            }
         }
-        for(let i = 3; i < categoriesTemp.length; i++) {
-            categoriesTempRight.push(categoriesTemp[i]);
+        for(let i = 0; i < categoriesTempLeft.length-2; i++) {
+            categoriesTempLeft.splice(Math.round(Math.random()*categoriesTempLeft.length),1);
         }
+        
         setCategoriesLeft(categoriesTempLeft);
         setCategoriesRight(categoriesTempRight);
     }, [categories]);
@@ -39,7 +38,7 @@ const OpenedCatalog = ({categories}) => {
                             <div className="rows">
                                 {
                                     category.children.map(child => 
-                                        <div className='element' key={child.id}>{child.name}</div>
+                                        <div className='element' onClick={() => navigate(`/catalog/${child.slug}`)} key={child.id}>{child.name}</div>
                                     )
                                 }
                             </div>
@@ -49,7 +48,7 @@ const OpenedCatalog = ({categories}) => {
             </div>
             <div className="right">
                 {
-                    categoriesRight.map(category => <div className='header' key={category.id}>
+                    categoriesRight.map(category => <div className='header' onClick={() => navigate(`/catalog/${category.slug}`)} key={category.id}>
                         {category.name}
                     </div>
                     )

@@ -1,0 +1,56 @@
+.NotFoundPage {
+    height: 764px;
+    width: 100%;
+    display: flex;
+}
+.NotFoundPage .centralBlock .man {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 45.92%, rgba(255, 255, 255, 0) 155.53%), url('../imgs/notFound.png');
+    width: 100%;
+    height: 596px;
+    background-size: cover;
+    /* margin: auto; */
+    bottom: 0px;
+    position: absolute;
+    z-index: -1;
+    left: -10px;
+}
+.NotFoundPage .centralBlock {
+    margin: auto;
+    height: 100%;
+    width: 636px;
+    overflow: hidden;
+    /* display: flex; */
+    position: relative;
+}
+.NotFoundPage .centralBlock .c404 {
+    margin: auto;
+    margin-top: 114px;
+    width: fit-content;
+}
+.NotFoundPage .centralBlock .mainText {
+    margin-top: 43px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #323540;
+    text-align: center;
+}
+.NotFoundPage .centralBlock .advice {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #323540;
+    margin-top: 16px;
+}
+.NotFoundPage .centralBlock .button {
+    margin: auto;
+    margin-top: 40px;
+    width: 168px;
+    height: 48px;
+}

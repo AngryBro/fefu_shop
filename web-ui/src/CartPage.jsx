@@ -164,6 +164,9 @@ const CartPage = ({cart}) => {
                     </div>
                     <div className="manImage"></div>
             </div>
+            <div className='loading' hidden={loaded}>
+                Подождите, корзина загружается...
+            </div>
         </div>
     );
 

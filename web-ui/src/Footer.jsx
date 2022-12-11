@@ -6,9 +6,12 @@ import VkSVG from './svg/VkSVG';
 import YouTubeSVG from './svg/YouTubeSVG';
 import AvitoSVG from './svg/AvitoSVG';
 import BigButton from './buttons/BigButton';
+import { useNavigate } from 'react-router-dom';
 
 const Footer = ({categories, contacts, infoPages}) => { 
     
+    const navigate = useNavigate();
+
     var [linksCategories, setLinksCategories] = React.useState([[], []]);
     React.useEffect(() => {
         var temp = [];
@@ -16,10 +19,10 @@ const Footer = ({categories, contacts, infoPages}) => {
         for(let i = 0; i<categories.length; i++) {
             if(categories[i].children.length === 0) {
                 if(i < categories.length/2) {
-                    temp.push(categories[i].name);
+                    temp.push(categories[i]);
                 }
                 else {
-                    temp1.push(categories[i].name);
+                    temp1.push(categories[i]);
                 }
             }
         }
@@ -49,7 +52,7 @@ const Footer = ({categories, contacts, infoPages}) => {
                             [0,1].map(i => 
                                 <div className='column' key={i}>
                                     {
-                                        linksCategories[i].map((category, index) => <div key={index} className='link'>{category}</div>)
+                                        linksCategories[i].map((category, index) => <div onClick={() => navigate(`/catalog/${category.slug}`)} key={index} className='link'>{category.name}</div>)
                                     }
                                 </div>
                             )

@@ -31,12 +31,15 @@ const ProductPage = ({cart}) => {
                 setSelectedSize(sizes(array.product)[0]);
                 setLoaded(true);
             }
+            else {
+                navigate('/404');
+            }
         })
         .get({
             slug: slug
         })
         .send();
-    }, [slug]);
+    }, [slug, navigate]);
 
     useEffect(() => {
         if(Object.keys(data).length) {

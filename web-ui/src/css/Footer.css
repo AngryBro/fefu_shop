@@ -178,3 +178,6 @@
     align-items: center;
     color: #616575;
 }
+.Footer .link {
+    cursor: pointer;
+}

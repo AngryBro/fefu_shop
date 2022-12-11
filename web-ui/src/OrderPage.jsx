@@ -8,11 +8,12 @@ import PhoneMaskGenerator from './PhoneMaskGenerator';
 import Api from './Api';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PhoneParse from './PhoneParse';
 
 const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
 
     const navigate = useNavigate();
-
+    const defaultButtonText = 'Отправить заявку';
     const validateEmail = email => email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     const validateRequired = field => field.length > 0 && field !== null;
     const validateIndex = index => {
@@ -29,13 +30,14 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
         if(!userData.authed) {
             return setOpenedModalWindow({type: 'phone', phone});
         }
-        
-        Api('orderCreate').auth().callback(({ok, status}) => {
+        setCreateText('...');
+        Api('orderCreate').auth().callback(({ok, status, array}) => {
             if(ok) {
                 cart.update();
-                navigate('/');
+                navigate(`/order/sent?number=${array.number}`);
             }
             else {
+                setCreateText(defaultButtonText);
                 if(status === 422) {
                     setShowErrors(true);
                 }
@@ -69,12 +71,12 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
     var [apartment, setApartment] = useState('');
     var [comment, setComment] = useState(null);
     var [showErrors, setShowErrors] = useState(false);
-
+    var [createText, setCreateText] = useState(defaultButtonText);
     var [commentFocus, setCommentFocus] = useState(false);
 
     useEffect(() => {
         setName(n => userData.authed&&userData.name!==undefined?userData.name:n);
-        setPhone(p => userData.authed?('+'+userData.phone):p);
+        setPhone(p => userData.authed?(PhoneParse(userData.phone)):p);
         setEmail(e => userData.authed&&userData.email!==undefined?userData.email:e);
 
     }, [userData]);
@@ -194,7 +196,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
                         }}
                         marginLeft='24px'
                         button={{
-                            text: 'Отправить заявку',
+                            text: createText,
                             action: create
                         }}
                         params={[

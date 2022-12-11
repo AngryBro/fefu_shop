@@ -37,6 +37,19 @@
     overflow: hidden;
     margin-bottom: 96px;
 }
+.CartPage .loading {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 121%;
+    color: #c9c9c9;
+    overflow: hidden;
+    text-align: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
 .CartPage .block .positions {
     margin-top: 40px;
     margin-left: 175px;

@@ -14,4 +14,6 @@
     text-decoration-line: underline;
     text-transform: uppercase;
     color: #FFFFFF;
+    width: fit-content;
+    height: fit-content;
 }

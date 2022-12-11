@@ -6,6 +6,8 @@ import ProductPage from './ProductPage';
 import CatalogPage from './CatalogPage';
 import CartPage from './CartPage';
 import OrderPage from './OrderPage';
+import OrderSentPage from './OrderSentPage';
+import NotFoundPage from './NotFoundPage';
 
 function App() {
   return (
@@ -18,6 +20,10 @@ function App() {
         <Route path='/catalog' element={<Page Content={CatalogPage} title='Каталог' />}/>
         <Route path='/cart' element={<Page Content={CartPage} title='Корзина' />}/>
         <Route path='/order' element={<Page Content={OrderPage} title='Оформление'/>} />
+        <Route path='/order/sent' element={<Page Content={OrderSentPage} title='Оформлен' />}/>
+        {/* <Route path='/404' element={<Page Content={NotFoundPage} title='404'/> */}
+
+        <Route path='*' element={<Page Content={NotFoundPage} title='404'/>} />
       </Routes>
     </BrowserRouter>
   );

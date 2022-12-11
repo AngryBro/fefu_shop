@@ -28,7 +28,7 @@ class ShopConfigSeeder extends Seeder
                 'link' => 'ссылка на страницу об оплате при доставке'
             ],
             'email' => [
-                'email@logo.com'
+                'angry.bro.v.2013@gmail.com'
             ],
             'footer_categories' => [1,2,3],
             'slide' => [

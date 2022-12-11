@@ -6,7 +6,7 @@ import PhoneMaskGenerator from './PhoneMaskGenerator';
 import DeleteCartPositionSVG from './svg/DeleteCartPositionSVG';
 import Api from './Api';
 
-const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData}) => {
+const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData, cartUpdate}) => {
 
     // const star = '*';
     const stars = '';
@@ -24,6 +24,7 @@ const SmsModal = ({phone, close ,setOpenedModalWindow, updateUserData}) => {
                 setError(false);
                 localStorage.setItem('Authorization', array.bearer_token);
                 updateUserData();
+                cartUpdate();
                 close();
                 setSmsCode('');
             }
