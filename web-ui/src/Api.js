@@ -26,7 +26,11 @@ const Api = (routeName) => {
         ordersItem: '/order.get',
         usersAll: '/users.all',
         adminsAll: '/admins.all',
-        adminEdit: '/admin.update'
+        adminEdit: '/admin.update',
+        adminCreate: '/admin.create',
+        adminDelete: '/admin.delete',
+        configUpdate: '/shopConfig.update',
+        contactsUpdate: '/contacts.update'
     };
 
     var _method = 'get';

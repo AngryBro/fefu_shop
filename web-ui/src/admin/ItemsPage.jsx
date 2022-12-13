@@ -6,7 +6,7 @@ import CatalogPaginator from '../CatalogPaginator';
 import '../css/AdminPage.css';
 import ItemInfo from './ItemInfo';
 
-const ItemsPage = ({callback = () => 1, selection = false, apiRouteAll, apiRouteItem, tableHeaders = [], title, itemProps = [], Item}) => {
+const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false, apiRouteAll, apiRouteItem, tableHeaders = [], title, itemProps = [], Item}) => {
 
     const pageSize = 5;
 
@@ -33,7 +33,7 @@ const ItemsPage = ({callback = () => 1, selection = false, apiRouteAll, apiRoute
             page_size: pageSize
         })
         .send();
-    }, [pageSize, page, apiRouteAll, title]);
+    }, [pageSize, page, apiRouteAll, title, rerenderFlag]);
 
     useEffect(() => {
         if(selectedId > 0) {

@@ -10,7 +10,7 @@ use App\Rules\ContactId;
 class ContactController extends Controller
 {
     function get() {
-        return response()->json(Contact::all());
+        return response()->json(Contact::query()->orderBy('id', 'asc')->get());
     }
 
     function update(Request $request) {

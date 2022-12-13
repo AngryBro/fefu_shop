@@ -37,12 +37,18 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
                 navigate(`/order/sent?number=${array.number}`);
             }
             else {
+                setEmailError(false);
                 setCreateText(defaultButtonText);
                 if(status === 422) {
                     setShowErrors(true);
                 }
                 else {
-                    navigate('/cart');
+                    if(status === 400) {
+                        setEmailError(true);
+                    }
+                    else {
+                        navigate('/cart');
+                    }
                 }
             }
         })
@@ -73,6 +79,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
     var [showErrors, setShowErrors] = useState(false);
     var [createText, setCreateText] = useState(defaultButtonText);
     var [commentFocus, setCommentFocus] = useState(false);
+    var [emailError, setEmailError] = useState(false);
 
     useEffect(() => {
         setName(n => userData.authed&&userData.name!==undefined?userData.name:n);
@@ -115,6 +122,9 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
                             showError={showErrors}
                             validation={validateEmail}
                         />
+                    </div>
+                    <div hidden={!emailError} className='emailError'>
+                        Пользователь с таким E-mail уже существует
                     </div>
                     <div className='getType'>
                         <div className='selectName'>Способ получения</div>

@@ -98,3 +98,11 @@
     width: 239px;
     margin-top: 60px;
 }
+.OrderPage .emailError {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 121%;
+    color: #ff6363;  
+}

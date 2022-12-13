@@ -9,6 +9,7 @@ use Validator;
 use App\Mail\OrderMail;
 use App\Models\ShopConfig;
 use Mail;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -79,6 +80,15 @@ class OrderController extends Controller
         if($cart === null) return response()->json([
             'message' => 'no cart'
         ],400);
+        $existingUser = User::query()
+        ->where('email', $data['email'])
+        ->whereNotNull('email')
+        ->first();
+        if($existingUser !== null) {
+            return response()->json([
+                'message' => 'user with this email exists'
+            ], 400);
+        }
         $positions = $cart->positions;
         if(count($positions)===0) {
             return response()->json([
@@ -151,15 +161,15 @@ class OrderController extends Controller
         $order->save();
         $cart->user_id = null;
         $cart->save();
-        // try {
-        //     Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
-        // }
-        // catch(Exception $e) {
-        //     return response()->json([
-        //         'message' => 'mail failed, order created',
-        //         'number' => $order->id
-        //     ]);
-        // }
+        try {
+            Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
+        }
+        catch(Exception $e) {
+            return response()->json([
+                'message' => 'mail failed, order created',
+                'number' => $order->id
+            ]);
+        }
         return response()->json([
             'message' => 'order created',
             'number' => $order->id
