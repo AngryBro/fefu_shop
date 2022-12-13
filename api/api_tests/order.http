@@ -1,10 +1,10 @@
 ### Создание заказа
 POST http://localhost/api/order.create
 Content-Type: application/json
-Authorization: Bearer usertoken
+Authorization: Bearer admintoken
 
 {
-    "delivery":true,
+    "delivery":false,
     "city":"Комсомольск",
     "street":"Пирогова",
     "building":"21",

@@ -11,7 +11,7 @@ import './css/Skeleton.css';
 import PriceDiscount from './PriceDiscount';
 import Api from './Api';
 
-const ProductPage = ({cart}) => {
+const ProductPage = ({cart, favouriteProductIds}) => {
 
     const {slug} = useParams();
     const navigate = useNavigate();
@@ -24,8 +24,9 @@ const ProductPage = ({cart}) => {
     var [selectedSize, setSelectedSize] = useState('');
     var [sizeSelectionOpened, setSizeSelectionOpened] = useState(false);
 
+
     useEffect(() => {
-        Api('productGet').callback(({ok, status, array}) => {
+        Api('productGet').callback(({ok, array}) => {
             if(ok) {
                 setData(array);
                 setSelectedSize(sizes(array.product)[0]);
@@ -39,6 +40,7 @@ const ProductPage = ({cart}) => {
             slug: slug
         })
         .send();
+        return () => setInCart(false);
     }, [slug, navigate]);
 
     useEffect(() => {
@@ -85,7 +87,6 @@ const ProductPage = ({cart}) => {
             }
         }
         return temp;
-        // return sizeNames;
     }
 
     return (
@@ -110,7 +111,7 @@ const ProductPage = ({cart}) => {
                             }
                             <div className='favourite'>
                                 {
-                                    data.product.favourite?
+                                    data.product.id in favouriteProductIds?
                                     <FavouriteSVG/>:
                                     <NotFavouriteSVG/>
                                 }

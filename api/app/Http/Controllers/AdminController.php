@@ -27,11 +27,19 @@ class AdminController extends Controller
         return response()->json($admin);
     }
 
-    function admins() {
+    function admins(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'page' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'no page or page_size'
+        ],422);
+        $data = $validator->validated();
         $users = User::query()
         ->where('role_id',Role::firstWhere('name',Role::ADMIN)->id)
-        ->get();
-        if(count($users)===0) return response()->json([
+        ->paginate($data['page_size']);
+        if($users->count()===0) return response()->json([
             'message' => 'not found'
         ],404);
         return response()->json($users);

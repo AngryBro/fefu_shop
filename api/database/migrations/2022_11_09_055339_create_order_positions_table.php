@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(App\Models\Order::class);
             $table->foreignIdFor(App\Models\Product::class);
-            $table->foreignIdFor(App\Models\Size::class);
+            $table->string('size');
             $table->integer('count');
             $table->integer('price');
             $table->integer('price_discount');

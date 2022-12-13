@@ -71,8 +71,8 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
                     </div>
                     <div className='modalWindowFooterText PhoneModalFooter'>
                         Нажимая на кнопку, вы принимаете&nbsp;
-                        <u>политику конфиденциальности</u>&nbsp;и&nbsp;
-                        <u>пользовательское соглашение</u>
+                        <u onClick={() => window.open('/info/confidentials')} style={{cursor:'pointer'}}>политику конфиденциальности</u>&nbsp;и&nbsp;
+                        <u onClick={() => window.open('/info/agreement')} style={{cursor:'pointer'}}>пользовательское соглашение</u>
                     </div>
                 </div>
                 <div className='modalWindowClose' onClick={close}>

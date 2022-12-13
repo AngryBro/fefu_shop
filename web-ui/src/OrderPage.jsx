@@ -30,7 +30,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
         if(!userData.authed) {
             return setOpenedModalWindow({type: 'phone', phone});
         }
-        setCreateText('...');
+        setCreateText('•••');
         Api('orderCreate').auth().callback(({ok, status, array}) => {
             if(ok) {
                 cart.update();

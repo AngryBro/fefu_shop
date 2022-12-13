@@ -1,0 +1,42 @@
+.OrderSentPage .block {
+    margin-left: 413px;
+    margin-top: 201px;
+    width: max-content;
+}
+.OrderSentPage {
+    height: 700px;
+}
+.OrderSentPage .hightext {
+    margin: auto;
+    margin-top: 48px;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #323540;
+}
+.OrderSentPage .lowtext {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    margin: auto;
+    margin-top: 16px;
+    color: #515562;
+}
+.OrderSentPage .button {
+    margin: auto;
+    margin-top: 40px;
+    width: 168px;
+    height: 48px;
+}
+.OrderSentPage .svg {
+    margin: auto;
+}
+.OrderSentPage .row {
+    display: flex;
+    width: 100%;
+}

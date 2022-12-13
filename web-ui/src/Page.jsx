@@ -49,21 +49,52 @@ const Page = ({Content, title}) => {
             }
         }).send();
     }
+    const infoPagesWithPlaces = array => {
+        var temp1 = [];
+        var temp2 = [];
+        var temp3 = [];
+        var inPlace = (number, array_i) => {
+            return String(array_i.place).indexOf(String(number))!==-1;
+        }
+        for(let i = 0; i < array.length; i++) {
+            if(inPlace(1,array[i])) {
+                temp1.push(array[i]);
+            }
+            if(inPlace(2, array[i])) {
+                temp2.push(array[i]);
+            }
+            if(inPlace(3, array[i])) {
+                temp3.push(array[i]);
+            }
+            
+        }
+        return {
+            header: temp1,
+            footerLeft: temp2,
+            footerRight: temp3,
+            all: array
+        };
+    }
+    const contactsWithKeys = array => {
+        var temp = {};
+        array.forEach(item => temp[item.name_internal] = item);
+        return temp;
+    }
 
     var [cartCount, setCartCount] = React.useState(0);
     var [cartSum, setCartSum] = React.useState(0);
     var [cartUpdateFlag, setCartUpdateFlag] = React.useState(false);
     var [cartIds, setCartIds] = React.useState({position_ids:{}, product_ids:{}});
     var [infoPages, setInfoPages] = React.useState([]);
-    var [contacts, setContacts] = React.useState([]);
+    var [contacts, setContacts] = React.useState({});
     var [categories, setCategories] = React.useState([]);
     var [searchString, setSearchString] = React.useState('');
     var [userData, setUserData] = React.useState({authed: false});
     var [userDataUpdateFlag, setUserDataUpdateFlag] = React.useState(false);
     var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
     var [productsMeta, setProductsMeta] = React.useState(undefined);
-    // var [timeSmsCode, setTimeSmsCode] = React.useState(0);
     var [sendSmsTime, setSendSmsTime] = React.useState(0);
+    var [favouriteProductIds, setFavouriteProductIds] = React.useState({});
 
     React.useEffect(() => {
         if(localStorage.getItem('Authorization') !== null) {
@@ -102,29 +133,41 @@ const Page = ({Content, title}) => {
     React.useEffect(() => {
         
         document.title = title===undefined?'LOGO':title;
-        var pages = [];
-        for(let i = 0; i<3; i++) {
-            pages.push({
-                name: 'Страница'+i,
-                link: '/',
-                id: i
-            });
-        }
-        setInfoPages(pages);
-        var temp = [];
-        for(let i = 0; i<5; i++) {
-            temp.push({
-                name: 'контакт'+i,
-                id: i
-            });
-        }
-        setContacts(temp);
-        Api('productsMeta').callback(({ok, array}) => {
+
+        Api('infoPagesAll')
+        .callback(({ok,array}) => {
+            if(ok) {
+                setInfoPages(array);
+            }
+        })
+        .send();
+
+        Api('contacts')
+        .callback(({ok, array}) => {
+            if(ok) {
+                setContacts(contactsWithKeys(array));
+            }
+        })
+        .send();
+        
+        Api('productsMeta')
+        .callback(({ok, array}) => {
             if(ok) {
                 setProductsMeta(array);
                 setCategories(array.categories);
             }
-        }).send();
+        })
+        .send();
+
+        Api('favouriteIds')
+        .callback(({ok, array}) => {
+            if(ok) {
+                setFavouriteProductIds(array.product_ids);
+            }
+        })
+        .auth()
+        .send();
+
     }, [title]);
 
 
@@ -134,7 +177,7 @@ const Page = ({Content, title}) => {
                 categories={categories}
                 cart={{count: cartCount, sum: cartSum}}
                 contacts={contacts}
-                infoPages={infoPages}
+                infoPages={infoPagesWithPlaces(infoPages)}
                 search={search}
                 searchString={{get: searchString, set: setSearchString}}
                 userData={userData}
@@ -185,10 +228,14 @@ const Page = ({Content, title}) => {
                     setOpenedModalWindow={setOpenedModalWindow}
                     productsMeta={productsMeta}
                     categories={categories}
+                    favouriteProductIds={favouriteProductIds}
                     />
                 </div>
             </div>
-            <Footer categories={categories} infoPages={infoPages} contacts={contacts}></Footer>
+            <Footer 
+                categories={categories} 
+                infoPages={infoPagesWithPlaces(infoPages)} 
+                contacts={contacts}></Footer>
         </div>
     );
 }

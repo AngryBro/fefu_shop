@@ -14,9 +14,6 @@ class CartProduct extends Model
     function cart() {
         return $this->belongsTo(Cart::class);
     }
-    function size() {
-        return $this->belongsTo(Size::class);
-    }
     function product() {
         return $this->belongsTo(Product::class);
     }

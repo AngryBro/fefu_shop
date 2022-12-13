@@ -1,8 +1,6 @@
 ### Добавление в корзину
 POST http://localhost/api/cart.add
 Content-Type: application/json
-# X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-# Authorization: Bearer usertoken
 
 {
     "product_id":3,

@@ -3,7 +3,7 @@
     width: 1200px;
     margin: auto;
     background-color: rgb(255, 255, 255);
-    border: solid white 1px;
+    border: solid rgb(236, 236, 236) 1px;
     position: absolute;
     z-index: 10;
 }

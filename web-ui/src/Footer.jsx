@@ -8,25 +8,29 @@ import AvitoSVG from './svg/AvitoSVG';
 import BigButton from './buttons/BigButton';
 import { useNavigate } from 'react-router-dom';
 
-const Footer = ({categories, contacts, infoPages}) => { 
+const Footer = ({categories, contacts = {}, infoPages}) => { 
     
     const navigate = useNavigate();
 
     var [linksCategories, setLinksCategories] = React.useState([[], []]);
     React.useEffect(() => {
-        var temp = [];
         var temp1 = [];
+        var temp2 = [];
+        var temp = [];
         for(let i = 0; i<categories.length; i++) {
-            if(categories[i].children.length === 0) {
-                if(i < categories.length/2) {
-                    temp.push(categories[i]);
+            if(categories[i].children.length===0) {
+                temp.push(categories[i]);
+            }
+        };
+        for(let i = 0; i < temp.length; i++) {
+                if(i < temp.length/2) {
+                    temp1.push(temp[i]);
                 }
                 else {
-                    temp1.push(categories[i]);
+                    temp2.push(temp[i]);
                 }
-            }
         }
-        setLinksCategories([temp, temp1]);
+        setLinksCategories([temp1, temp2]);
     }, [categories]);
     
     return  (
@@ -38,12 +42,13 @@ const Footer = ({categories, contacts, infoPages}) => {
                     <div className='button'>
                         <BigButton text='связаться с нами' color='#0F406D' font={12}/>
                     </div>
-                    <div className='link'>
-                        пол конф
-                    </div>
-                    <div className='link'>
-                        соглашение
-                    </div>
+                    {
+                        infoPages.footerLeft.map(page => 
+                            <div className='link' key={page.id} onClick={() => window.open(`/info/${page.slug}`)}>
+                                {page.header}
+                            </div>    
+                        )
+                    }
                 </div>
                 <div className='catalog'>
                     <div className='header'>КАТАЛОГ</div>
@@ -62,28 +67,56 @@ const Footer = ({categories, contacts, infoPages}) => {
                 <div className='about'>
                     <div className='header'>о компании</div>
                     {
-                        infoPages.map(page => 
-                            <a key={page.id} className='link' href={page.link} target='_blank' rel="noopener noreferrer">{page.name}</a>
+                        infoPages.footerRight.map(page => 
+                            <a key={page.id} className='link' href={`/info/${page.slug}`} target='_blank' rel="noopener noreferrer">{page.header}</a>
                         )
                     }
                 </div>
                 <div className='contacts'>
                     <div className='header'>контакты</div>
-                    <div className='phone'>phone</div>
-                    <div className='email'>email</div>
+                    {
+                        'phone_number' in contacts?
+                        <div className='phone'>{contacts.phone_number.value}</div>:
+                        <></>
+                    }
+                    {
+                        'email' in contacts?
+                        <div className='email'>{contacts.email.value}</div>:
+                        <></>   
+                    }
                     <div className='icons'>
-                        <div><TelegramSVG/></div>
-                        <div><InstFooterSVG/></div>
-                        <div><VkSVG/></div>
-                        <div><YouTubeSVG/></div>
-                        <div className='avito'><AvitoSVG/></div>
+                        {
+                            'telegram' in contacts?
+                            <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.telegram.value)}><TelegramSVG/></div>:
+                            <></>
+                        }
+                        {
+                            'instagram' in contacts?
+                            <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.instagram.value)}><InstFooterSVG/></div>:
+                            <></>
+                        }
+                        {
+                            'vk' in contacts?
+                            <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.vk.value)}><VkSVG/></div>:
+                            <></>
+                        }
+                        {
+                            'youtube' in contacts?
+                            <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.youtube.value)}><YouTubeSVG/></div>:
+                            <></>
+                        }
+                        {
+                            'avito' in contacts?
+                            <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.avito.value)} className='avito'><AvitoSVG/></div>:
+                            <></>
+                        }
                     </div>
                 </div>
             </div>
             <div className='line'></div>
             <div className='lower'>
                 <div className='year'>&copy; logo, 2022</div>
-                <div className='devby'>Developed by STUDNEE</div>
+                <div className='devby' style={{cursor:'pointer'}} onClick={() => window.open('https://vk.com/angyrbro')}>Developed by STUDNEE</div>
             </div>
         </div>
     </div>

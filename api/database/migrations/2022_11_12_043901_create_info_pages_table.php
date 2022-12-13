@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('image_header')->nullable();
             $table->json('images')->nullable();
             $table->boolean('hidden');
+            $table->integer('place');
             $table->timestamps();
         });
     }

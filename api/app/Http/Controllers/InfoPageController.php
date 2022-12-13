@@ -15,7 +15,7 @@ class InfoPageController extends Controller
     }
 
     function allUser() {
-        $pages = InfoPage::select('id','header','slug')->where('hidden',false)->get();
+        $pages = InfoPage::select('id','header','slug','place')->where('hidden',false)->get();
         return response()->json($pages);
     }
 

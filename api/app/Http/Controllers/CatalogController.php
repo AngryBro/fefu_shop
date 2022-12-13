@@ -138,6 +138,9 @@ class CatalogController extends Controller
         if($data['sort_price'] !== 0) {
             $products = $products->orderBy('products.price_discount',$data['sort_price']===1?'asc':'desc');
         }
+        if($data['sort_price']===0 && !$data['sort_new']) {
+            $products = $products->orderBy('products.id', 'desc');
+        }
         
         return $products;
     }

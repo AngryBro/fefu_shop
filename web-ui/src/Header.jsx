@@ -11,7 +11,7 @@ import WhatsappSVG from './svg/WhatsappSVG';
 import OpenedCatalog from './OpenedCatalog';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({cart, contacts, infoPages, categories, searchString, search, userData, setOpenedModalWindow}) => { 
+const Header = ({cart, contacts, infoPages = {header:[]}, categories = [], searchString, search, userData = {}, setOpenedModalWindow}) => { 
     
     const navigate = useNavigate();
 
@@ -24,16 +24,27 @@ const Header = ({cart, contacts, infoPages, categories, searchString, search, us
             <div className='block'>
             <div className='infolinks'>
                 {
-                    infoPages.map(e => (
-                        <a className='infolink' key={e.id} target='_blank' rel="noopener noreferrer" href={e.link}>{e.name}</a>
+                    infoPages.header.map(e => (
+                        <a className='infolink' key={e.id} target='_blank' rel="noopener noreferrer" href={`/info/${e.slug}`}>{e.header}</a>
                     ))
                 }
             </div>
             <div className='contacts'>
-                    <div className='svgInst'><InstSVG/></div>
-                    <div className='textInst'>logo</div>
-                    <div className='svgWa'><WhatsappSVG/></div>
-                    <div className='textWa'>Написать нам</div>
+                {
+                    'instagram' in contacts?
+                    <>
+                        <div className='svgInst'><InstSVG/></div>
+                        <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.instagram.value)} className='textInst'>{contacts.instagram.name}</div>
+                    </>:<></>
+                }
+                {
+                    'whatsapp' in contacts?
+                    <>
+                        <div className='svgWa'><WhatsappSVG/></div>
+                        <div style={{cursor:'pointer'}} className='textWa'>{contacts.whatsapp.name}</div>
+                    </>:<></>
+                }
+                    
             </div>
             </div>
         </div>

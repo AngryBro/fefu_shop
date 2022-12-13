@@ -44,9 +44,9 @@ class OrderMail extends Mailable
         foreach($positions as $key => $position) {
             $product = $position->product;
             $size = $position->size;
-            $positionsArray[$key]['size'] = $size->name;
+            $positionsArray[$key]['size'] = $size;
             $positionsArray[$key]['name'] = $product->name;
-            $positionsArray[$key]['article'] = "$product->article-".$product->color->article."-$size->name";
+            $positionsArray[$key]['article'] = "$product->article-".$product->color->article."-$size";
         }
         $this->order = $positionsArray;
     }

@@ -1,0 +1,31 @@
+.AdminPage {
+    font-size: 14pt;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    overflow: hidden;
+}
+.AdminPage .menu div {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.AdminPage td {
+    border-top: 1px solid black;
+    text-align: left;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.AdminPage th {
+    text-align: center;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.AdminPage table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+}
+.AdminPage h1  {
+    cursor: pointer;
+}

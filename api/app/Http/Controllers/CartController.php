@@ -40,13 +40,13 @@ class CartController extends Controller
         $cart = $request->cart;
         $position = new CartProduct;
         $position->product_id = $data['product_id'];
-        $position->size_id = $size->id;
+        $position->size = $sizeName;
         $position->count = 1;
         $newSession = false;
         if($cart !== null) {
             $positionOld = CartProduct::query()
             ->where('product_id',$data['product_id'])
-            ->where('size_id',$size->id)
+            ->where('size',$sizeName)
             ->where('cart_id', $cart->id)
             ->first();
             if($positionOld !== null) {
@@ -116,7 +116,7 @@ class CartController extends Controller
             ],403);
         }
         $position = CartProduct::find($positionId);
-        $size = $position->size->name;
+        $size = $position->size;
         $productCount = $position->product->$size;
         if(($productCount === null)||($position->count+1 > $productCount)) {
             return response()->json([
@@ -143,7 +143,7 @@ class CartController extends Controller
             ],403);
         }
         $position = CartProduct::find($positionId);
-        $size = $position->size->name;
+        $size = $position->size;
         if($position->count === 1) {
             return response()->json([
                 'message' => 'min count 1'
@@ -164,9 +164,8 @@ class CartController extends Controller
         if(count($positions)===0) return $emptyResponse;
         $positions = $cart->positions()
         ->leftJoin('products','cart_product.product_id','products.id')
-        ->leftJoin('sizes','cart_product.size_id','sizes.id')
         ->leftJoin('colors', 'products.color_id', 'colors.id')
-        ->select('cart_product.id as position_id', 'cart_product.count as count' ,'products.*', 'colors.name as color','sizes.name as size')
+        ->select('cart_product.id as position_id', 'cart_product.count as count' ,'products.*', 'colors.name as color','cart_product.size as size')
         ->get();
         return response()->json($positions);
     }
@@ -191,7 +190,10 @@ class CartController extends Controller
 
     function getPositionIds(Request $request) {
         $cart = $request->cart;
-        $emptyResponse = response()->json([],404);
+        $emptyResponse = response()->json([
+            'product_ids' => [],
+            'position_ids' => []
+        ]);
         if($cart === null) return $emptyResponse;
         $positions = $cart->positions()->
         orderBy('product_id','asc')->get();
@@ -199,7 +201,7 @@ class CartController extends Controller
         $ids = [];
         $positionIds = [];
         foreach($positions as $position) {
-            $size = $position->size->name;
+            $size = $position->size;
             $positionIds[$position->id] = $position->product->$size>0;;
             if(!isset($ids[$position->product_id])) {
                 $ids[$position->product_id] = [];

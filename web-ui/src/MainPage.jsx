@@ -76,19 +76,19 @@ const MainPage = ({categories = []}) => {
             </div>
             <div className="categories">
                 <div className="edge">{upCategories.map(category => 
-                        <div className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
+                        <div key={category.id} className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
                             <div className="name">{category.name}</div>
                             <img className="image" src={category.image} alt="" />
                         </div>
                     )}</div>
                 <div className="middle">{midCategories.map(category => 
-                        <div className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
+                        <div key={category.id} className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
                             <div className="name">{category.name}</div>
                             <img className="image" src={category.image} alt="" />
                         </div>
                     )}</div>
                 <div className="edge">{downCategories.map(category => 
-                        <div className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
+                        <div key={category.id} className="category" onClick={() => navigate(`/catalog/${category.slug}`)}>
                             <div className="name">{category.name}</div>
                             <img className="image" src={category.image} alt="" />
                         </div>
@@ -104,7 +104,7 @@ const MainPage = ({categories = []}) => {
                 <div className="block">
                     <div className="header">о компании</div>
                     <div className="text">какой-то текст</div>
-                    <div className="moreButton">
+                    <div className="moreButton" onClick={() => window.open('/info/about')}>
                         <div className="text">подробнее</div>
                     </div>
                 </div>

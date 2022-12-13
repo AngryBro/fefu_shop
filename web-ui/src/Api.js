@@ -18,7 +18,15 @@ const Api = (routeName) => {
         cartInc: '/cart.increment',
         cartDec: '/cart.decrement',
         cartDelete: '/cart.delete',
-        orderCreate: '/order.create'
+        orderCreate: '/order.create',
+        infoPagesAll: '/infopages.all',
+        contacts: '/contacts.get',
+        favouriteIds: '/favourite.getIds',
+        ordersAll: '/orders.all',
+        ordersItem: '/order.get',
+        usersAll: '/users.all',
+        adminsAll: '/admins.all',
+        adminEdit: '/admin.update'
     };
 
     var _method = 'get';

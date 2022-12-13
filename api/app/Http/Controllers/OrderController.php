@@ -44,8 +44,15 @@ class OrderController extends Controller
         if($order === null) return response()->json([
             'message' => 'not found'
         ],404);
-        $order->positions;
-        $order->user;
+        $positions = $order->positions()
+        ->leftJoin('products','products.id', 'order_positions.product_id')
+        ->leftJoin('colors', 'colors.id', 'products.color_id')
+        ->select('order_positions.*', 'products.name as name', 'products.article as article','colors.article as color_article')
+        ->get();
+        $user = $order->user;
+        $order = $order->toArray();
+        $order['positions'] = $positions;
+        $order['user'] = $user;
         return response()->json($order);
     }
 
@@ -68,12 +75,6 @@ class OrderController extends Controller
         ],422);
         $data = $validator->validated();
         $user = $request->user;
-        // if(($user->name === null) && (!isset($data['name'])) ||
-        //     ($user->email === null)&&(!isset($data['email']))) {
-        //         return response()->json([
-        //             'message' => 'name or email required'
-        //         ],422);
-        // }
         $cart = $user->cart;
         if($cart === null) return response()->json([
             'message' => 'no cart'
@@ -87,7 +88,7 @@ class OrderController extends Controller
         $expiredProducts = [];
         foreach($positions as $position) {
             $product = $position->product;
-            $size = $position->size->name;
+            $size = $position->size;
             if($product->$size < $position->count) {
                 $expiredProduct = [
                     'position_id' => $position->id,
@@ -128,7 +129,7 @@ class OrderController extends Controller
         $order->save();
         foreach($positions as $position) {
             $product = $position->product;
-            $size = $position->size->name;
+            $size = $position->size;
             $order->price += $product->price * $position->count;
             $order->discount += $product->discount * $position->count;
             $order->price_discount += $product->price_discount * $position->count;
@@ -144,21 +145,21 @@ class OrderController extends Controller
             $orderPosition->price = $product->price;
             $orderPosition->price_discount = $product->price_discount;
             $orderPosition->discount = $product->discount;
-            $orderPosition->size_id = $position->size_id;
+            $orderPosition->size = $position->size;
             $orderPosition->save();
         }
         $order->save();
         $cart->user_id = null;
         $cart->save();
-        try {
-            Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
-        }
-        catch(Exception $e) {
-            return response()->json([
-                'message' => 'mail failed, order created',
-                'number' => $order->id
-            ]);
-        }
+        // try {
+        //     Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
+        // }
+        // catch(Exception $e) {
+        //     return response()->json([
+        //         'message' => 'mail failed, order created',
+        //         'number' => $order->id
+        //     ]);
+        // }
         return response()->json([
             'message' => 'order created',
             'number' => $order->id
