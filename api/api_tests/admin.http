@@ -31,3 +31,11 @@ Content-Type: application/json
 {
     "id":3
 }
+###
+POST http://localhost/api/brand.delete
+Authorization: Bearer admintoken
+Content-Type: application/json
+
+{
+    "id":1
+}

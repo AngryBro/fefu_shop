@@ -30,7 +30,15 @@ const Api = (routeName) => {
         adminCreate: '/admin.create',
         adminDelete: '/admin.delete',
         configUpdate: '/shopConfig.update',
-        contactsUpdate: '/contacts.update'
+        contactsUpdate: '/contacts.update',
+        materials: '/materials.get',
+        materialsUpdate: '/material.update',
+        materialCreate: '/material.create',
+        materialDelete: '/material.delete',
+        brands: '/brands.get',
+        brandUpdate: '/brand.update',
+        brandCreate: '/brand.create',
+        brandDelete: '/brand.delete'
     };
 
     var _method = 'get';

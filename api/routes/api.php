@@ -18,6 +18,8 @@ use App\Http\Controllers\CallbackController;
 use App\Http\Controllers\ShopConfigController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\AdminCatalogController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\BrandController;
 
 
 // Route::any('/debug',[DebugController::class, 'debug']);
@@ -52,6 +54,14 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
     Route::get('/mydata.get', [UserDataController::class, 'get']);
 
     Route::middleware(App\Http\Middleware\Admin::class)->group(function(){
+        Route::get('/materials.get', [MaterialController::class, 'get']);
+        Route::post('/material.update', [MaterialController::class, 'update']);
+        Route::post('/material.create', [MaterialController::class, 'create']);
+        Route::post('/material.delete', [MaterialController::class, 'delete']);
+        Route::get('/brands.get', [BrandController::class, 'get']);
+        Route::post('/brand.update', [BrandController::class, 'update']);
+        Route::post('/brand.create', [BrandController::class, 'create']);
+        Route::post('/brand.delete', [BrandController::class, 'delete']);
         Route::get('/order.get', [OrderController::class, 'get']);
         Route::get('/orders.all', [OrderController::class, 'all']);
         Route::get('/admin/infopage.get', [InfoPageController::class, 'getAdmin']);

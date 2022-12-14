@@ -13,6 +13,8 @@ import OrdersPage from './admin/OrdersPage';
 import UsersPage from './admin/UsersPage';
 import AdminsPage from './admin/AdminsPage';
 import ContactsPage from './admin/ContactsPage';
+import MaterialsPage from './admin/MaterialsPage';
+import BrandsPage from './admin/BrandsPage';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path='/admin/users' element={<Page Content={UsersPage} title='Пользователи' />}/>
         <Route path='/admin/admins' element={<Page Content={AdminsPage} title='Администраторы' />}/>
         <Route path='/admin/contacts' element={<Page Content={ContactsPage} title='Контакты' />}/>
+        <Route path='/admin/materials' element={<Page Content={MaterialsPage} title='Материалы' />}/>
+        <Route path='/admin/brands' element={<Page Content={BrandsPage} title='Брэнды' />}/>
 
         <Route path='*' element={<Page Content={NotFoundPage} title='404'/>} />
       </Routes>
