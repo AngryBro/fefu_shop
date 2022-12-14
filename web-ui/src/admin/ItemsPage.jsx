@@ -17,6 +17,8 @@ const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false,
     var [pages, setPages] = useState(1);
     var [selectedId, setSelectedId] = useState(0);
     var [data, setData] = useState({});
+    var [loading, setLoading] = useState(true);
+    var [loadingItem, setLoadingItem] = useState(false);
 
     useEffect(() => {
         document.title = title;
@@ -27,6 +29,7 @@ const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false,
                 setItems(array.data);
                 setPages(Math.ceil(array.total/pageSize));
             }
+            setLoading(false);
         })
         .get({
             page: page,
@@ -37,11 +40,13 @@ const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false,
 
     useEffect(() => {
         if(selectedId > 0) {
+            setLoadingItem(true);
             Api(apiRouteItem)
             .callback(({ok, array}) => {
                 if(ok) {
                     setData(array);
                 }
+                setLoadingItem(false);
             })
             .get({id: selectedId})
             .auth()
@@ -58,6 +63,13 @@ const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false,
                         {
                             tableHeaders.map(header =>
                                 <th key={header}>{header}</th>    
+                            )
+                        }
+                    </tr>
+                    <tr hidden={!loading}>
+                        {
+                            tableHeaders.map((header, i) =>
+                                <td style={{color:'grey'}} key={header}>{i===0?'загрузка':''}</td>    
                             )
                         }
                     </tr>
@@ -86,6 +98,9 @@ const ItemsPage = ({rerenderFlag = false, callback = () => 1, selection = false,
                 <CatalogPaginator externalPage={setPage} pages={pages}/>
             </div>
             <div style={{marginTop:'50px'}}>
+                {
+                    loadingItem?<div style={{color:'grey'}}>загрузка</div>:<></>
+                }
                 {
                     Object.keys(data).length?
                     <ItemInfo Component={Item} data={data} />:

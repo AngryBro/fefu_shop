@@ -80,14 +80,16 @@ class OrderController extends Controller
         if($cart === null) return response()->json([
             'message' => 'no cart'
         ],400);
-        $existingUser = User::query()
-        ->where('email', $data['email'])
-        ->whereNotNull('email')
-        ->first();
-        if($existingUser !== null) {
-            return response()->json([
-                'message' => 'user with this email exists'
-            ], 400);
+        if(isset($data['email']) && $data['email']!==$user->email) {
+            $existingUser = User::query()
+            ->where('email', $data['email'])
+            ->whereNotNull('email')
+            ->first();
+            if($existingUser !== null) {
+                return response()->json([
+                    'message' => 'user with this email exists'
+                ], 400);
+            }
         }
         $positions = $cart->positions;
         if(count($positions)===0) {
@@ -129,8 +131,8 @@ class OrderController extends Controller
         if($data['delivery']) {
             foreach(['city', 'street', 'building', 'apartment','index'] as $param) {
                 if(isset($data[$param])) {
-                    $order->$param = $data[$param];  
-                }  
+                    $order->$param = $data[$param];
+                }
             }
         }
         $order->price = 0;
@@ -161,15 +163,16 @@ class OrderController extends Controller
         $order->save();
         $cart->user_id = null;
         $cart->save();
-        try {
-            Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
-        }
-        catch(Exception $e) {
-            return response()->json([
-                'message' => 'mail failed, order created',
-                'number' => $order->id
-            ]);
-        }
+        // try {
+        //     Mail::to(json_decode(ShopConfig::firstWhere('name', 'email')->value,false)[0])->send(new OrderMail($order));
+        // }
+        // catch(Exception $e) {
+        //     return response()->json([
+        //         'message' => 'mail failed, order created',
+        //         'number' => $order->id,
+        //         'error' => $e
+        //     ]);
+        // }
         return response()->json([
             'message' => 'order created',
             'number' => $order->id

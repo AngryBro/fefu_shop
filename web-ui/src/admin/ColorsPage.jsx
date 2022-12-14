@@ -112,18 +112,18 @@ const ColorsPage = () => {
                         <th>Удалить</th>
                     </tr>
                     <tr>
-                        <td><button onClick={create}>Создать</button></td>
-                        <td><input type="text" value={newName} onChange={e => setNewName(e.target.value)} onBlur={() => setOpenedCreateColorPicker(false)}/></td>
-                        <td><input type="text" value={newCode} onChange={e => setNewCode(e.target.value)} onBlur={() => setOpenedCreateColorPicker(false)}/></td>
-                        <td>
+                        <th><button onClick={create}>Создать</button></th>
+                        <th><input type="text" value={newName} onChange={e => setNewName(e.target.value)} onBlur={() => setOpenedCreateColorPicker(false)}/></th>
+                        <th><input type="text" value={newCode} onChange={e => setNewCode(e.target.value)} onBlur={() => setOpenedCreateColorPicker(false)}/></th>
+                        <th>
                             {
                                 openedCreateColorPicker?
                                 <ChromePicker onChangeComplete={handleChangeCompleteNew} color={newColor}/>:
                                 <div onClick={() => setOpenedCreateColorPicker(true)}  style={{border:'grey solid 1px', width:'100%', height:'20px', display:'flex', cursor:'pointer'}}> <div style={{margin:'auto'}}>&#9999;</div> </div>
                             }
-                        </td>
-                        <td></td>
-                        <td></td>
+                        </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     <tr hidden={!loading}>
                         <td style={{color:'grey'}}>загрузка</td>
@@ -162,7 +162,7 @@ const ColorsPage = () => {
                                         <button onClick={() => {setEditingId(color.id); setUpdateData({})}}>изменить</button>
                                     }
                                 </td>
-                                <td><button onClick={() => del(color.id)}>X</button></td>
+                                <td><button onClick={() => del(color.id)}>&#10006;</button></td>
                             </tr>    
                         )
                     }

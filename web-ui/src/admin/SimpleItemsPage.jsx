@@ -107,16 +107,16 @@ const SimpleItemsPage = ({apiRoutes, tableHeaders = [], itemProps = [], title, d
                         <th hidden={!('delete' in apiRoutes)}>Удалить</th>
                     </tr>
                     <tr hidden={!('create' in apiRoutes)}>
-                        <td><button onClick={create}>создать</button></td>
+                        <th><button onClick={create}>создать</button></th>
                         {
                             itemProps.map(prop =>
-                                <td key={prop}>
+                                <th key={prop}>
                                     <input type="text" onChange={e => setCreateParams(prop.name, e.target.value)} value={prop.name in newValue?newValue[prop.name]:''} />
-                                </td>    
+                                </th>    
                             )
                         }
-                        <td></td>
-                        <td hidden={!('delete' in apiRoutes)}></td>
+                        <th></th>
+                        <th hidden={!('delete' in apiRoutes)}></th>
                     </tr>
                     <tr hidden={!loading}>
                         <td style={{color: 'grey'}}>загрузка</td>
@@ -155,7 +155,7 @@ const SimpleItemsPage = ({apiRoutes, tableHeaders = [], itemProps = [], title, d
                                     }
                                 </td>
                                 <td hidden={!('delete' in apiRoutes)}>
-                                    <button onClick={() => del(item.id)}>X</button>
+                                    <button onClick={() => del(item.id)}>&#10006;</button>
                                 </td>
                             </tr>    
                         )

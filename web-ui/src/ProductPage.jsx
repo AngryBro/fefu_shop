@@ -26,13 +26,13 @@ const ProductPage = ({cart, favouriteProductIds}) => {
 
 
     useEffect(() => {
-        Api('productGet').callback(({ok, array}) => {
+        Api('productGet').callback(({ok, array, status}) => {
             if(ok) {
                 setData(array);
                 setSelectedSize(sizes(array.product)[0]);
                 setLoaded(true);
             }
-            else {
+            if(status === 404) {
                 navigate('/404');
             }
         })

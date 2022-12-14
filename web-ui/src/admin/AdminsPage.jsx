@@ -88,6 +88,7 @@ const AdminsPage = () => {
     var [admins, setAdmins] = useState([]);
     var [newAdmin, setNewAdmin] = useState(emptyAdmin);
     var [fetchFlag, setFetchFlag] = useState(true);
+    var [loading, setLoading] = useState(true);
 
     useEffect(() => {
         Api('adminsAll')
@@ -100,6 +101,7 @@ const AdminsPage = () => {
                 setAdmins(array);
                 setEditFormOpened(false);
             }
+            setLoading(false);
         })
         .send();
     },[fetchFlag, navigate]);
@@ -126,6 +128,15 @@ const AdminsPage = () => {
                         <th></th>
                         <th></th>
                         <th></th>
+                    </tr>
+                    <tr hidden={!loading}>
+                        <td style={{color:'grey'}}>загрузка</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     {
                         admins.map(admin => 
@@ -154,7 +165,7 @@ const AdminsPage = () => {
                                         <button onClick={() => openEditForm(admin)}>изменить</button>
                                     }
                                 </td>
-                                <td><button onClick={() => deleteAdmin(admin)}>X</button></td>
+                                <td><button onClick={() => deleteAdmin(admin)}>&#10006;</button></td>
                             </tr>    
                         )
                     }
