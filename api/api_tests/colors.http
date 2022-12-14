@@ -1,9 +1,6 @@
 ### Получить все
 GET http://localhost/api/colors.all
 Authorization: Bearer admintoken
-### Получить один
-GET http://localhost/api/color.get?id=4
-Authorization: Bearer admintoken
 ### Создать
 POST http://localhost/api/color.create
 Authorization: Bearer admintoken
@@ -21,7 +18,9 @@ Content-Type: application/json
 
 {
     "id":4,
-    "rgb":"20,20,20"
+    "rgb":"20,20,20",
+    "name":"white",
+    "article":"W"
 }
 ### Удалить
 POST http://localhost/api/color.delete

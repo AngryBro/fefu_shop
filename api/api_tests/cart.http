@@ -22,7 +22,7 @@ Authorization: Bearer usertoken
 ### Получение товаров в корзине
 GET http://localhost/api/cart.get
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD
-Authorization: Bearer usertoken
+Authorization: Bearer admintoken
 ###
 GET http://localhost/api/cart.info
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD

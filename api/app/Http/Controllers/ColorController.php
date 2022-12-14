@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Color;
 use Validator;
+use App\Models\Product;
 
 class ColorController extends Controller
 {
     function all(Request $request) {
-        $colors = Color::all();
-        if(count($colors) === 0) return response()->json([
-            'message' => 'not found'
-        ],404);
+        $colors = Color::orderBy('id', 'desc')->get();
         return response()->json($colors);
     }
 
@@ -81,9 +79,15 @@ class ColorController extends Controller
         if($color === null) return response()->json([
             'message' => 'no color with this id'
         ],400);
-        $color->delete();
+        $product = Product::firstWhere('color_id', $id);
+        if($product === null) {
+            $color->delete();
+            return response()->json([
+                'message' => 'color deleted'
+            ]);
+        }
         return response()->json([
-            'message' => 'color deleted'
-        ]);
+            'message' => 'products have this color'
+        ], 400);
     }
 }

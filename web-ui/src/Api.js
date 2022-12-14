@@ -38,7 +38,11 @@ const Api = (routeName) => {
         brands: '/brands.get',
         brandUpdate: '/brand.update',
         brandCreate: '/brand.create',
-        brandDelete: '/brand.delete'
+        brandDelete: '/brand.delete',
+        colors: '/colors.all',
+        colorCreate: '/color.create',
+        colorUpdate: '/color.update',
+        colorDelete: '/color.delete'
     };
 
     var _method = 'get';

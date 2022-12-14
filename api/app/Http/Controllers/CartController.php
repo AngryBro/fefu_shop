@@ -165,7 +165,9 @@ class CartController extends Controller
         $positions = $cart->positions()
         ->leftJoin('products','cart_product.product_id','products.id')
         ->leftJoin('colors', 'products.color_id', 'colors.id')
-        ->select('cart_product.id as position_id', 'cart_product.count as count' ,'products.*', 'colors.name as color','cart_product.size as size')
+        ->leftJoin('brands', 'products.brand_id', 'brands.id')
+        ->leftJoin('categories', 'products.category_id', 'categories.id')
+        ->select('cart_product.id as position_id', 'cart_product.count as count' ,'products.*', 'colors.name as color','cart_product.size as size', 'brands.name as brand', 'categories.name as category')
         ->get();
         return response()->json($positions);
     }
