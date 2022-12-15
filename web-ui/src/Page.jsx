@@ -92,7 +92,7 @@ const Page = ({Content, title}) => {
     var [userData, setUserData] = React.useState({authed: false});
     var [userDataUpdateFlag, setUserDataUpdateFlag] = React.useState(false);
     var [openedModalWindow, setOpenedModalWindow] = React.useState(closedModalWindow);
-    var [productsMeta, setProductsMeta] = React.useState(undefined);
+    var [productsMeta, setProductsMeta] = React.useState({sizes:[], categories:[], colors:[], brands:[], materials: []});
     var [sendSmsTime, setSendSmsTime] = React.useState(0);
     var [favouriteProductIds, setFavouriteProductIds] = React.useState({});
 

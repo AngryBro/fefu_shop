@@ -42,7 +42,10 @@ const Api = (routeName) => {
         colors: '/colors.all',
         colorCreate: '/color.create',
         colorUpdate: '/color.update',
-        colorDelete: '/color.delete'
+        colorDelete: '/color.delete',
+        adminProducts: '/admin/products.search',
+        adminProduct: '/admin/product.get',
+        adminCategories: '/categories.all'
     };
 
     var _method = 'get';

@@ -27,20 +27,19 @@ class AdminCatalogController extends Controller
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $product = Product::query();
+        $product = Product::select('products.*','categories.name as category')
+        ->leftJoin('categories', 'categories.id', 'products.category_id')
+        ->orderBy('products.id', 'desc');
         if(isset($data['name'])) {
             $product = $product->where(function($query)use($data){
-                $query->where('name', $data['name'])
-                ->orWhere('name_internal', $data['name']);
+                $query->where('products.name', $data['name'])
+                ->orWhere('products.slug', $data['name']);
             });
         }
         if(isset($data['category_id'])) {
-            $product = $product->where('category_id', $data['category_id']);
+            $product = $product->where('products.category_id', $data['category_id']);
         }
         $products = $product->paginate($data['page_size']);
-        if($products->count()===0) return response()->json([
-            'message' => 'not found'
-        ],404);
         return response()->json($products);
     }
 
@@ -52,7 +51,13 @@ class AdminCatalogController extends Controller
             'message' => 'invalid id'
         ],422);
         $id = $validator->validated()['id'];
-        $product = Product::find($id);
+        $product = Product::select('products.*', 'categories.name as category', 'brands.name as brand', 'materials.name as material', 'colors.name as color_name', 'colors.rgb as color_rgb')
+        ->where('products.id', $id)
+        ->leftJoin('categories', 'categories.id', 'products.category_id')
+        ->leftJoin('brands', 'brands.id', 'products.brand_id')
+        ->leftJoin('materials', 'materials.id', 'products.material_id')
+        ->leftJoin('colors', 'colors.id', 'products.color_id')
+        ->first();
         $product->images;
         return response()->json($product);
     }

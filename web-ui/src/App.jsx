@@ -16,6 +16,7 @@ import ContactsPage from './admin/ContactsPage';
 import MaterialsPage from './admin/MaterialsPage';
 import BrandsPage from './admin/BrandsPage';
 import ColorsPage from './admin/ColorsPage';
+import ProductsPage from './admin/ProductsPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path='/admin/materials' element={<Page Content={MaterialsPage} title='Материалы' />}/>
         <Route path='/admin/brands' element={<Page Content={BrandsPage} title='Брэнды' />}/>
         <Route path='/admin/colors' element={<Page Content={ColorsPage} title='Цвета' />}/>
+        <Route path='/admin/products' element={<Page Content={ProductsPage} title='Товары' />}/>
 
         <Route path='*' element={<Page Content={NotFoundPage} title='404'/>} />
       </Routes>

@@ -1,8 +1,8 @@
 ### Получить товар
-GET http://localhost/api/admin/product.get?id=51
+GET http://localhost/api/admin/product.get?id=50
 Authorization: Bearer admintoken
 ### Получить все товары по фильтрам
-GET http://localhost/api/admin/products.search?page=1&page_size=5&category_id=1
+GET http://localhost/api/admin/products.search?page=1&page_size=10&category_id=1
 Authorization: Bearer admintoken
 ### Обновить данные товара
 POST http://localhost/api/product.update

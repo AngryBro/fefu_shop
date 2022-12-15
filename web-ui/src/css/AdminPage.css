@@ -29,8 +29,23 @@
 }
 .AdminPage h1  {
     cursor: pointer;
+    width: fit-content;
 }
 .AdminPage table input {
     font-size: 14pt;
     width: 120px;
+}
+.AdminPage .borderTable th {
+    border: 1px solid black;
+    width: 100px;
+}
+.AdminPage select {
+    font-size: 16pt;
+}
+.AdminPage .tableNoneBorder td {
+    border: none;
+    text-align: left;
+    /* padding: 10px; */
+    /* padding-left: 20px; */
+    /* padding-right: 20px; */
 }
