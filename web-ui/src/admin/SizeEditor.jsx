@@ -3,22 +3,41 @@ import { useState } from "react";
 
 const SizeEditor = ({size, count, editSize}) => {
 
-    var [newCount, setNewCount] = useState(count);
+    var [newCount, setNewCount] = useState(0);
 
     useEffect(() =>{
-        setNewCount(count);
+        if(count !== undefined) setNewCount(count===null?null:(count<1?0:count));
     },[count]);
 
     const handleSelect = e => {
         var temp = e.target.value;
-        setNewCount(temp==='null'?null:temp==='0'?0:newCount);
-        editSize(size.name, newCount);
+        var nc;
+        switch(temp) {
+            case 'null': {
+                nc=null;
+                break;
+            }
+            case '1': {
+                nc=1;
+                break;
+            }
+            case '0': {
+                nc=0;
+                break;
+            }
+            default: {
+                nc=1;
+                break;
+            }
+        }
+        setNewCount(nc);
+        editSize(size.name, nc);
     }
     const handleNewCount = e => {
-        var c = e.target.value;
+        var c = Number(e.target.value);
         if(c > 0) {
             setNewCount(c);
-            editSize(size.name, newCount);
+            editSize(size.name, c);
         }
     }
 
@@ -26,13 +45,13 @@ const SizeEditor = ({size, count, editSize}) => {
                 <tr>
                     <td>{size.name}:</td>
                     <td>
-                        <select value={newCount<0?'null':newCount===0?'0':'1'} onChange={handleSelect}>
+                        <select value={newCount===null?'null':(newCount>0?'1':'0')} onChange={handleSelect}>
                             <option value='null'>Не существует</option>
                             <option value='0'>На примерке</option>
                             <option value='1'>В наличии</option>
                         </select>
                     </td>
-                    <td><span hidden={!(newCount>0)}><input type="number" onChange={handleNewCount} value={newCount} style={{marginRight:'10px', width:'50px'}}/>шт.</span></td>
+                    <td><span hidden={!(newCount>0)}><input type="number" onChange={handleNewCount} value={newCount>0?newCount:0} style={{marginRight:'10px', width:'50px'}}/>шт.</span></td>
                 </tr>
     );
 };

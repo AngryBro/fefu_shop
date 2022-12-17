@@ -9,7 +9,7 @@ import '../css/AdminPage.css';
 const ProductsPage = ({productsMeta}) => {
 
     const navigate = useNavigate();
-    // const fetchData = () => {setFetchFlag(!fetchFlag);}
+    const fetchData = () => {setFetchFlag(!fetchFlag);}
 
     const search = () => {
         var temp = JSON.parse(JSON.stringify(getParams));
@@ -39,6 +39,15 @@ const ProductsPage = ({productsMeta}) => {
         return temp;
     }
 
+    const update = (params) => {
+        params.id = selectedProduct;
+        Api('adminProductUpdate').auth().post(params).callback(({ok}) => {
+            if(ok) {
+                fetchData();
+            }
+        }).send();
+    }
+
     var [fetchFlag, setFetchFlag] = useState(false);
     var [loading, setLoading] = useState(true);
     var [products, setProducts] = useState({data:[]});
@@ -49,9 +58,9 @@ const ProductsPage = ({productsMeta}) => {
     var [getParams, setGetParams] = useState({});
     var [categories, setCategories] = useState([]);
     var [product, setProduct] = useState({});
-    var [selectedProduct, setSelectedProduct] = useState(1);
+    var [selectedProduct, setSelectedProduct] = useState(0);
     var [loadedProduct, setLoadedProduct] = useState(false);
-    var [edit, setEdit] = useState(true);
+    var [edit, setEdit] = useState(false);
 
     useEffect(() => {
         const page_size = 10;
@@ -76,13 +85,17 @@ const ProductsPage = ({productsMeta}) => {
     }, []);
 
     useEffect(() => {
+        if(selectedProduct < 1) {
+            return;
+        }
         Api('adminProduct').auth().get({id: selectedProduct}).callback(({ok, array}) => {
             if(ok) {
+                setEdit(false);
                 setProduct(array);
             }
             setLoadedProduct(true);
         }).send();
-    }, [selectedProduct]);
+    }, [selectedProduct, fetchFlag]);
 
     return (
         <div className="AdminPage">
@@ -132,7 +145,7 @@ const ProductsPage = ({productsMeta}) => {
                 </div>
             </div>
             <div style={{float:'left', marginLeft:'50px'}}>
-                <ProductTable categories={categories} productsMeta={productsMeta} product={product} edit={edit} loaded={loadedProduct} />
+                <ProductTable update={update} categories={categories} productsMeta={productsMeta} product={product} edit={edit} loaded={loadedProduct} setEdit={setEdit} />
             </div>
         </div>
     );

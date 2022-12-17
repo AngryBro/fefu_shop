@@ -1,14 +1,15 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import SizeEditor from "./SizeEditor";
 
-const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
+const ProductTable = ({productsMeta, categories, product = {}, edit = null, loaded = false, update = ()=>1, setEdit = ()=>1}) => {
 
     const editParam = (key, value) => {
         var temp = JSON.parse(JSON.stringify(params));
-        temp[key] = value;console.log(temp)
+        temp[key] = value;
         setParams(temp);
     }
+
+    
 
     var [params, setParams] = useState({});
 
@@ -51,7 +52,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <select onChange={e => editParam('category_id', e.target.value)} value={'category_id' in params?params.category_id:'category_id' in product?product.category_id:'0'}>
+                            <select onChange={e => editParam('category_id', Number(e.target.value))} value={'category_id' in params?params.category_id:'category_id' in product?product.category_id:0}>
                                 {
                                     categories.map(category => 
                                         <option key={category.id} value={category.id}>{category.name}</option>    
@@ -68,7 +69,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <select onChange={e => editParam('brand_id', e.target.value)} value={'brand_id' in params?params.brand_id:'brand_id' in product?product.brand_id:'0'}>
+                            <select onChange={e => editParam('brand_id', Number(e.target.value))} value={'brand_id' in params?params.brand_id:'brand_id' in product?product.brand_id:'0'}>
                                 {
                                     productsMeta.brands.map(brand => 
                                         <option key={brand.id} value={brand.id}>{brand.name}</option>    
@@ -84,7 +85,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <select onChange={e => editParam('color_id', e.target.value)} value={'color_id' in params?params.color_id:'color_id' in product?product.color_id:'0'}>
+                            <select onChange={e => editParam('color_id', Number(e.target.value))} value={'color_id' in params?params.color_id:'color_id' in product?product.color_id:'0'}>
                                 {
                                     productsMeta.colors.map(color =>
                                         <option value={color.id} key={color.id}>{color.name}</option>    
@@ -99,7 +100,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <select onChange={e => editParam('material_id', e.target.value)} value={'material_id' in params?params.material_id:'material_id' in product?product.material_id:'0'}>
+                            <select onChange={e => editParam('material_id', Number(e.target.value))} value={'material_id' in params?params.material_id:'material_id' in product?product.material_id:'0'}>
                                 {
                                     productsMeta.materials.map(material =>
                                         <option value={material.id} key={material.id}>{material.name}</option>    
@@ -143,7 +144,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <input value={'price' in params?params.price:'price' in product?product.price:''} onChange={e => editParam('price', e.target.value)}/>
+                            <input value={'price' in params?params.price:'price' in product?product.price:''} onChange={e => editParam('price', Number(e.target.value))}/>
                             :product.price
                         }
                     </td>
@@ -153,7 +154,7 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <input value={'discount' in params?params.discount:'discount' in product?product.discount:''} onChange={e => editParam('discount', e.target.value)}/>
+                            <input value={'discount' in params?params.discount:'discount' in product?product.discount:''} onChange={e => editParam('discount', Number(e.target.value))}/>
                             :product.discount
                         }
                     </td>
@@ -163,11 +164,21 @@ const ProductTable = ({productsMeta, categories, product, edit, loaded}) => {
                     <td>
                         {
                             edit?
-                            <select onChange={e => editParam('show', e.target.value==='true')} value={String('show' in params?params.show:'show' in product?product.show:'0')}>
+                            <select onChange={e => editParam('show', e.target.value==='true')} value={String('show' in params?params.show:('show' in product?product.show:'false'))}>
                                 <option value={true}>Да</option>
                                 <option value={false}>Нет</option>
                             </select>
                             :product.show?'Да':'Нет'
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        {
+                            edit?
+                            <button onClick={() => update(params)}>сохранить</button>:
+                            <button onClick={() => setEdit(true)}>редактировать</button>
                         }
                     </td>
                 </tr>

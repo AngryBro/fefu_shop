@@ -45,7 +45,10 @@ const Api = (routeName) => {
         colorDelete: '/color.delete',
         adminProducts: '/admin/products.search',
         adminProduct: '/admin/product.get',
-        adminCategories: '/categories.all'
+        adminCategories: '/categories.all',
+        adminProductUpdate: '/product.update',
+        adminProductDelete: '/product.delete',
+        adminProductCreate: '/product.create'
     };
 
     var _method = 'get';
