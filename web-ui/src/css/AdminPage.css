@@ -40,12 +40,12 @@
     width: 100px;
 }
 .AdminPage select {
-    font-size: 16pt;
+    font-size: 14pt;
 }
 .AdminPage .tableNoneBorder td {
     border: none;
     text-align: left;
-    /* padding: 10px; */
-    /* padding-left: 20px; */
-    /* padding-right: 20px; */
+}
+.AdminPage textarea {
+    font-size: 14pt;
 }

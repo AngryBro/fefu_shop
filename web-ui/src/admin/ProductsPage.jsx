@@ -41,10 +41,50 @@ const ProductsPage = ({productsMeta}) => {
 
     const update = (params) => {
         params.id = selectedProduct;
+        var same = true;
+        Object.keys(product).forEach(key => {
+            if(undefined!==params[key]&&product[key]!==params[key]) {
+                same = false;
+            }
+        })
+        if(same) {
+            setEdit(false);
+            return;
+        }
         Api('adminProductUpdate').auth().post(params).callback(({ok}) => {
             if(ok) {
                 fetchData();
             }
+            else {
+                alert('Некорректные параметры');
+            }
+        }).send();
+    }
+
+    const del = id => {
+        Api('adminProductDelete').auth().post({id}).callback(({ok}) => {
+            if(ok) {
+                fetchData();
+            }
+            else {
+                alert('Такого товара нет');
+            }
+        }).send();
+    }
+
+    const create = params => {
+        Api('adminProductCreate').auth().post(params).callback(({ok, status}) => {
+            if(ok) {
+                fetchData();
+                setCreateFormOpened(false);
+            }
+            if(status === 422) {
+                alert('Некорректные параметры');
+            }
+            if(status === 400) {
+                alert('Такой товар уже есть');
+            }
+            
         }).send();
     }
 
@@ -61,6 +101,7 @@ const ProductsPage = ({productsMeta}) => {
     var [selectedProduct, setSelectedProduct] = useState(0);
     var [loadedProduct, setLoadedProduct] = useState(false);
     var [edit, setEdit] = useState(false);
+    var [createFormOpened, setCreateFormOpened] = useState(false);
 
     useEffect(() => {
         const page_size = 10;
@@ -86,6 +127,7 @@ const ProductsPage = ({productsMeta}) => {
 
     useEffect(() => {
         if(selectedProduct < 1) {
+            setLoadedProduct(false);
             return;
         }
         Api('adminProduct').auth().get({id: selectedProduct}).callback(({ok, array}) => {
@@ -107,6 +149,7 @@ const ProductsPage = ({productsMeta}) => {
                             <th>id</th>
                             <th>Название</th>
                             <th>Категория</th>
+                            <th>Удалить</th>
                         </tr>
                         <tr>
                             <th><button onClick={search}>поиск</button></th>
@@ -123,18 +166,21 @@ const ProductsPage = ({productsMeta}) => {
                                     }
                                 </select>
                             </th>
+                            <th></th>
                         </tr>
                         <tr hidden={!loading} >
                             <td style={{color:'grey'}}>загрузка</td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                         {
                             products.data.map(product =>
-                                <tr key={product.id} onClick={() => setSelectedProduct(product.id)} style={{cursor:'pointer'}}>
-                                    <td>{product.id}</td>
-                                    <td>{product.name}</td>
-                                    <td>{product.category}</td>
+                                <tr key={product.id} style={{cursor:'pointer', backgroundColor:product.id===selectedProduct?'grey':'white'}}>
+                                    <td onClick={() => setSelectedProduct(product.id)}>{product.id}</td>
+                                    <td onClick={() => setSelectedProduct(product.id)}>{product.name}</td>
+                                    <td onClick={() => setSelectedProduct(product.id)}>{product.category}</td>
+                                    <td><button onClick={() => del(product.id)}>&#10006;</button></td>
                                 </tr>    
                             )
                         }
@@ -143,10 +189,18 @@ const ProductsPage = ({productsMeta}) => {
                 <div>
                     <CatalogPaginator externalPage={setPage} pages={pages} />
                 </div>
+                <div><button style={{margin:'20px'}} onClick={() => setCreateFormOpened(!createFormOpened)}>{createFormOpened?'закрыть форму':'создать новый'}</button></div>
             </div>
-            <div style={{float:'left', marginLeft:'50px'}}>
+            <div style={{float:'left', marginLeft:'30px'}} hidden={!loadedProduct}>
                 <ProductTable update={update} categories={categories} productsMeta={productsMeta} product={product} edit={edit} loaded={loadedProduct} setEdit={setEdit} />
             </div>
+            {
+                createFormOpened?
+                <div>
+                    <ProductTable categories={categories} productsMeta={productsMeta} edit={true} update={create} />
+                </div>:<></>
+            }
+            
         </div>
     );
 

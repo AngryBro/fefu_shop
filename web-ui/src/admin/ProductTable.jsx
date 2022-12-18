@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import SizeEditor from "./SizeEditor";
 
-const ProductTable = ({productsMeta, categories, product = {}, edit = null, loaded = false, update = ()=>1, setEdit = ()=>1}) => {
+const ProductTable = ({productsMeta, categories, product = {}, edit = false, update = ()=>1, setEdit = ()=>1}) => {
 
     const editParam = (key, value) => {
         var temp = JSON.parse(JSON.stringify(params));
@@ -13,9 +14,13 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
 
     var [params, setParams] = useState({});
 
+    useEffect(() => {
+        return () => setParams({});
+    }, []);
+
 
     return (
-        <table className="borderTable" style={{width:'700px'}} hidden={!loaded}>
+        <table className="borderTable" style={{width:'630px'}}>
             <tbody>
                 <tr>
                     <th>Название</th>
@@ -53,6 +58,7 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
                         {
                             edit?
                             <select onChange={e => editParam('category_id', Number(e.target.value))} value={'category_id' in params?params.category_id:'category_id' in product?product.category_id:0}>
+                                <option value={0}>Не выбрано</option>
                                 {
                                     categories.map(category => 
                                         <option key={category.id} value={category.id}>{category.name}</option>    
@@ -70,6 +76,7 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
                         {
                             edit?
                             <select onChange={e => editParam('brand_id', Number(e.target.value))} value={'brand_id' in params?params.brand_id:'brand_id' in product?product.brand_id:'0'}>
+                                <option value={0}>Не выбрано</option>
                                 {
                                     productsMeta.brands.map(brand => 
                                         <option key={brand.id} value={brand.id}>{brand.name}</option>    
@@ -86,6 +93,7 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
                         {
                             edit?
                             <select onChange={e => editParam('color_id', Number(e.target.value))} value={'color_id' in params?params.color_id:'color_id' in product?product.color_id:'0'}>
+                                <option value={0}>Не выбрано</option>
                                 {
                                     productsMeta.colors.map(color =>
                                         <option value={color.id} key={color.id}>{color.name}</option>    
@@ -101,6 +109,7 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
                         {
                             edit?
                             <select onChange={e => editParam('material_id', Number(e.target.value))} value={'material_id' in params?params.material_id:'material_id' in product?product.material_id:'0'}>
+                                <option value={0}>Не выбрано</option>
                                 {
                                     productsMeta.materials.map(material =>
                                         <option value={material.id} key={material.id}>{material.name}</option>    
@@ -159,7 +168,7 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = null, load
                         }
                     </td>
                 </tr>
-                <tr>
+                <tr hidden={product.id===undefined}>
                     <th>Показывать</th>
                     <td>
                         {

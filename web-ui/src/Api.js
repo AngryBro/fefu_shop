@@ -48,7 +48,8 @@ const Api = (routeName) => {
         adminCategories: '/categories.all',
         adminProductUpdate: '/product.update',
         adminProductDelete: '/product.delete',
-        adminProductCreate: '/product.create'
+        adminProductCreate: '/product.create',
+        imageUpload: '/img.upload'
     };
 
     var _method = 'get';
@@ -66,12 +67,21 @@ const Api = (routeName) => {
             headers,
             send,
             session,
-            img
+            img,
+            imgUpload
         });
     };
 
     var img = name => {
         return `${host}/img.get?file=${name}`;
+    }
+
+    var imgUpload = (name, ref) => {
+        _method = 'post';
+        var form = new FormData();
+        form.set(name, ref.current.files[0]);
+        _postJson = form;
+        return makeObject();
     }
 
     var get = (params) => {

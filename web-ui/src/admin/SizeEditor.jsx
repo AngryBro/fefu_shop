@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const SizeEditor = ({size, count, editSize}) => {
 
-    var [newCount, setNewCount] = useState(0);
+    var [newCount, setNewCount] = useState(null);
 
     useEffect(() =>{
         if(count !== undefined) setNewCount(count===null?null:(count<1?0:count));

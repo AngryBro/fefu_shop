@@ -132,17 +132,17 @@ class AdminCatalogController extends Controller
     function productCreate(Request $request) {
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|min:2',
-            'name_internal' => 'required|string|min:2',
+            'slug' => 'required|string|min:2',
             'article' => 'required|string|min:3',
-            'image_preview' => 'required|string',
+            // 'image_preview' => 'required|string',
             'price' => 'required|integer',
             'discount' => 'required|integer',
             'description' => 'required|string',
-            'XS' => 'integer',
-            'S' => 'integer',
-            'M' => 'integer',
-            'L' => 'integer',
-            'XL' => 'integer',
+            'XS' => 'integer|nullable',
+            'S' => 'integer|nullable',
+            'M' => 'integer|nullable',
+            'L' => 'integer|nullable',
+            'XL' => 'integer|nullable',
             'color_id' => ['required', new ColorId],
             'brand_id' => ['required', new BrandId],
             'material_id' => ['required', new MaterialId],
@@ -151,13 +151,14 @@ class AdminCatalogController extends Controller
             'images.*' => 'string'
         ]);
         if($validator->fails()) return response()->json([
-            'message' => 'validation error'
+            'message' => 'validation error',
+            'errors' => $validator->errors()->all()
         ],422);
         $data = $validator->validated();
         $oldProducts = Product::query()
         ->where(function($query) use($data){
             $query->where('name', $data['name'])
-            ->orWhere('name_internal', $data['name_internal'])
+            ->orWhere('slug', $data['slug'])
             ->orWhere('article', $data['article']);
         })->get();
         if(count($oldProducts)>0) return response()->json([
@@ -192,6 +193,22 @@ class AdminCatalogController extends Controller
         }
         return response()->json([
             'message' => 'product created'
+        ]);
+    }
+
+    function productDelete(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'id' => 'integer|required'
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'validation error'
+        ], 422);
+        $product = Product::find($validator->validated()['id']);
+        if($product !== null) {
+            $product->delete();
+        }
+        return response()->json([
+            'message' => 'product deleted'
         ]);
     }
 
@@ -266,7 +283,7 @@ class AdminCatalogController extends Controller
         return response()->json([
             'message' => 'category created'
         ]);
-    } 
+    }
 
     function categoryUpdate(Request $request) {
         $validator = Validator::make($request->all(),[

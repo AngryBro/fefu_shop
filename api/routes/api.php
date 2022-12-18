@@ -89,6 +89,7 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
         Route::get('/admin/products.search',[AdminCatalogController::class, 'productsSearch']);
         Route::post('/product.update', [AdminCatalogController::class, 'productUpdate']);
         Route::post('/product.create', [AdminCatalogController::class, 'productCreate']);
+        Route::post('/product.delete', [AdminCatalogController::class, 'productDelete']);
         Route::post('/contacts.update', [ContactController::class, 'update']);
         Route::get('/shopConfig.getAll', [ShopConfigController::class, 'getAll']);
         Route::post('/shopConfig.update', [ShopConfigController::class, 'update']);

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Str;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Config;
+use App\Models\InfoPage;
 
 class ImageController extends Controller
 {
@@ -39,5 +43,16 @@ class ImageController extends Controller
         return response()->json([
             'tempname' => $tempname
         ]);
+    }
+
+    function delete(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string',
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'invalid name'
+        ],422);
+        $file = $validator->validated()['name'];
+
     }
 }
