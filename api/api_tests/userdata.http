@@ -1,6 +1,6 @@
 ### Получить свои данные
 GET http://localhost/api/mydata.get
-Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm
+Authorization: Bearer admintoken
 ### Обновить свои данные
 POST http://localhost/api/mydata.set
 Authorization: Bearer 7cgmV3W7k0F150Q4NedFaiENMCAL29ZBYW3idom1tIYtnvweykqhJjnQdY6wwfzm

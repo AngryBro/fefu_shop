@@ -96,7 +96,7 @@ class AdminCatalogController extends Controller
             $deleteImages = $data['delete_images'];
             unset($data['delete_images']);
             foreach($deleteImages as $image) {
-                $imageModel = ProductImage::firstWhere('image', $image);
+                $imageModel = ProductImage::where('product_id', $data['id'])->where('image', $image)->first();
                 if($imageModel !== null) {
                     $imageModel->delete();
                 }
@@ -134,7 +134,7 @@ class AdminCatalogController extends Controller
             'name' => 'required|string|min:2',
             'slug' => 'required|string|min:2',
             'article' => 'required|string|min:3',
-            // 'image_preview' => 'required|string',
+            'image_preview' => 'required|string',
             'price' => 'required|integer',
             'discount' => 'required|integer',
             'description' => 'required|string',
@@ -213,7 +213,7 @@ class AdminCatalogController extends Controller
     }
 
     function categories() {
-        $categories = Category::all();
+        $categories = Category::orderBy('id', 'desc')->get();
         $categoriesTree = [];
         foreach($categories as $category) {
             $category->childrenAll;
@@ -266,20 +266,35 @@ class AdminCatalogController extends Controller
 
     function categoryCreate(Request $request) {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string|min:3'
+            'name' => 'required|string|min:3',
+            'slug' => 'required|string|min:3',
+            'image' => 'required|string',
+            'parent_id' => 'required|integer'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
-        $name = $validator->validated()['name'];
-        $category = Category::firstWhere('name',$name);
+        $data = $validator->validated();
+        $category = Category::query()
+        ->where(function($query) use($data){
+            $query->where('name', $data['name'])
+            ->orWhere('slug', $data['slug']);
+        })->first();
         if($category !== null) return response()->json([
             'message' => 'category with this name exists'
         ], 400);
         $category = new Category;
-        $category->name = $name;
+        $category->name = $data['name'];
+        $category->slug = $data['slug'];
         $category->show = false;
+        $category->image = $data['image'];
         $category->save();
+        if($data['parent_id']!==0) {
+            $relation = new CategoryRelation;
+            $relation->child_id = $category->id;
+            $relation->parent_id = $data['parent_id'];
+            $relation->save();
+        }
         return response()->json([
             'message' => 'category created'
         ]);
@@ -289,14 +304,32 @@ class AdminCatalogController extends Controller
         $validator = Validator::make($request->all(),[
             'id' => ['required', new CategoryId],
             'show' => 'boolean',
-            'image' => 'string'
+            'image' => 'string',
+            'name' => 'string',
+            'slug' => 'string',
+            'parent_id' => [new CategoryId]
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
         $category = Category::find($data['id']);
+        if(isset($data['parent_id'])) {
+            $relation = CategoriesRelation::firstWhere('child_id', $data['id']);
+            if($data['parent_id']===0 && $relation !== null) {
+                $relation->delete();
+            }
+            else {
+                if($relation === null) {
+                    $relation = new CategoriesRelation;
+                    $relation->child_id = $data['id'];
+                }
+                $relation->parent_id = $data['parent_id'];
+                $relation->save();
+            }
+        }
         unset($data['id']);
+        unset($data['parent_id']);
         foreach($data as $key => $value) {
             $category->$key = $value;
         }

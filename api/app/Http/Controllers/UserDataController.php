@@ -48,7 +48,8 @@ class UserDataController extends Controller
         return response()->json([
             'name' => $user->name,
             'phone_number' => $user->phone_number,
-            'email' => $user->email
+            'email' => $user->email,
+            'role' => $user->role->name
         ]);
     }
     function set(Request $request) {

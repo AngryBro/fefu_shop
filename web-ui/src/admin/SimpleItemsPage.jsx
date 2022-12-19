@@ -78,10 +78,7 @@ const SimpleItemsPage = ({apiRoutes, tableHeaders = [], itemProps = [], title, d
     useEffect(() => {
         Api(apiRoutes.get)
         .auth()
-        .callback(({ok, array, status}) => {
-            if(status === 403) {
-                return navigate('/404');
-            }
+        .callback(({ok, array}) => {
             if(ok) {
                 setItems(array);
                 setValue('');
@@ -90,7 +87,7 @@ const SimpleItemsPage = ({apiRoutes, tableHeaders = [], itemProps = [], title, d
             setLoading(false);
         })
         .send();
-    },[fetchFlag, navigate, apiRoutes.get]);
+    },[fetchFlag, apiRoutes.get]);
 
     return (
         <div className='AdminPage'>
@@ -110,7 +107,7 @@ const SimpleItemsPage = ({apiRoutes, tableHeaders = [], itemProps = [], title, d
                         <th><button onClick={create}>создать</button></th>
                         {
                             itemProps.map(prop =>
-                                <th key={prop}>
+                                <th key={prop.name}>
                                     <input type="text" onChange={e => setCreateParams(prop.name, e.target.value)} value={prop.name in newValue?newValue[prop.name]:''} />
                                 </th>    
                             )

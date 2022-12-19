@@ -23,7 +23,7 @@ const ProductSlider = ({images, setPreview}) => {
                 <div className='slides' style={{marginTop: -first*dx}}>
                     {
                         images.map((image, index) => 
-                            <div onClick={() => setPreview(image)} className='img' key={index} style={{backgroundImage: `url(${Api().img(image.image)})`}} />
+                            <div onClick={() => setPreview(image.image)} className='img' key={index} style={{backgroundImage: `url(${Api().img(image.image)})`}} />
                         )
                     }
                 </div>

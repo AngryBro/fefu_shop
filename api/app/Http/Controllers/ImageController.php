@@ -10,6 +10,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Config;
 use App\Models\InfoPage;
+use App\Models\ProductImage;
+use DB;
 
 class ImageController extends Controller
 {
@@ -45,14 +47,4 @@ class ImageController extends Controller
         ]);
     }
 
-    function delete(Request $request) {
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|string',
-        ]);
-        if($validator->fails()) return response()->json([
-            'message' => 'invalid name'
-        ],422);
-        $file = $validator->validated()['name'];
-
-    }
 }

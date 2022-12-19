@@ -17,12 +17,14 @@ import MaterialsPage from './admin/MaterialsPage';
 import BrandsPage from './admin/BrandsPage';
 import ColorsPage from './admin/ColorsPage';
 import ProductsPage from './admin/ProductsPage';
+import CategoriesPage from './admin/CategoriesPage';
+import ConfigPage from './admin/ConfigPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/test' element={<Debug/>}></Route>
+        {/* <Route path='/test' element={<Debug/>}></Route> */}
         <Route path='/' element={<Page Content={MainPage} title='LOGO' />}></Route>
         <Route path='/product/:slug' element={<Page Content={ProductPage} />}></Route>
         <Route path='/catalog/:slug' element={<Page Content={CatalogPage} title='Каталог' />}/>
@@ -39,6 +41,8 @@ function App() {
         <Route path='/admin/brands' element={<Page Content={BrandsPage} title='Брэнды' />}/>
         <Route path='/admin/colors' element={<Page Content={ColorsPage} title='Цвета' />}/>
         <Route path='/admin/products' element={<Page Content={ProductsPage} title='Товары' />}/>
+        <Route path='/admin/categories' element={<Page Content={CategoriesPage} title='Категории' />}/>
+        <Route path='/admin/config' element={<Page Content={ConfigPage} title='Настройки' />}/>
 
         <Route path='*' element={<Page Content={NotFoundPage} title='404'/>} />
       </Routes>

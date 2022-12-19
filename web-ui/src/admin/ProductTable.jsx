@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import SizeEditor from "./SizeEditor";
+import Api from "../Api";
+import ImageLoader from "./ImageLoader";
 
-const ProductTable = ({productsMeta, categories, product = {}, edit = false, update = ()=>1, setEdit = ()=>1}) => {
+const ProductTable = ({loaded,productsMeta, categories, product = {}, edit = false, update = ()=>1, setEdit = ()=>1}) => {
 
     const editParam = (key, value) => {
         var temp = JSON.parse(JSON.stringify(params));
@@ -10,13 +12,53 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = false, upd
         setParams(temp);
     }
 
-    
+    const appendImage = array => {
+        var temp = JSON.parse(JSON.stringify(params));
+        if(temp.images===undefined) {
+            temp.images = [];
+        }
+        temp.images.push(array.tempname);
+        setParams(temp);
+    }
+
+    const deleteImage = image => {
+        var temp = JSON.parse(JSON.stringify(params));
+        if(temp.delete_images===undefined) {
+            temp.delete_images = [];
+        }
+        temp.delete_images.push(image);
+        setParams(temp);
+    }
+
+    const actualImages = (params) => {
+        var temp = JSON.parse(JSON.stringify(params));
+        if(temp.delete_images===undefined) {
+            temp.delete_images = [];
+        }
+        if(temp.images===undefined) {
+            temp.images = [];
+        }
+        var prod = [];
+        if(product.images!==undefined) {
+            prod = product.images;
+        }
+        var total = [];
+        prod.forEach(p => total.push(p.image));
+        temp.images.forEach(t => total.push(t));
+        temp.delete_images.forEach(img => {
+            var index = total.indexOf(img);
+            total.splice(index,1);
+        });
+        return total;
+    }
 
     var [params, setParams] = useState({});
 
     useEffect(() => {
-        return () => setParams({});
-    }, []);
+        if(edit&&loaded) {
+            setParams({});
+        }
+    }, [edit, loaded]);
 
 
     return (
@@ -178,6 +220,31 @@ const ProductTable = ({productsMeta, categories, product = {}, edit = false, upd
                                 <option value={false}>Нет</option>
                             </select>
                             :product.show?'Да':'Нет'
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Превью</th>
+                    <td>
+                        {
+                            edit?
+                            <ImageLoader images={'image_preview' in params?[params.image_preview]:[product.image_preview]} okCallback={(array) => editParam('image_preview', array.tempname)}  />
+                            :
+                            <div style={{width:'50px',border:'1px grey solid',height:'50px',backgroundSize:'cover', backgroundImage:Api().cssimg(product.image_preview)}} />
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>Изображения</th>
+                    <td>
+                        {
+                            edit?
+                            <ImageLoader deleteCallback={deleteImage} okCallback={appendImage} images={('images' in params||'delete_images' in params)?actualImages(params):('images' in product?product.images.map(e => e.image):[])} />
+                            :
+                            product.images!==undefined?
+                            product.images.map((image,i) => 
+                                <div key={i} style={{marginBottom:'5px', border:'1px grey solid',width:'50px', height:'50px', backgroundImage: Api().cssimg(image.image), backgroundSize:'cover'}}></div>
+                            ):<></>
                         }
                     </td>
                 </tr>

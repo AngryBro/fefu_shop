@@ -48,14 +48,18 @@ class AdminController extends Controller
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $admin = User::where(function($query) use($data){
-            $query->where('email', $data['email'])
-            ->orWhere('phone_number', $data['phone_number']);
-        })->first();
+        // $admin = User::where(function($query) use($data){
+        //     $query->where('email', $data['email'])
+        //     ->orWhere('phone_number', $data['phone_number']);
+        // })->first();
+        $admin = User::firstWhere('email', $data['email']);
         if($admin !== null) return response()->json([
-            'message' => 'user with this email or phone number exists'
+            'message' => 'user with this email exists'
         ], 400);
-        $admin = new User;
+        $admin = User::firstWhere('phone_number', $data['phone_number']);
+        if($admin === null) {
+            $admin = new User;
+        }
         foreach($data as $key => $value) {
             $admin->$key = $value;
         }
@@ -106,7 +110,8 @@ class AdminController extends Controller
         if($admin === null) return response()->json([
             'message' => 'no admin with this id'
         ],400);
-        $admin->delete();
+        $admin->role_id = Role::firstWhere('name', Role::USER)->id;
+        $admin->save();
         return response()->json([
             'message' => 'admin deleted'
         ]);

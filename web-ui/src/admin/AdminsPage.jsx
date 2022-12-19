@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +8,11 @@ import '../css/AdminPage.css';
 const AdminsPage = () => {
 
     const navigate = useNavigate();
-    const emptyAdmin = {
+    const emptyAdmin = useMemo(() => ({
         name: '',
         phone_number: '',
         email: ''
-    };
+    }), []);
     const currentEditing = (admin) => {
         return editFormOpened&&admin.id===selectedId;
     }
@@ -49,13 +50,12 @@ const AdminsPage = () => {
         .auth()
         .callback(({ok, status}) => {
             if(ok) {
-                setNewAdmin(emptyAdmin);
                 fetchData();
             }
             else {
                 switch(status) {
                     case 400: {
-                        alert('Пользователь с такими данными уже есть');
+                        alert('Пользователь с таким email уже есть');
                         break;
                     }
                     case 422: {
@@ -93,18 +93,16 @@ const AdminsPage = () => {
     useEffect(() => {
         Api('adminsAll')
         .auth()
-        .callback(({ok, array, status}) => {
-            if(status === 403) {
-                return navigate('/404');
-            }
+        .callback(({ok, array}) => {
             if(ok) {
                 setAdmins(array);
                 setEditFormOpened(false);
+                setNewAdmin(emptyAdmin);
             }
             setLoading(false);
         })
         .send();
-    },[fetchFlag, navigate]);
+    },[fetchFlag, emptyAdmin]);
 
     return (
         <div className='AdminPage'>

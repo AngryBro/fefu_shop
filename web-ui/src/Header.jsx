@@ -87,7 +87,7 @@ const Header = ({cart, contacts, infoPages = {header:[]}, categories = [], searc
                 <div className='head'><AuthHeadSVG/></div>
                 <div className='body'><AuthBodySVG/></div>
             </div>
-            <div className='authText' onClick={() => userData.authed?1:setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?'+'+userData.phone:"Вход/Регистрация"}</div>
+            <div className='authText' onClick={() => userData.authed?(userData.admin?navigate('/admin'):1):setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?'+'+userData.phone:"Вход/Регистрация"}</div>
             <div className='cartSvg'>
                 <div className='up'><CartUpSVG/></div>
                 <div className='down'><CartDownSVG/></div>

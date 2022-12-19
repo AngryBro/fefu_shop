@@ -17,7 +17,10 @@ Authorization: Bearer admintoken
 Content-Type: application/json
 
 {
-    "name":"coats"
+    "name":"куртки",
+    "slug":"coats",
+    "parent_id": 0,
+    "image": "testimg"
 }
 ### Добавить дочернюю категорию
 POST http://localhost/api/category.addChild

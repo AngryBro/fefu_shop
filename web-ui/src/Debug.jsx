@@ -1,7 +1,4 @@
-
-import ImageLoader from "./admin/ImageLoader";
-import CatalogPaginator from "./CatalogPaginator";
-// import Api from "./Api";
+// import MainSlider from "./MainSlider";
 
 const Debug = () => {
 
@@ -9,7 +6,7 @@ const Debug = () => {
 
     return (
         <div style={{marginLeft:'50px', marginTop:'50px', width: '1000px', height: '100px'}}>
-            <ImageLoader/>
+            {/* <MainSlider slides={[{image:'geo'}, {image:'zX5TH3gZvKwi7SDKmuHl'}]} /> */}
         </div>
     )
 }

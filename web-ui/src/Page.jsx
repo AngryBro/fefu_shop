@@ -109,6 +109,7 @@ const Page = ({Content, title}) => {
                     }
                     userParams.phone = array.phone_number;
                     userParams.authed = true;
+                    userParams.admin = array.role === 'admin';
                     setUserData(userParams);
                 }
             }).send();

@@ -47,7 +47,7 @@ const ProductsPage = ({productsMeta}) => {
                 same = false;
             }
         })
-        if(same) {
+        if(same&&params.images===undefined&&params.delete_images===undefined) {
             setEdit(false);
             return;
         }
@@ -65,6 +65,7 @@ const ProductsPage = ({productsMeta}) => {
         Api('adminProductDelete').auth().post({id}).callback(({ok}) => {
             if(ok) {
                 fetchData();
+                setSelectedProduct(0);
             }
             else {
                 alert('Такого товара нет');
@@ -142,7 +143,7 @@ const ProductsPage = ({productsMeta}) => {
     return (
         <div className="AdminPage">
             <h1 onClick={() => navigate('/admin')}>Товары</h1>
-            <div style={{float:'left'}}>
+            <div style={{float:'left', overflow:'hidden'}}>
                 <table>
                     <tbody>
                         <tr>
@@ -191,12 +192,16 @@ const ProductsPage = ({productsMeta}) => {
                 </div>
                 <div><button style={{margin:'20px'}} onClick={() => setCreateFormOpened(!createFormOpened)}>{createFormOpened?'закрыть форму':'создать новый'}</button></div>
             </div>
-            <div style={{float:'left', marginLeft:'30px'}} hidden={!loadedProduct}>
-                <ProductTable update={update} categories={categories} productsMeta={productsMeta} product={product} edit={edit} loaded={loadedProduct} setEdit={setEdit} />
-            </div>
+            {
+                loadedProduct?
+                <div style={{float:'left', marginLeft:'30px'}} hidden={!loadedProduct}>
+                    <ProductTable update={update} categories={categories} productsMeta={productsMeta} product={product} edit={edit} loaded={loadedProduct} setEdit={setEdit} />
+                </div>:<></>
+            }
+            
             {
                 createFormOpened?
-                <div>
+                <div style={{marginLeft:'10px', float:'left'}}>
                     <ProductTable categories={categories} productsMeta={productsMeta} edit={true} update={create} />
                 </div>:<></>
             }

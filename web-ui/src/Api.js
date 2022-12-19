@@ -30,6 +30,7 @@ const Api = (routeName) => {
         adminCreate: '/admin.create',
         adminDelete: '/admin.delete',
         configUpdate: '/shopConfig.update',
+        configAll: '/shopConfig.getAll',
         contactsUpdate: '/contacts.update',
         materials: '/materials.get',
         materialsUpdate: '/material.update',
@@ -49,7 +50,10 @@ const Api = (routeName) => {
         adminProductUpdate: '/product.update',
         adminProductDelete: '/product.delete',
         adminProductCreate: '/product.create',
-        imageUpload: '/img.upload'
+        imageUpload: '/img.upload',
+        categoryUpdate: '/category.update',
+        categoryCreate: '/category.create',
+        config: '/shopConfig.get'
     };
 
     var _method = 'get';
@@ -68,12 +72,17 @@ const Api = (routeName) => {
             send,
             session,
             img,
-            imgUpload
+            imgUpload,
+            cssimg
         });
     };
 
     var img = name => {
         return `${host}/img.get?file=${name}`;
+    }
+
+    var cssimg = name => {
+        return `url(${host}/img.get?file=${name})`;
     }
 
     var imgUpload = (name, ref) => {

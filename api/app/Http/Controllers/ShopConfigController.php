@@ -43,20 +43,23 @@ class ShopConfigController extends Controller
 
     function update(Request $request) {
         $validator = Validator::make($request->all(), [
-            'id' => ['required', new ContactId],
-            'name' => 'string',
+            'name' => 'required|string',
             'value' => 'array'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        $config = ShopConfig::find($data['id']);
-        unset($data['id']);
-        foreach($data as $key => $value) {
-            $config->$key = $value;
+        $config = ShopConfig::firstWhere('name', $data['name']);
+        if($config === null) {
+            return response()->json([
+                'message' => 'no config'
+            ], 400);
         }
-        $config->save();
+        if(isset($data['value'])) {
+            $config->value = $data['value'];
+            $config->save();
+        }
         return response()->json([
             'message' => 'config updated'
         ]);

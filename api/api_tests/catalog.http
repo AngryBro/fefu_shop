@@ -12,7 +12,7 @@ Content-Type: application/json
 ###
 GET http://localhost/api/products.meta
 ###
-GET http://localhost/api/product.get?slug=molestiae
+GET http://localhost/api/product.get?slug=optio
 ###
 GET http://localhost/api/products.new
 ###
