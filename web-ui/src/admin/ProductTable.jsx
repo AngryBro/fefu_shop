@@ -224,7 +224,7 @@ const ProductTable = ({loaded,productsMeta, categories, product = {}, edit = fal
                     </td>
                 </tr>
                 <tr>
-                    <th>Превью</th>
+                    <th>Превью (464х612)</th>
                     <td>
                         {
                             edit?
@@ -235,7 +235,7 @@ const ProductTable = ({loaded,productsMeta, categories, product = {}, edit = fal
                     </td>
                 </tr>
                 <tr>
-                    <th>Изображения</th>
+                    <th>Изображения (464х612)</th>
                     <td>
                         {
                             edit?

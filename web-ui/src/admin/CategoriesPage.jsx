@@ -13,7 +13,7 @@ const CategoriesPage = () => {
         name: '',
         slug: '',
         parent_id: 0,
-        image: null
+        image: ''
     }), []);
     const fetchData = () => setFetchFlag(!fetchFlag);
     const update = () => {
@@ -99,7 +99,7 @@ const CategoriesPage = () => {
                             <th>id</th>
                             <th>Название</th>
                             <th>url</th>
-                            <th>Превью</th>
+                            <th>Превью (квадратное)</th>
                             <th>Родительская</th>
                             <th>Дочерние</th>
                             <th>Показывать</th>

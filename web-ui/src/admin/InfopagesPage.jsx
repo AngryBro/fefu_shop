@@ -68,7 +68,7 @@ const Table = ({data = {}, callback}) => {
                 <td><input value={'slug' in values?values.slug:''} onChange={e => onChangeHandle('slug', e.target.value)} /></td>
             </tr>
             <tr>
-                <th>Главное изображение</th>
+                <th>Главное изображение (928х217)</th>
                 <td><ImageLoader width="300px" height="70px" loadHidden={values.image_header!==null&&values.image_header!==undefined} images={values.image_header!==null&&values.image_header!==undefined?[values.image_header]:[]} deleteCallback={() => onChangeHandle('image_header',undefined)} okCallback={array => onChangeHandle('image_header', array.tempname)}/></td>
             </tr>
             <tr>
@@ -76,7 +76,7 @@ const Table = ({data = {}, callback}) => {
                 <td><textarea className="InfopageEditText" onChange={e => onChangeHandle('text1', e.target.value)} value={'text1' in values?values.text1:''} /></td>
             </tr>
             <tr>
-                <th>Изображения</th>
+                <th>Изображения (266х154)</th>
                 <td><ImageLoader images={'images' in values&&values.images!==null?values.images:[]} deleteCallback={deleteImageCallback} okCallback={array => {var temp = JSON.parse(JSON.stringify(values.images===null||values.images===undefined?[]:values.images)); temp.push(array.tempname); onChangeHandle('images', temp)}} /></td>
             </tr>
             <tr>

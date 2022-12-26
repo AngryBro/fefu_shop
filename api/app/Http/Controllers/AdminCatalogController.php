@@ -268,7 +268,7 @@ class AdminCatalogController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|min:3',
             'slug' => 'required|string|min:3',
-            'image' => 'required|string',
+            'image' => 'string',
             'parent_id' => 'required|integer'
         ]);
         if($validator->fails()) return response()->json([

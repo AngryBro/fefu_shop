@@ -20,7 +20,7 @@ const CallbackForm = ({close, userData, setOpenedModalWindow}) => {
         return phone.replace('+','').replace('(','').replace(')','').replace(/-/g, '').replace(/ /g, '');
     };
     const phoneValid = phone => {
-        return phoneParse(phone).length === 11 && (phone.length || !tryCreate);
+        return phoneParse(phone).length === 11 || (phone.length===0 && !tryCreate);
     }
     const messageValid = message => {
         return !tryCreate || message.length;

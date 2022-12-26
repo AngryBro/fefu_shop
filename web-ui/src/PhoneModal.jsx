@@ -14,7 +14,6 @@ const PhoneModal = ({phone, close, setOpenedModalWindow, errorMsg, smsTime}) => 
             phone_number: phoneNumber.replace(/ /g,'').replace('+','').replace(/-/g,'').replace('(','').replace(')','')
         })
         .callback(({ok, array, error, status}) => {
-            console.log(array);
             if(ok) {
                 setError(false);
                 nextWindow();

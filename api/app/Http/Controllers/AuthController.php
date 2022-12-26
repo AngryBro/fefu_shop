@@ -84,7 +84,7 @@ class AuthController extends Controller
         $smsAero->send([$phone_number], $sms_code);
 
         return response()->json([
-            'sms_code' => $sms_code,
+            // 'sms_code' => $sms_code,
             'session' => $session->token
         ]);
     }
