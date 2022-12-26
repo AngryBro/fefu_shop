@@ -8,7 +8,7 @@ import AvitoSVG from './svg/AvitoSVG';
 import BigButton from './buttons/BigButton';
 import { useNavigate } from 'react-router-dom';
 
-const Footer = ({categories, contacts = {}, infoPages}) => { 
+const Footer = ({categories, contacts = {}, infoPages, setOpenedModalWindow}) => { 
     
     const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const Footer = ({categories, contacts = {}, infoPages}) => {
             <div className='upper'>
                 <div className='callback'>
                     <div className='name'>logo</div>
-                    <div className='button'>
+                    <div className='button' onClick={() => setOpenedModalWindow({type: 'callback'})}>
                         <BigButton text='связаться с нами' color='#0F406D' font={12}/>
                     </div>
                     {

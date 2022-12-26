@@ -22,7 +22,6 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\BrandController;
 
 
-// Route::any('/debug',[DebugController::class, 'debug']);
 Route::post('/products.get',[CatalogController::class, 'products']);
 Route::get('/product.get',[CatalogController::class, 'product']);
 Route::get('/products.new',[CatalogController::class, 'getNew']);
@@ -95,6 +94,7 @@ Route::middleware(App\Http\Middleware\Authorized::class)->group(function(){
         Route::post('/shopConfig.update', [ShopConfigController::class, 'update']);
         Route::get('/callbacks.get', [CallbackController::class, 'get']);
         Route::post('/img.upload', [ImageController::class, 'upload']);
+        Route::post('/img.delete', [ImageController::class, 'delete']);
     });
 });
 Route::middleware(App\Http\Middleware\AuthOrSessionOptional::class)->group(function(){
@@ -114,3 +114,9 @@ Route::middleware(App\Http\Middleware\AuthOrSessionRequired::class)->group(funct
 
 
 });
+
+Route::any('/{any}', function () {
+    return response()->json([
+        'message' => 'no route'
+    ], 404);
+})->where('any', '.*');

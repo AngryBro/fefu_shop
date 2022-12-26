@@ -1,6 +1,6 @@
 @import url("../fonts/pt-root-ui/stylesheet.css");
 @import url("../fonts/futura-pt/stylesheet.css");
-.Header {
+.HeaderU {
     overflow: hidden;
     min-height: 136px;
 }
@@ -8,30 +8,30 @@
     margin: auto;
     width: 1440px;
 }
-.Header .lower {
+.HeaderLower {
     min-height: 96px;
     background-color: rgba(18, 81, 139, 0.1);
     overflow: hidden;
 
 }
-.Header .lower .block {
+.HeaderLowerBlock {
     min-height: 96px;
     max-width: 1440px;
     margin: auto;
     overflow: hidden;
 }
-.Header .contacts {
+.HeaderContacts {
     width: 251px;
     height: 40px;
     float: right;
     margin: auto;
 }
-.Header .contacts .svgWa {
+.HeaderContactsSvgWa {
     margin-left: 24px;
     float: left;
-    margin-top: 9.5px;
+    margin-top: 13.5px;
 }
-.Header .contacts .textWa {
+.HeaderContactsTextWa {
 float: left;
 margin-top: 12px;
 margin-left: 4px;
@@ -45,11 +45,11 @@ text-decoration-line: underline;
 
 color: #FFFFFF;
 }
-.Header .contacts .svgInst {
+.HeaderContactsSvgInst {
     float: left;
-    margin-top: 9.5px;
+    margin-top: 13.5px;
 }
-.Header .contacts .textInst {
+.HeaderContactsTextInst {
     
 float: left;
 margin-top: 12px;
@@ -66,19 +66,19 @@ text-decoration-line: underline;
 color: #FFFFFF;
 }
 
-.Header .cartSvg {
+.HeaderCartSvg {
     float: left;
-    margin-top: 30.45px;
+    margin-top: 37.45px;
     margin-left: 24px;
 }
-.Header .cartSvg .down {
-    margin-top: -10px;
+.HeaderCartSvgDown {
+    margin-top: 1.41px;
     margin-left: 1.4px;
 }
-.Header .cartSvg .up {
+.HeaderCartSvgUp {
     margin-left: 0px;
 }
-.Header .cartText {
+.HeaderCartText {
 margin-top: 39.5px;
 margin-left: 8px;
 float: left;
@@ -94,18 +94,18 @@ cursor: pointer;
 color: #323540;
 }
 
-.Header .authSvg {
-    margin-top: 30px;
+.HeaderAuthSvg {
+    margin-top: 36px;
     margin-left: 26px;
     float: left;
 }
-.Header .authSvg .head {
+.HeaderAuthSvgHead {
     margin-left: 5px;
 }
-.Header .authSvg .body {
-    margin-top: -9.5px;
+.HeaderAuthSvgBody {
+    margin-top: 0px;
 }
-.Header .authText {
+.HeaderAuthText {
 margin-top: 39.5px;
 margin-left: 10px;
 float: left;
@@ -120,13 +120,13 @@ line-height: 121%;
 
 color: #323540;
 }
-.Header .favouriteSvg {
+.HeaderFavouriteSvg {
     margin-left: 84px;
     margin-top: 35px;
     float: left;
 }
 
-.Header .favouriteText {
+.HeaderFavouriteText {
     
 margin-top: 39.5px;
 margin-left: 8px;
@@ -136,19 +136,20 @@ font-style: normal;
 font-weight: 400;
 font-size: 14px;
 line-height: 121%;
+cursor: pointer;
 
  text-decoration-line: underline;
 
 color: #323540;
 }
 
-.Header .search .svg {
+.HeaderSearchSvg {
     margin-top: 14px;
     margin-right: 19px;
     float: right;
     cursor: pointer;
 }
-.Header .search input {
+.HeaderSearch input {
 margin-top: 6px;
 border: none;
 background: #F7F7FC;
@@ -158,28 +159,28 @@ width: 410px;
 float: left;
 margin-left: 10px;
 }
-.Header .search {
+.HeaderSearch {
 float: left;
 width: 472px;
 height: 48px;
 margin-top: 24px;
 background: #F7F7FC;
 }
-.Header .catalog .rectBlock {
+.HeaderCatalogRectBlock {
     margin-left: 24px;
     margin-top: 18.5px;
     float: left;
 }
-.Header .catalog .text {
+.HeaderCatalogText {
 float: right;
 margin-right: 24px;
 margin-top: 15.5px;
+font-family: 'PT Root UI';
 font-style: normal;
-font-weight: 400;
+font-weight: 500;
 font-size: 14px;
-line-height: 100%;
-
- text-decoration-line: underline;
+line-height: 121%;
+text-decoration-line: underline;
 text-transform: uppercase;
 text-decoration-thickness: 0.8px;
 text-underline-offset: 1px;
@@ -187,13 +188,13 @@ text-underline-offset: 1px;
 
 color: #FFFFFF;
 }
-.Header .catalog .rect {
+.HeaderCatalogRect {
     width: 16px;
     height: 1.5px;
     margin-bottom: 3.21px;
     background-color: white;
 }
-.Header .catalog .rectOpened1 {
+.HeaderCatalogRectOpened1 {
     float: left;
     margin-top: 4px;
     margin-left: -5px;
@@ -202,7 +203,7 @@ color: #FFFFFF;
     background-color: #FFFFFF;
 transform: rotate(45deg);
 }
-.Header .catalog .rectOpened2 {
+.HeaderCatalogRectOpened2 {
     float: left;
     width: 21px;
     height: 2px;
@@ -211,7 +212,7 @@ transform: rotate(45deg);
     background-color: #FFFFFF;
 transform: rotate(135deg);
 }
-.Header .catalog {
+.HeaderCatalog {
     width: 132px;
     height: 48px;
     margin-top: 24px;
@@ -220,11 +221,11 @@ transform: rotate(135deg);
     background: #12518B;
     cursor: pointer;
 }
-.Header .catalog:hover {
+.HeaderCatalog:hover {
     
     background: #114c84;
 }
-.Header .name {
+.HeaderName {
     margin-left: 110px;
     margin-top: 25px;
     font-family: 'Futura PT';
@@ -238,7 +239,7 @@ transform: rotate(135deg);
     float: left;
     cursor: pointer;
 }
-.Header .infolink {
+.HeaderInfolink {
 margin-right: 24px;
 margin-top: 12px;
 float: left;
@@ -250,15 +251,15 @@ line-height: 15px;
 text-decoration-line: underline;
 color: #FFFFFF;
 }
-.Header .infolinks {
+.HeaderInfolinks {
     padding-left: 96px;
 }
-.Header .upper {
+.HeaderUpper {
 min-height: 40px;
 background-color: #12518B;
 overflow: hidden;
 }
-.Header .upper .block {
+.HeaderUpperBlock {
     min-height: 40px;
     overflow: hidden;
     max-width: 1440px;

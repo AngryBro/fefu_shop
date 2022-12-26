@@ -10,24 +10,24 @@ use App\Models\Role;
 class InfoPageController extends Controller
 {
     function allAdmin() {
-        $pages = InfoPage::select('id','header','slug', 'hidden')->get();
+        $pages = InfoPage::select('id','header','slug', 'hidden')->orderBy('id', 'desc')->get();
         return response()->json($pages);
     }
 
     function allUser() {
-        $pages = InfoPage::select('id','header','slug','place')->where('hidden',false)->get();
+        $pages = InfoPage::select('id','header','slug','place')->where('hidden',false)->orderBy('id', 'asc')->get();
         return response()->json($pages);
     }
 
     function getAdmin(Request $request) {
         $validator = Validator::make($request->all(),[
-            'slug' => 'required|string'
+            'id' => 'required|integer'
         ]);
         if($validator->fails()) return response([
-            'message' => 'no slug'
+            'message' => 'no id'
         ],422);
-        $slug = $validator->validated()['slug'];
-        $page = InfoPage::firstWhere('slug', $slug);
+        $id = $validator->validated()['id'];
+        $page = InfoPage::find($id);
         $badResponse = response()->json([
             'message' => 'not found'
         ],404);
@@ -67,7 +67,8 @@ class InfoPageController extends Controller
             'images' => 'array',
             'images.*' => 'string',
             'hidden' => 'boolean',
-            'slug' => 'string'
+            'slug' => 'string',
+            'place' => 'integer'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'
@@ -81,6 +82,16 @@ class InfoPageController extends Controller
         if(isset($data['images'])) {
             $page->images = json_encode($data['images']);
             unset($data['images']);
+        }
+        foreach(['header', 'slug'] as $param) {
+            if(isset($data[$param])) {
+                $oldPage = InfoPage::where($param, $data[$param])->where('id','<>' ,$page->id)->first();
+                if($oldPage !== null) {
+                    return response()->json([
+                        'message' => 'allready exists'
+                    ], 400);
+                }
+            }
         }
         foreach($data as $key => $value) {
             $page->$key = $value;
@@ -115,7 +126,9 @@ class InfoPageController extends Controller
             'header' => 'required|string',
             'image_header' => 'required|string',
             'images' => 'required|array',
-            'slug' => 'required|string'
+            'slug' => 'required|string',
+            'images.*' => 'string',
+            'place' => 'required|integer'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'

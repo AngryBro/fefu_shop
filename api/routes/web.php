@@ -15,11 +15,15 @@ use App\Mail\OrderMail;
 |
 */
 
-// Route::get('/debug', function() {
-//     $order = Order::find(1);
-//     Mail::to('angry.bro.v.2013@gmail.com')->send(new OrderMail($order));
-// });
-
+Route::get('/static/js/{file}', function($file) {
+    return response()->file("../resources/build/static/js/$file");
+});
+Route::get('/static/css/{file}', function($file) {
+    return response()->file("../resources/build/static/css/$file");
+});
+Route::get('/static/media/{file}', function($file) {
+    return response()->file("../resources/build/static/media/$file");
+});
 Route::get('/{any}', function () {
-    return view('welcome');
+    return response()->file("../resources/build/index.html");
 })->where('any', '.*');

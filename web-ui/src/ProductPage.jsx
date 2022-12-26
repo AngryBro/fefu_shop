@@ -11,7 +11,7 @@ import './css/Skeleton.css';
 import PriceDiscount from './PriceDiscount';
 import Api from './Api';
 
-const ProductPage = ({cart, favouriteProductIds}) => {
+const ProductPage = ({cart, favouriteProductIds, favourite}) => {
 
     const {slug} = useParams();
     const navigate = useNavigate();
@@ -95,7 +95,12 @@ const ProductPage = ({cart, favouriteProductIds}) => {
                 loaded?
                 <div className='loaded'>
                     <div className='route'>
-                        <PageRoute route={[{name: 'Главная', link: '/'}, {name: 'Каталог', link: '/catalog'}, {name: data.product.category, link: `/catalog/${data.product.category_slug}`}]}/>
+                        <PageRoute route={[
+                            {name: 'Главная', link: '/'}, 
+                            {name: 'Каталог', link: '/catalog'}, 
+                            {name: data.product.category, link: `/catalog/${data.product.category_slug}`},
+                            {name: data.product.name}
+                            ]}/>
                     </div>
                     <div className='main'>
                         <div className='slider'>
@@ -109,7 +114,7 @@ const ProductPage = ({cart, favouriteProductIds}) => {
                                 </div>:
                                 <></>
                             }
-                            <div className='favourite'>
+                            <div className='favourite' onClick={() => data.product.id in favouriteProductIds?favourite.del(data.product.id):favourite.add(data.product.id)}>
                                 {
                                     data.product.id in favouriteProductIds?
                                     <FavouriteSVG/>:
@@ -171,8 +176,8 @@ const ProductPage = ({cart, favouriteProductIds}) => {
                                 </div>
                             </div>
                             <div className='priceBlock'>
-                                <div className='price'><PriceDiscount price={{old: data.product.price, new: data.product.price_discount}} /></div>
-                                <div className='cartButton' onClick={() => {if(!cart.buttonDisabled(data.product[selectedSize], inCart)) cart.add(data.product.id,selectedSize)}}>
+                                <div className='priceBlockValue'><PriceDiscount price={{old: data.product.price, new: data.product.price_discount}} /></div>
+                                <div className='priceBlockCartButton' onClick={() => {if(!cart.buttonDisabled(data.product[selectedSize], inCart)) cart.add(data.product.id,selectedSize)}}>
                                     <BigButton text={cart.buttonText(data.product[selectedSize], inCart)} disabled={cart.buttonDisabled(data.product[selectedSize], inCart)} />
                                 </div>
                             </div>

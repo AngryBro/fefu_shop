@@ -1,0 +1,9 @@
+###
+POST http://localhost/api/callbacks.create
+Content-Type: application/json
+
+{
+    "phone_number":"88005553535",
+    "name":"piska",
+    "message":"123"
+}

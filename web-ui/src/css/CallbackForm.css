@@ -1,0 +1,61 @@
+.CallbackFormLabelName {
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 121%;
+    color: #616575;
+    margin-bottom: 4px;
+}
+.CallbackFormInputBlock {
+    background: #F7F7FC;
+    border: 1px solid #ADB1BB;
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 16px;
+    min-height: 40px;
+}
+.CallbackFormInputBlockFocus {
+    background: #F7F7FC;
+    border: 1px solid #3e3f42;
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 16px;
+    min-height: 40px;
+}
+.CallbackFormLabel input {
+    font-size: 14px;
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    margin-left: 16px;
+    height: 40px;
+}
+.CallbackFormLabel .textarea {
+    font-size: 14px;
+    border: none;
+    background: none;
+    outline: none;
+    width: 270px;
+    margin-left: 16px;
+    min-height: 70px;
+    height: fit-content;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    resize: none;
+    overflow: auto;
+    font-family: 'PT Root UI';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 121%;
+    color: #323540;
+}
+.CallbackFormHeader {
+    margin-bottom: 24px;
+}

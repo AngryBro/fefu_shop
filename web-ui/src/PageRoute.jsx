@@ -28,11 +28,11 @@ const PageRoute = ({route, back = false}) => {
         <div className='PageRoute'>
             {
                 back?
-                <div className='back'>
-                    <div className='svg'><RouteBackSVG/></div>
+                <div className='PageRouteBack'>
+                    <div className='PageRouteBackSvg'><RouteBackSVG/></div>
                     <div className='routeBack' onClick={() => {navigate(backTo.link)}}>{backTo.name}</div>
-                    <div className='line'></div>
-                    <div className='current'>{last.name}</div>
+                    <div className='PageRouteBackLine'></div>
+                    <div className='PageRouteBackCurrent'>{last.name}</div>
                 </div>:
                 <div className='routes'>
                     {

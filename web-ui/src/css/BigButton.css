@@ -5,7 +5,7 @@
     cursor: pointer;
     display: flex;
 }
-.BigButton .text {
+.BigButtonText {
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 400;

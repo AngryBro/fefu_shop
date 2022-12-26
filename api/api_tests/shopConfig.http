@@ -1,5 +1,5 @@
 ### Просмотр для пользователей
-GET http://localhost/api/shopConfig.get?name=slide
+GET http://localhost/api/shopConfig.get?name=pickup_point
 ### Просмотр для админов
 GET http://localhost/api/shopConfig.getAll
 Authorization: Bearer admintoken

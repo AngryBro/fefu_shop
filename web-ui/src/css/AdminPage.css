@@ -3,6 +3,7 @@
     margin-top: 50px;
     margin-bottom: 50px;
     overflow: hidden;
+    min-height: 600px;
 }
 .AdminPage .menu div {
     margin-bottom: 20px;
@@ -48,4 +49,8 @@
 }
 .AdminPage textarea {
     font-size: 14pt;
+}
+.AdminPage .InfopageEditText {
+    width: 400px;
+    height: 300px;
 }

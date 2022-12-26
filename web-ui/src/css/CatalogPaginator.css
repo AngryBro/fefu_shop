@@ -20,7 +20,7 @@
 }
 .CatalogPaginator .prev .arrow {
     transform: scaleX(-1);
-    margin-top: 2px;
+    margin: auto;
     float: left;
     margin-right: 8px;
 }
@@ -31,7 +31,7 @@
     margin-left: -16px;
 }
 .CatalogPaginator .next .arrow {
-    margin-top: 2px;
+    margin: auto;
     float: left;
     margin-left: 8px;
 }

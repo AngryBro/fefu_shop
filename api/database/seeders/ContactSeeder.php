@@ -17,7 +17,7 @@ class ContactSeeder extends Seeder
     {
         $data = [
             ['phone_number' ,'Номер телефона' , '88005553535'],
-            ['whatsapp', 'Номер WA' , '89005553535'],
+            ['whatsapp', 'Написать нам' , '89005553535'],
             ['email', 'Почтовый ящик' , 'mail@logo.org'],
             ['telegram', 'Телеграм' , 'logotelegram'],
             ['youtube', 'YouTube' , 'youtube.com'],
@@ -25,8 +25,7 @@ class ContactSeeder extends Seeder
             ['instagram', 'logo' , '@logo'],
             ['avito', 'Avito' , 'avito/logo'],
             ['adress', 'Адрес' , 'Приморский край, о. Русский, п. Аякс 10, ауд. D644'],
-            ['time', 'Время работы' , '24/7'],
-            ['map', 'Координаты для карты' , 'хз как вбить пока']
+            ['time', 'Время работы' , '24/7']
         ];
         foreach($data as $key => $value) {
             $contact = new Contact;

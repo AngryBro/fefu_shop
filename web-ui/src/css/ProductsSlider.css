@@ -16,7 +16,6 @@
 .ProductsSlider .product {
     float: left;
     margin-right: 32px;
-    cursor: pointer;
 }
 .ProductsSlider .prev {
     position: absolute;

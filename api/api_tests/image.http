@@ -11,4 +11,11 @@ Content-Type: image
 
 < ./testimg.png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+###
+POST http://localhost/api/img.delete
+Authorization: Bearer admintoken
+Content-Type: application/json
 
+{
+    "photo": "SZOG09BpCxDzvZU4iupk"
+}

@@ -3,10 +3,18 @@
     overflow: hidden;
     height: 22px;
 }
-.PageRoute .back .svg {
-    float: left;
+.PageRouteBackSvg {
+    /* float: left; */
     cursor: pointer;
     opacity: 0.8;
+    /* margin: auto; */
+    /* margin-left: 0; */
+    /* margin-right: 8px; */
+}
+.PageRouteBack {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .PageRoute .routes .item .route {
     float: left;
@@ -23,9 +31,10 @@
     cursor: pointer;
     margin-top: 0px;
 }
-.PageRoute .back .routeBack {
+.PageRoute .routeBack {
+    /* margin: auto; */
     margin-left: 8px;
-    float: left;
+    /* float: left; */
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 400;
@@ -37,7 +46,7 @@
     color: #616575;
     opacity: 0.7;
     cursor: pointer;
-    margin-top: 3px;
+    /* margin-top: 3px; */
 }
 .PageRoute .routes .item {
     float: left;
@@ -71,14 +80,15 @@
     opacity: 0.8;
     cursor: pointer;   
 }
-.PageRoute .back .line {
+.PageRoute .PageRouteBackLine {
     background-color: #CDCFD6;
     margin-left: 16px;
-    float: left;
+    margin-right: 16px;
+    /* float: left; */
     width: 0.8px;
     height: 22px;
 }
-.PageRoute .back .current {
+.PageRouteBackCurrent {
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 500;
@@ -87,6 +97,6 @@
     align-items: center;
     text-transform: uppercase;
     color: #323540;
-    margin-left: 16px;
-    float: left;
+    /* margin-left: 16px; */
+    /* float: left; */
 }

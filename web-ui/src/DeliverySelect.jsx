@@ -1,7 +1,7 @@
 import './css/DeliverySelect.css';
 import SelectCircleSVG from './svg/CircleSelectedSVG';
 
-const DeliverySelect = ({selected, delivery, adress = 'адрес шоурума'}) => {
+const DeliverySelect = ({selected, delivery, adress}) => {
 
     return (
         <div className='DeliverySelect'>
@@ -18,7 +18,7 @@ const DeliverySelect = ({selected, delivery, adress = 'адрес шоурума
                     </div>:
                     <div className='pickupBlock'>
                         <div className='text' style={{color: selected?'#323540':'#616575'}}>Самовывоз из шоурума</div>
-                        <div className='adress'>{adress}</div>
+                        <div className='adress'>{`${adress.adress}. ${adress.time}`}</div>
                     </div>
                 }
             </div>

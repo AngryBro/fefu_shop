@@ -11,9 +11,9 @@ const CartPosition = ({count, price, position, deletePosition}) => {
 
     return (
         <div className='CartPosition'>
-            <div className='imagePreview' style={{backgroundImage: `url(${Api().img(position.image_preview)})`}}></div>
+            <div className='imagePreview' onClick={() => window.open(`/product/${position.slug}`)} style={{backgroundImage: `url(${Api().img(position.image_preview)})`}}></div>
             <div className='productInfo'>
-                <div className='name'>{position.name}</div>
+                <div className='name' onClick={() => window.open(`/product/${position.slug}`)}>{position.name}</div>
                 <div className='sizeBlock'>
                     <div className='title' style={{float: 'left'}}>Размер:</div>
                     <div className='size'>{position.size}</div>

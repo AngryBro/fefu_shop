@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import './css/CatalogPage.css';
 import './css/Skeleton.css';
 import Product from './Product';
@@ -8,22 +8,20 @@ import SortCatalog from "./SortCatalog";
 import CatalogPaginator from "./CatalogPaginator";
 import Api from "./Api";
 
-const CatalogPage = ({productsMeta = undefined}) => {
+const CatalogPage = ({productsMeta = undefined, favourite, favouriteProductIds}) => {
 
     const {slug} = useParams();
-    const searchString = decodeURI(document.location.search.replace('?search=', ''));// eslint-disable-next-line
+    const searchString = decodeURI(document.location.search.replace('?search=', ''));
     const pageSize = 9;
-    const navigate = useNavigate();
 
 
-// eslint-disable-next-line
     var [data, setData] = useState({});
     var [category, setCategory] = useState('');
-    var [products, setProducts] = useState([]);// eslint-disable-next-line
+    var [products, setProducts] = useState([]);
     var [page, setPage] = useState(1);
     var [loaded, setLoaded] = useState(false);
     var [headerText, setHeaderText] = useState('Каталог');
-    var [found, setFound] = useState(false);// eslint-disable-next-line
+    var [found, setFound] = useState(false);
     var [sort, setSort] = useState({name: 'Сбросить', slug: 'reset'});
 
     useEffect(() => {
@@ -145,8 +143,8 @@ const CatalogPage = ({productsMeta = undefined}) => {
                 <div className="products" hidden={!found}>
                     { 
                         products.map((product, index) =>
-                            <div key={product.id} className="productItem" onClick={() => {if(loaded) navigate(`/product/${product.slug}`)}}>
-                                <Product data={product} message={product.new?'NEW':null} skeleton={!loaded}/>
+                            <div key={product.id} className="productItem" >
+                                <Product favourite={favourite} isFavourite={product.id in favouriteProductIds} data={product} message={product.new?'NEW':null} skeleton={!loaded}/>
                             </div>
                         )
                     }

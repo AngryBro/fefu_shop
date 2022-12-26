@@ -11,94 +11,99 @@ import WhatsappSVG from './svg/WhatsappSVG';
 import OpenedCatalog from './OpenedCatalog';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({cart, contacts, infoPages = {header:[]}, categories = [], searchString, search, userData = {}, setOpenedModalWindow}) => { 
+const Header = ({cart, contacts, infoPages = {header:[]}, categories = [], searchString, search, userData = {}, setOpenedModalWindow, noFunctional}) => { 
     
     const navigate = useNavigate();
+
+    const favouriteHandle = () => {
+        navigate('/favourite');
+    };
 
     var [openedCatalog, setOpenedCatalog] = React.useState(false);
 
     return(
         <div>
-    <div className="Header" onMouseLeave={() => setOpenedCatalog(false)}>
-        <div className='upper'>
-            <div className='block'>
-            <div className='infolinks'>
+    <div className="HeaderU" onMouseLeave={() => setOpenedCatalog(false)}>
+        <div className='HeaderUpper'>
+            <div className='HeaderUpperBlock'>
+            <div className='HeaderInfolinks'>
                 {
                     infoPages.header.map(e => (
-                        <a className='infolink' key={e.id} target='_blank' rel="noopener noreferrer" href={`/info/${e.slug}`}>{e.header}</a>
+                        <a className='HeaderInfolink' key={e.id} target='_blank' rel="noopener noreferrer" href={`/info/${e.slug}`}>{e.header}</a>
                     ))
                 }
             </div>
-            <div className='contacts'>
+            <div className='HeaderContacts'>
                 {
                     'instagram' in contacts?
                     <>
-                        <div className='svgInst'><InstSVG/></div>
-                        <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.instagram.value)} className='textInst'>{contacts.instagram.name}</div>
+                        <div className='HeaderContactsSvgInst'><InstSVG/></div>
+                        <div style={{cursor:'pointer'}} onClick={() => window.open(contacts.instagram.value)} className='HeaderContactsTextInst'>{contacts.instagram.name}</div>
                     </>:<></>
                 }
                 {
                     'whatsapp' in contacts?
                     <>
-                        <div className='svgWa'><WhatsappSVG/></div>
-                        <div style={{cursor:'pointer'}} className='textWa'>{contacts.whatsapp.name}</div>
+                        <div className='HeaderContactsSvgWa'><WhatsappSVG/></div>
+                        <div onClick={() => window.open(`https://api.whatsapp.com/send/?phone=${contacts.whatsapp.value}`)} style={{cursor:'pointer'}} className='HeaderContactsTextWa'>{contacts.whatsapp.name}</div>
                     </>:<></>
                 }
                     
             </div>
             </div>
         </div>
-        <div className='lower'>
-        <div className='block'>
-        <div className='name' onClick={() => navigate('/')}>
+        <div className='HeaderLower'>
+        <div className='HeaderLowerBlock'>
+        <div className='HeaderName' onClick={() => navigate('/')}>
                 LOGO
         </div>
-        <div className='catalog'
+        <div className='HeaderCatalog'
              onMouseEnter={() => {setOpenedCatalog(true)}}
              onClick={() => {navigate('/catalog'); searchString.set('')}}
         >
         
-            <div className='rectBlock'>
+            <div className='HeaderCatalogRectBlock'>
                 {openedCatalog?
-                    <><div className='rectOpened1'></div>
-                    <div className='rectOpened2'></div></>
+                    <><div className='HeaderCatalogRectOpened1'></div>
+                    <div className='HeaderCatalogRectOpened2'></div></>
                     :
                     <>
-                    <div className='rect'></div>
-                    <div className='rect'></div>
-                    <div className='rect'></div></>
+                    <div className='HeaderCatalogRect'></div>
+                    <div className='HeaderCatalogRect'></div>
+                    <div className='HeaderCatalogRect'></div></>
                 }
                 
                 
             </div>
-            <div className='text'>КАТАЛОГ</div>
+            <div className='HeaderCatalogText'>КАТАЛОГ</div>
         </div>
-        <div className='search'>
+        <div className='HeaderSearch'>
             <input type="text" 
                 onChange={e => searchString.set(e.target.value)}
                 onKeyDown={e => {if(e.key === 'Enter'){search()}}}
                 value={searchString.get}
             />
-            <div className='svg' onClick={search}><SearchSVG/></div>
+            <div className='HeaderSearchSvg' onClick={search}><SearchSVG/></div>
         </div>
-            <div className='favouriteSvg'><FavouriteSVG/></div>
-            <div className='favouriteText'>Избранное</div>
-            <div className='authSvg'>
-                <div className='head'><AuthHeadSVG/></div>
-                <div className='body'><AuthBodySVG/></div>
+            <div className='HeaderFavouriteSvg'><FavouriteSVG/></div>
+            <div className='HeaderFavouriteText' onClick={favouriteHandle}>Избранное</div>
+            <div className='HeaderAuthSvg'>
+                <div className='HeaderAuthSvgHead'><AuthHeadSVG/></div>
+                <div className='HeaderAuthSvgBody'><AuthBodySVG/></div>
             </div>
-            <div className='authText' onClick={() => userData.authed?(userData.admin?navigate('/admin'):1):setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?'+'+userData.phone:"Вход/Регистрация"}</div>
-            <div className='cartSvg'>
-                <div className='up'><CartUpSVG/></div>
-                <div className='down'><CartDownSVG/></div>
+            <div className='HeaderAuthText' onClick={() => userData.authed?(userData.admin?navigate('/admin'):noFunctional('Личный кабинет')):setOpenedModalWindow({type: 'phone', phone:''})}>{userData.authed?'+'+userData.phone:"Вход/Регистрация"}</div>
+            <div className='HeaderCartSvg'>
+                <div className='HeaderCartSvgUp'><CartUpSVG/></div>
+                <div className='HeaderCartSvgDown'><CartDownSVG/></div>
             </div>
-            <div className='cartText' onClick={() => navigate('/cart')}>{cart.sum} &#8381; / {cart.count} шт.</div>
+            <div className='HeaderCartText' onClick={() => navigate('/cart')}>{cart.sum} &#8381; / {cart.count} шт.</div>
         </div>
         </div>
         </div>
         <div className='openedCatalogBlock'
             onMouseEnter={() => setOpenedCatalog(true)}
             onMouseLeave={() => setOpenedCatalog(false)}
+            onClick={() => setOpenedCatalog(false)}
         >
         {
             openedCatalog?<OpenedCatalog categories={categories}/>:<></>

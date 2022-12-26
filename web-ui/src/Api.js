@@ -1,6 +1,7 @@
 const Api = (routeName) => {
     
-    const host = 'http://localhost/api';
+    // const host = 'http://localhost/api';
+    const host = 'http://logoshop.sytes.net:8888/api';
     
     const routes = {
         getSms: '/sms.send',
@@ -19,7 +20,7 @@ const Api = (routeName) => {
         cartDec: '/cart.decrement',
         cartDelete: '/cart.delete',
         orderCreate: '/order.create',
-        infoPagesAll: '/infopages.all',
+        infopagesAll: '/infopages.all',
         contacts: '/contacts.get',
         favouriteIds: '/favourite.getIds',
         ordersAll: '/orders.all',
@@ -51,14 +52,26 @@ const Api = (routeName) => {
         adminProductDelete: '/product.delete',
         adminProductCreate: '/product.create',
         imageUpload: '/img.upload',
+        imageDelete: '/img.delete',
         categoryUpdate: '/category.update',
         categoryCreate: '/category.create',
-        config: '/shopConfig.get'
+        config: '/shopConfig.get',
+        infopage: '/infopage.get',
+        adminInfopagesAll: '/admin/infopages.all',
+        adminInfopageGet: '/admin/infopage.get',
+        infopageUpdate: '/infopage.update',
+        infopageCreate: '/infopage.create',
+        infopageDelete: '/infopage.delete',
+        favouriteGet: '/favourite.get',
+        favouriteAdd: '/favourite.add',
+        favouriteDelete: '/favourite.delete',
+        callbackCreate: '/callbacks.create',
+        callbacksGet: '/callbacks.get'
     };
 
     var _method = 'get';
     var _headers = {};
-    var _callback = null;
+    var _callback = ()=>1;
     var _getParams = '';
     var _postJson = null;
 
@@ -118,6 +131,9 @@ const Api = (routeName) => {
     };
 
     var send = async () => {
+        if(routes[routeName]===undefined) {
+            return alert(`API маршрута ${routeName} не существует`);
+        }
         var fetchParams = {
             method: _method,
             headers: _headers
@@ -133,7 +149,7 @@ const Api = (routeName) => {
         }
         catch (err) {
             _callback({ok: false, status: undefined, array: undefined, error: err})
-            console.log(err);
+            console.log(err, routeName, routes[routeName]);
         }
     };
 

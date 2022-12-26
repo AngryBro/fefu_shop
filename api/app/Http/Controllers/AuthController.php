@@ -14,6 +14,7 @@ use App\Models\BearerToken;
 use App\Models\User;
 use App\Models\Cart;
 use Hash;
+use App\Sms\SmsaeroApiV2;
 
 class AuthController extends Controller
 {
@@ -78,7 +79,10 @@ class AuthController extends Controller
         $sent_sms_code->code = Hash::make($sms_code);
         $sent_sms_code->expires_at = Carbon::now()->addMinutes(10);
         $sent_sms_code->save();
-        // send code
+        
+        $smsAero = new SmsaeroApiV2(env('SMSAERO_EMAIL'), env('SMSAERO_TOKEN'));
+        $smsAero->send([$phone_number], $sms_code);
+
         return response()->json([
             'sms_code' => $sms_code,
             'session' => $session->token

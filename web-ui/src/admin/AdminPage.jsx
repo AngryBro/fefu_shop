@@ -10,6 +10,7 @@ const AdminPage = () => {
             <h1>Администраторская панель</h1>
             <div className="menu">
                 <div onClick={() => navigate('/admin/orders')}>Заказы</div>
+                <div onClick={() => navigate('/admin/callbacks')}>Обратная связь</div>
                 <div onClick={() => navigate('/admin/config')}>Настройки</div>
                 <div onClick={() => navigate('/admin/categories')}>Категории</div>
                 <div onClick={() => navigate('/admin/products')}>Товары</div>
@@ -17,7 +18,6 @@ const AdminPage = () => {
                 <div onClick={() => navigate('/admin/admins')}>Администраторы</div>
                 <div onClick={() => navigate('/admin/contacts')}>Контакты</div>
                 <div onClick={() => navigate('/admin/infopages')}>Информационные страницы</div>
-                <div onClick={() => navigate('/admin/mainpage')}>Главная страница</div>
                 <div onClick={() => navigate('/admin/colors')}>Цвета</div>
                 <div onClick={() => navigate('/admin/materials')}>Материалы</div>
                 <div onClick={() => navigate('/admin/brands')}>Брэнды</div>

@@ -80,6 +80,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
     var [createText, setCreateText] = useState(defaultButtonText);
     var [commentFocus, setCommentFocus] = useState(false);
     var [emailError, setEmailError] = useState(false);
+    var [pickupAdress, setPickupAdress] = useState({adress: 'адрес загружается...', time:''});
 
     useEffect(() => {
         setName(n => userData.authed&&userData.name!==undefined?userData.name:n);
@@ -87,6 +88,14 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
         setEmail(e => userData.authed&&userData.email!==undefined?userData.email:e);
 
     }, [userData]);
+
+    useEffect(() => {
+        Api('config').get({name: 'pickup_point'}).callback(({ok,array}) => {
+            if(ok) {
+                setPickupAdress(array);
+            }
+        }).send();
+    }, []);
 
     return (
         <div className='OrderPage'>
@@ -119,7 +128,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
                             data={{get: email, set: setEmail}}
                             labelName='E-mail'
                             disabled={'email' in userData}
-                            showError={showErrors}
+                            showError={showErrors&&email.length}
                             validation={validateEmail}
                         />
                     </div>
@@ -129,7 +138,7 @@ const OrderPage = ({userData, cart, setOpenedModalWindow}) => {
                     <div className='getType'>
                         <div className='selectName'>Способ получения</div>
                         <div className='pickup' onClick={() => setDelivery(false)}>
-                            <DeliverySelect delivery={false} selected={!delivery} />
+                            <DeliverySelect delivery={false} selected={!delivery} adress={pickupAdress} />
                         </div>
                         <div className='delivery' onClick={() => setDelivery(true)}>
                             <DeliverySelect delivery={true} selected={delivery}/>

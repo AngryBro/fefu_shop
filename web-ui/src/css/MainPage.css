@@ -1,54 +1,14 @@
 .MainPage {
     width: 103%;
 }
-.MainPage .slide .left {
-    width: 500px;
-    height: 100%;
-    float: left;
-}
-.MainPage .slide .right{
-    width: 500px;
-    height: 100%;
-    float: left;
-}
-.MainPage .slide .middle{
-    float: left;
-    width: 248px;
-    height: 100%;
-}
-.MainPage .slide .middle .logo {
-    width: 200px;
-    height: 150px;
-    margin-top: 24px;
-    margin-left: 24px;
-}
-.MainPage .slide .middle .text {
-    font-family: 'PT Root UI';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    align-items: center;
-    text-align: center;
-    color: #616575;
-
-}
-.MainPage .slide .middle .header {
-    font-family: 'PT Root UI';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 48px;
-    line-height: 58px;
-    align-items: center;
-    text-align: center;
-    text-transform: lowercase;
-    color: #323540;
-}
-.MainPage .slide {
+.MainPageSlider {
     width: 1248px;
     height: 348px;
     margin-top: 64px;
     background: #F7F7FC;
+    border-radius: 20px;
+    border: #F7F7FC 1px solid;
+    overflow: hidden;
 }
 .MainPage .categories {
     margin-top: 96px;
@@ -142,8 +102,6 @@
 .MainPage .new .products {
     width: 1248px;
     height: 488px;
-    /* overflow: hidden; */
-    /* background-color: red; */
 }
 .MainPage .about {
     margin-top: 96px;
@@ -151,6 +109,7 @@
     width: 1248px;
     height: 432px;
     border: 2px solid rgb(205, 207, 214, 0.4);
+    background-size: 100% 100%;
 }
 .MainPage .about .block {
     margin-top: 105px;

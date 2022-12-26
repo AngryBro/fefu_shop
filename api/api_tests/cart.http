@@ -1,5 +1,6 @@
 ### Добавление в корзину
 POST http://localhost/api/cart.add
+Authorization: Bearer admintoken
 Content-Type: application/json
 
 {
@@ -18,7 +19,7 @@ Authorization: Bearer usertoken
 ### Получение id товаров в корзине с размерами
 GET http://localhost/api/cart.getIds
 # X-Session: WuqN1tjZWW5suU4nCyCABeijpz1SEbUl2RGpRq2zh4M0nliHvF4B0knEiMwZWvlf
-Authorization: Bearer usertoken
+Authorization: Bearer admintoken
 ### Получение товаров в корзине
 GET http://localhost/api/cart.get
 # X-Session: dBQm7Ul0Tdw3JunyVHpmTZ2aMwnf4VLqVcNYeIWXvCSFBMmCYhf4vCPHFMCn82tD

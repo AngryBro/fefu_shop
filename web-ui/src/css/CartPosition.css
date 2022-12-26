@@ -7,6 +7,7 @@
     height: 145px;
     float: left;
     background-size: cover;
+    cursor: pointer;
 }
 .CartPosition .productInfo {
     float: left;
@@ -19,6 +20,7 @@
     font-size: 18px;
     line-height: 121%;
     color: #323540;
+    cursor: pointer;
 }
 .CartPosition .productInfo .title {
     font-family: 'PT Root UI';

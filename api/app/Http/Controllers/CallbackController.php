@@ -10,7 +10,7 @@ class CallbackController extends Controller
 {
     function create(Request $request) {
         $validator = Validator::make($request->all(),[
-            'phone_number' => 'required|string',
+            'phone_number' => 'string',
             'name' => 'required|string',
             'message' => 'required|string'
         ]);
@@ -23,7 +23,7 @@ class CallbackController extends Controller
             $callback->$key = $value;
         }
         $callback->save();
-        return reponse()->json([
+        return response()->json([
             'message' => 'callback sent'
         ]);
     }
@@ -37,6 +37,6 @@ class CallbackController extends Controller
             'message' => 'validation error'
         ],422);
         $data = $validator->validated();
-        return response()->json(Callback::paginate($data['page_size']));
+        return response()->json(Callback::orderBy('id', 'desc')->paginate($data['page_size']));
     }
 }

@@ -14,6 +14,13 @@ const ImageLoader = ({okCallback = () => 1, images = [], deleteCallback = undefi
             fileRef.current.value = '';
         }).send();
     }
+    const deleteHandler = image => {
+        Api('imageDelete').auth().post({photo: image}).callback(({ok}) => {
+            if(ok) {
+                deleteCallback(image);
+            }
+        }).send();
+    }
 
     return (
         <div style={{width:'fit-content'}}>
@@ -27,7 +34,7 @@ const ImageLoader = ({okCallback = () => 1, images = [], deleteCallback = undefi
                         <img onClick={() => window.open(Api().img(image))} src={Api().img(image)} alt="изображение" style={{display:'block',float:'left',width,height}} />
                         {
                             deleteCallback===undefined?<></>:
-                            <button onClick={() => deleteCallback(image)}>&#10006;</button>
+                            <button onClick={() => deleteHandler(image)}>&#10006;</button>
                         }
                     </div>:<div key={i} />
                 )

@@ -47,4 +47,20 @@ class ImageController extends Controller
         ]);
     }
 
+    function delete(Request $request) {
+        $validator = Validator::make($request->all(),[
+            'photo' => 'required|string',
+        ]);
+        if($validator->fails()) return response()->json([
+            'message' => 'invalid name'
+        ],422);
+        $file = $validator->validated()['photo'];
+        if(Storage::exists("public/$file")) {
+            Storage::delete("public/$file");
+        }
+        return response()->json([
+            'message' => 'deleted'
+        ]);
+    }
+
 }

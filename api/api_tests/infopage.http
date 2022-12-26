@@ -24,8 +24,8 @@ Authorization: Bearer admintoken
 Content-Type: application/json
 
 {
-    "header":"Delivery",
-    "slug":"delivery",
+    "header":"Delivery1",
+    "slug":"delivery1",
     "text1":"this is text 1",
     "text2":"this is text 2",
     "image_header":"x5WOz9BLuC",

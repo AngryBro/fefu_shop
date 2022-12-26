@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import PhoneModal from "./PhoneModal";
 import SmsModal from "./SmsModal";
 import Api from "./Api";
+import NotificationWindow from "./NotificationWindow";
+import CallbackForm from "./CallbackForm";
 
 const Page = ({Content, title}) => {
 
@@ -81,6 +83,40 @@ const Page = ({Content, title}) => {
         return temp;
     }
 
+    const fetchFavourites = () => {
+        Api('favouriteIds')
+            .callback(({ok, array}) => {
+                if(ok) {
+                    setFavouriteProductIds(array.product_ids);
+                }
+            })
+            .auth()
+            .send();
+    };
+
+    const addToFavourite = id => {
+        if(!userData.authed) {
+            return setOpenedModalWindow({type: 'phone', phone: ''});
+        }
+        Api('favouriteAdd').post({product_id: id}).auth().callback(({ok}) => {
+            if(ok) {
+                fetchFavourites();
+            }
+        }).send();
+    };
+
+    const deleteFromFavourite = id => {
+        Api('favouriteDelete').post({product_id: id}).auth().callback(({ok}) => {
+            if(ok) {
+                fetchFavourites();
+            }
+        }).send();
+    };
+
+    const noFunctional = (funcName) => {
+        setOpenedModalWindow({type: 'notification', message: `Функционал "${funcName}" находится в разработке и пока не доступен`});
+    }
+
     var [cartCount, setCartCount] = React.useState(0);
     var [cartSum, setCartSum] = React.useState(0);
     var [cartUpdateFlag, setCartUpdateFlag] = React.useState(false);
@@ -114,7 +150,19 @@ const Page = ({Content, title}) => {
                 }
             }).send();
         }
-    }, [userDataUpdateFlag]);
+
+        if(userData.authed) {
+            Api('favouriteIds')
+            .callback(({ok, array}) => {
+                if(ok) {
+                    setFavouriteProductIds(array.product_ids);
+                }
+            })
+            .auth()
+            .send();
+        }
+
+    }, [userDataUpdateFlag, userData.authed]);
 
     React.useEffect(() => {
         Api('cartInfo').auth().session().callback(({ok, array}) => {
@@ -126,16 +174,49 @@ const Page = ({Content, title}) => {
         Api('cartIds').auth().session().callback(({ok, array}) => {
             if(ok) {
                 setCartIds(array);
+                var oldids = false;
+                var idsArr = array;
+                Object.keys(array.position_ids).forEach(pos => {if(!array.position_ids[pos]) oldids=true});
+                if(oldids) {
+                    Api('cartGet').auth().session().callback(({ok,array}) => {
+                        if(ok) {
+                            var temp = [];
+                            array.forEach(pos => {
+                                if(!idsArr.position_ids[pos.position_id]) {
+                                    temp.push(pos);
+                                }
+                            });
+                            var msg = 'Товары '+temp.map(e => `${e.name} (${e.size})`).join(', ')
+                            +' удалены из корзины, так как больше не в наличии.';
+                            temp.forEach(pos => {
+                                Api('cartDelete').auth().session().post({
+                                    position_id: pos.position_id
+                                }).callback(({ok}) => {
+                                    if(ok && userData.authed) {
+                                        Api('favouriteAdd').post({product_id: pos.id}).auth().send();
+                                    }
+                                }).send();
+                            });
+                            if(userData.authed) {
+                                msg += ' Перенесены в избранное.';
+                            }
+                            setCartUpdateFlag(f => !f);
+                            setOpenedModalWindow({type:'notification', message:msg});
+                        }
+                    }).send();
+                }
             }
         }).send(); 
 
-    }, [cartUpdateFlag]);
+    }, [cartUpdateFlag, userData.authed]);
 
     React.useEffect(() => {
-        
         document.title = title===undefined?'LOGO':title;
+    }, [title]);
 
-        Api('infoPagesAll')
+    React.useEffect(() => {
+
+        Api('infopagesAll')
         .callback(({ok,array}) => {
             if(ok) {
                 setInfoPages(array);
@@ -160,16 +241,7 @@ const Page = ({Content, title}) => {
         })
         .send();
 
-        Api('favouriteIds')
-        .callback(({ok, array}) => {
-            if(ok) {
-                setFavouriteProductIds(array.product_ids);
-            }
-        })
-        .auth()
-        .send();
-
-    }, [title]);
+    }, []);
 
 
     return (
@@ -183,6 +255,7 @@ const Page = ({Content, title}) => {
                 searchString={{get: searchString, set: setSearchString}}
                 userData={userData}
                 setOpenedModalWindow={setOpenedModalWindow}
+                noFunctional={noFunctional}
                 >
             </Header>
             {
@@ -198,6 +271,11 @@ const Page = ({Content, title}) => {
                 <></>
             }
             {
+                openedModalWindow.type==='notification'?
+                <NotificationWindow close={() => setOpenedModalWindow(closedModalWindow)} message={openedModalWindow.message} />
+                :<></>
+            }
+            {
                 openedModalWindow.type==='sms'?
                 <SmsModal
                     close={() => setOpenedModalWindow(closedModalWindow)} 
@@ -209,6 +287,14 @@ const Page = ({Content, title}) => {
                     cartUpdate={cartUpdate}
                 />:
                 <></>
+            }
+            {
+                openedModalWindow.type === 'callback'?
+                <CallbackForm
+                    close={() => setOpenedModalWindow(closedModalWindow)}
+                    userData={userData}
+                    setOpenedModalWindow={setOpenedModalWindow}
+                />:<></>
             }
             <div className="content">
                 <div className="contentBlock">
@@ -230,12 +316,14 @@ const Page = ({Content, title}) => {
                     productsMeta={productsMeta}
                     categories={categories}
                     favouriteProductIds={favouriteProductIds}
+                    favourite={{add: addToFavourite, del: deleteFromFavourite}}
                     />
                 </div>
             </div>
             <Footer 
                 categories={categories} 
-                infoPages={infoPagesWithPlaces(infoPages)} 
+                infoPages={infoPagesWithPlaces(infoPages)}
+                setOpenedModalWindow={setOpenedModalWindow} 
                 contacts={contacts}></Footer>
         </div>
     );

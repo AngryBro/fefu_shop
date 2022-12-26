@@ -2,23 +2,25 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Api from "./Api";
 import './css/MainPage.css';
+import MainSlider from "./MainSlider";
 import ProductsSlider from "./ProductsSlider"; 
 
-const MainPage = ({categories = []}) => {
+const MainPage = ({categories = [], favourite, favouriteProductIds}) => {
     
     const navigate = useNavigate();
 
-    var [slide, setSlide] = React.useState([]);
+    var [slides, setSlides] = React.useState([]);
     var [upCategories, setUpCategories] = React.useState([]);
     var [midCategories, setMidCategories] = React.useState([]);
     var [downCategories, setDownCategories] = React.useState([]);
     var [newProducts, setNewProducts] = React.useState([]);
     var [newProductsLoaded, setNewProductsLoaded] = React.useState(false);
+    var [aboutImage, setAboutImage] = React.useState(null);
 
     React.useEffect(() => {
         Api('config').get({name: 'slide'}).callback(({ok, array}) => {
             if(ok) {
-                setSlide(array);
+                setSlides(array);
             }
         }).send();
         setNewProducts([1,1,1,1]);
@@ -30,6 +32,7 @@ const MainPage = ({categories = []}) => {
             }
         })
         .send();
+        Api('infopage').get({slug: 'about'}).callback(({ok, array}) => ok?setAboutImage(array.image_header):1).send();
     }, []);
 
 
@@ -62,8 +65,8 @@ const MainPage = ({categories = []}) => {
     
     return (
         <div className="MainPage">
-            <div className="slide">
-                
+            <div className="MainPageSlider">
+                {slides.length?<MainSlider slides={slides} />:<></>}
             </div>
             <div className="categories">
                 <div className="edge">{upCategories.map(category => 
@@ -88,14 +91,14 @@ const MainPage = ({categories = []}) => {
             <div className="new">
                 <div className="header">новые поступления</div>
                 <div className="products">
-                    <ProductsSlider products={newProducts} skeletons={!newProductsLoaded} pageSize={4}/>
+                    <ProductsSlider favourite={favourite} favouriteProductIds={favouriteProductIds} products={newProducts} skeletons={!newProductsLoaded} pageSize={4}/>
                 </div>
             </div>
-            <div className="about" style={{}}>
+            <div className="about" style={aboutImage===null?{}:{backgroundImage:Api().cssimg(aboutImage)}}>
                 <div className="block">
                     <div className="header">о компании</div>
                     <div className="text">какой-то текст</div>
-                    <div className="moreButton" onClick={() => window.open('/info/about')}>
+                    <div className="moreButton" onClick={() => navigate('/info/about')}>
                         <div className="text">подробнее</div>
                     </div>
                 </div>

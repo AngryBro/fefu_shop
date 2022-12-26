@@ -1,0 +1,8 @@
+const ArrowInfopageSliderSVG = () => (
+    <svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L3 12L13 22" stroke="#ADB1BB" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+);
+
+export default ArrowInfopageSliderSVG;

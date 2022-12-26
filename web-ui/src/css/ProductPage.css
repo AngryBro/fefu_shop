@@ -133,6 +133,7 @@
 .ProductPage .loaded .main .preview .favourite {
     float: right;
     margin: 35px;
+    cursor: pointer;
 }
 .ProductPage .loaded .main .product {
     float: left;
@@ -276,12 +277,12 @@
     overflow: hidden;
     /* display: flex; */
 }
-.ProductPage .loaded .main .product .priceBlock .cartButton {
+.ProductPage .loaded .main .product .priceBlockCartButton {
     float: left;
     width: 136px;
     height: 40px;
 }
-.ProductPage .loaded .main .product .priceBlock .price {
+.ProductPage .loaded .main .product .priceBlockValue {
     float: left;
     margin: auto;
     margin-left: 0px;
