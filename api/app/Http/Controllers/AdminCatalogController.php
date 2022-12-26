@@ -268,7 +268,7 @@ class AdminCatalogController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|min:3',
             'slug' => 'required|string|min:3',
-            'image' => 'string',
+            'image' => 'string|nullable',
             'parent_id' => 'required|integer'
         ]);
         if($validator->fails()) return response()->json([
@@ -290,7 +290,7 @@ class AdminCatalogController extends Controller
         $category->image = $data['image'];
         $category->save();
         if($data['parent_id']!==0) {
-            $relation = new CategoryRelation;
+            $relation = new CategoriesRelation;
             $relation->child_id = $category->id;
             $relation->parent_id = $data['parent_id'];
             $relation->save();
@@ -307,7 +307,7 @@ class AdminCatalogController extends Controller
             'image' => 'string',
             'name' => 'string',
             'slug' => 'string',
-            'parent_id' => [new CategoryId]
+            'parent_id' => 'integer'
         ]);
         if($validator->fails()) return response()->json([
             'message' => 'validation error'

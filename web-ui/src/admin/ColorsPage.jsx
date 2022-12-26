@@ -72,7 +72,7 @@ const ColorsPage = () => {
         setUpdateData(temp);
     }
 
-    var [loading, setLoading] = useState(true);//eslint-disable-next-line
+    var [loading, setLoading] = useState(true);
     var [fetchFlag, setFetchFlag] = useState(false);
     var [colors, setColors] = useState([]);
     var [updateData, setUpdateData] = useState({});
@@ -119,7 +119,7 @@ const ColorsPage = () => {
                             {
                                 openedCreateColorPicker?
                                 <ChromePicker onChangeComplete={handleChangeCompleteNew} color={newColor}/>:
-                                <div onClick={() => setOpenedCreateColorPicker(true)}  style={{border:'grey solid 1px', width:'100%', height:'20px', display:'flex', cursor:'pointer'}}> <div style={{margin:'auto'}}>&#9999;</div> </div>
+                                <div onClick={() => setOpenedCreateColorPicker(true)}  style={{border:'grey solid 1px', width:'100%', height:'20px', display:'flex', cursor:'pointer'}}> <div style={{margin:'auto'}}>&#128396;</div> </div>
                             }
                         </th>
                         <th></th>

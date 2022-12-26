@@ -20,9 +20,6 @@ const OpenedCatalog = ({categories}) => {
                 categoriesTempRight.push(categories[i]);
             }
         }
-        for(let i = 0; i < categoriesTempLeft.length-2; i++) {
-            categoriesTempLeft.splice(Math.round(Math.random()*categoriesTempLeft.length),1);
-        }
         
         setCategoriesLeft(categoriesTempLeft);
         setCategoriesRight(categoriesTempRight);
@@ -45,14 +42,14 @@ const OpenedCatalog = ({categories}) => {
                         </div>
                     )
                 }
-            </div>
-            <div className="right">
+                <div className="right">
                 {
                     categoriesRight.map(category => <div className='header' onClick={() => navigate(`/catalog/${category.slug}`)} key={category.id}>
                         {category.name}
                     </div>
                     )
                 }
+                </div>
             </div>
         </div>
     );

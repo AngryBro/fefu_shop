@@ -10,6 +10,8 @@
 .OpenedCatalog .left {
     margin-left: 96px;
     margin-top: 56px;
+    display: flex;
+    width: 100%;
 }
 .OpenedCatalog .left .rows .element {
     margin-bottom: 16px;

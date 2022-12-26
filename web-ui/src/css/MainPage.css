@@ -32,6 +32,9 @@
     height: 212px;
     background: #F7F7FC;
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .MainPage .categories .middle .category {
     float: left;
@@ -41,12 +44,13 @@
     overflow: hidden;
     background: #F7F7FC;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .MainPage .categories .edge .category .name {
-    margin-top: 95px;
     margin-left: 48px;
-    float: left;
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 500;
@@ -59,19 +63,15 @@
 .MainPage .categories .edge .category .image {
     width: 175px;
     height: 175px;
-    float: right;
     margin: 5%;
 }
 .MainPage .categories .middle .category .image {
     width: 300px;
     height: 230px;
-    float: right;
     margin: 6%;
 }
 .MainPage .categories .middle .category .name {
-    margin-top: 130px;
     margin-left: 48px;
-    float: left;
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 500;

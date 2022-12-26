@@ -11,11 +11,13 @@
 }
 .Footer .upper {
     overflow: hidden;
+    display: flex;
+    justify-content: space-between;
 }
 .Footer .callback {
     margin-top: 64px;
     margin-left: 96px;
-    float: left;
+    /* float: left; */
 }
 .Footer .callback .name {
     font-family: 'Futura PT';
@@ -46,7 +48,8 @@
 .Footer .catalog {
     margin-left: 195px;
     margin-top: 99px;
-    float: left;
+    /* float: left; */
+    /* display: flex; */
 }
 .Footer .catalog .header {
     font-family: 'PT Root UI';
@@ -59,13 +62,13 @@
 }
 .Footer .catalog .table {
     margin-top: 24px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
 }
-.Footer .catalog .column {
-    margin-right: 48px;
-    float: left;
-}
+
 .Footer .catalog .column .link {
-    margin-top: 12px;
+    margin-bottom: 12px;
     font-family: 'PT Root UI';
     font-style: normal;
     font-weight: 400;
@@ -78,7 +81,7 @@
 .Footer .about {
     margin-left: 156px;
     margin-top: 99px;
-    float: left;
+    /* float: left; */
 }
 .Footer .about .header {
     font-family: 'PT Root UI';
@@ -104,7 +107,7 @@
 .Footer .contacts {
     margin-top: 99px;
     margin-left: 179px;
-    float: left;
+    /* float: left; */
 }
 .Footer .contacts .header {
     font-family: 'PT Root UI';

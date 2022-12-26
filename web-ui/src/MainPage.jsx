@@ -66,7 +66,7 @@ const MainPage = ({categories = [], favourite, favouriteProductIds}) => {
     return (
         <div className="MainPage">
             <div className="MainPageSlider">
-                {slides.length?<MainSlider slides={slides} />:<></>}
+                {slides.length?<MainSlider slides={slides} />:<></>} 
             </div>
             <div className="categories">
                 <div className="edge">{upCategories.map(category => 

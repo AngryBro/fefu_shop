@@ -54,7 +54,7 @@ const Header = ({cart, contacts, infoPages = {header:[]}, categories = [], searc
         </div>
         <div className='HeaderLower'>
         <div className='HeaderLowerBlock'>
-        <div className='HeaderName' onClick={() => navigate('/')}>
+        <div className='HeaderName' onClick={() => {setOpenedCatalog(false) ;navigate('/')}}>
                 LOGO
         </div>
         <div className='HeaderCatalog'
