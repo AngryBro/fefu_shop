@@ -40,7 +40,7 @@ const Table = ({data = {}, callback}) => {
         else {
             temp[key] = val;
         }
-        setValues(temp); console.log(temp);
+        setValues(temp);
     }
 
     const deleteImageCallback = (img) => {

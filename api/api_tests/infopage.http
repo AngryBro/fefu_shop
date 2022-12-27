@@ -19,17 +19,18 @@ Content-Type: application/json
     # "images":["asdnas", "adsad"]
 }
 ### Создать страницу
-POST http://localhost/api/infopage.create
-Authorization: Bearer admintoken
+POST http://logoshop.sytes.net:8888/api/infopage.create
+Authorization: Bearer k8yWLeMuBhnHRyKrbRkCqD0PWZ7m5WQijavqJ6jUPqALyTB1DCrDt6OUCZJX4qHe
 Content-Type: application/json
 
 {
-    "header":"Delivery1",
-    "slug":"delivery1",
-    "text1":"this is text 1",
-    "text2":"this is text 2",
+    "header":"Возврат",
+    "slug":"back",
+    "text1":"Текст о возврате\n текст",
+    "text2":"Другой текст\n\n123",
     "image_header":"x5WOz9BLuC",
-    "images":["baleuI7M0w"]
+    "images":["baleuI7M0w","1adsasdas"],
+    "place": 1
 }
 ###
 POST http://localhost/api/infopage.delete
